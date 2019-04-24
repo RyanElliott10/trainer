@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		602425DF2270171B00B98A7B /* SearchViewController+SearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 602425DE2270171B00B98A7B /* SearchViewController+SearchBar.swift */; };
+		602425E1227028A100B98A7B /* FeaturedTrainersCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 602425E0227028A100B98A7B /* FeaturedTrainersCell.swift */; };
 		60248F13226CCAB700D15454 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60248F12226CCAB700D15454 /* AppDelegate.swift */; };
 		60248F1B226CCAB700D15454 /* Trainer.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 60248F19226CCAB700D15454 /* Trainer.xcdatamodeld */; };
 		60248F1D226CCAB900D15454 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 60248F1C226CCAB900D15454 /* Assets.xcassets */; };
@@ -21,6 +23,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		602425DE2270171B00B98A7B /* SearchViewController+SearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SearchViewController+SearchBar.swift"; sourceTree = "<group>"; };
+		602425E0227028A100B98A7B /* FeaturedTrainersCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeaturedTrainersCell.swift; sourceTree = "<group>"; };
 		60248F0F226CCAB700D15454 /* Trainer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Trainer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		60248F12226CCAB700D15454 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		60248F1A226CCAB700D15454 /* Trainer.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Trainer.xcdatamodel; sourceTree = "<group>"; };
@@ -102,6 +106,7 @@
 			isa = PBXGroup;
 			children = (
 				60248F3D226D1B0F00D15454 /* PostCellView.swift */,
+				602425E0227028A100B98A7B /* FeaturedTrainersCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -134,6 +139,7 @@
 			isa = PBXGroup;
 			children = (
 				60248F2E226CCC6C00D15454 /* SearchViewController.swift */,
+				602425DE2270171B00B98A7B /* SearchViewController+SearchBar.swift */,
 			);
 			path = SearchViewController;
 			sourceTree = "<group>";
@@ -228,8 +234,10 @@
 				60248F1B226CCAB700D15454 /* Trainer.xcdatamodeld in Sources */,
 				60248F31226CCC7600D15454 /* ProgressViewController.swift in Sources */,
 				60248F2B226CCC0F00D15454 /* TabBarController.swift in Sources */,
+				602425E1227028A100B98A7B /* FeaturedTrainersCell.swift in Sources */,
 				60248F41226D391700D15454 /* Extensions.swift in Sources */,
 				60248F3E226D1B0F00D15454 /* PostCellView.swift in Sources */,
+				602425DF2270171B00B98A7B /* SearchViewController+SearchBar.swift in Sources */,
 				60248F33226CCC7F00D15454 /* ProfileViewController.swift in Sources */,
 				60248F13226CCAB700D15454 /* AppDelegate.swift in Sources */,
 				60248F35226D110D00D15454 /* HomeViewController+NavBar.swift in Sources */,

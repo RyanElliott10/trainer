@@ -10,6 +10,8 @@ import UIKit
 
 class PostCellView: UICollectionViewCell {
     
+    // MARK: - Properties
+    
     let profileImageView: UIImageView = {
         let profileImage = UIImageView(image: UIImage(named: "zac_perna"))
         profileImage.translatesAutoresizingMaskIntoConstraints = false
@@ -53,6 +55,8 @@ class PostCellView: UICollectionViewCell {
         return width
     }()
     
+    // MARK: - Init
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         configureViews()
@@ -61,6 +65,8 @@ class PostCellView: UICollectionViewCell {
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    // MARK: - Configurations
     
     private func configureViews() {
         contentView.translatesAutoresizingMaskIntoConstraints = false

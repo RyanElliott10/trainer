@@ -19,8 +19,8 @@ class HomeViewController: UICollectionViewController, UICollectionViewDelegateFl
     let autoSizingCellLayout: UICollectionViewFlowLayout = {
         let layout = UICollectionViewFlowLayout()
         let width = UIScreen.main.bounds.size.width
-//        layout.estimatedItemSize = CGSize(width: width, height: 100)
-        layout.estimatedItemSize = UICollectionViewFlowLayout.automaticSize
+        layout.estimatedItemSize = CGSize(width: width, height: 100)
+//        layout.estimatedItemSize = UICollectionViewFlowLayout.automaticSize
         return layout
     }()
     
