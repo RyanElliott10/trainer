@@ -43,11 +43,6 @@ class PostCellView: UICollectionViewCell {
         return label
     }()
     
-    let bodyView: UIView = {
-        let view = UIView()
-        return view;
-    }()
-    
     let bodyLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -68,13 +63,6 @@ class PostCellView: UICollectionViewCell {
         return collection
     }()
     
-    let likesCommentsView: UIView = {
-        let view = UIView()
-        view.translatesAutoresizingMaskIntoConstraints = false
-        
-        return view
-    }()
-    
     let likesImage: UIImageView = {
         let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(likeSelector))
         let imageView = UIImageView()
@@ -87,8 +75,7 @@ class PostCellView: UICollectionViewCell {
     let likesLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "128 likes"
-        label.font = label.font.withSize(14)
+        label.font = label.font.withSize(12)
         
         return label
     }()
@@ -104,14 +91,14 @@ class PostCellView: UICollectionViewCell {
     let commentsLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "3 comments"
-        label.font = label.font.withSize(14)
+        label.font = label.font.withSize(12)
         
         return label
     }()
     
     let bottomBorder: UIView = {
         let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
         view.backgroundColor = .lightGray
         
         return view;
@@ -122,6 +109,7 @@ class PostCellView: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
         configureViews()
+        configureImagesCollectionView()
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -132,17 +120,9 @@ class PostCellView: UICollectionViewCell {
     
     private func loadData(withDataSource dataSource: Post) {
         self.userDataSource = dataSource.getUser()
-        usernameLabel.text = self.userDataSource?.getName()
-        bodyLabel.text = dataSource.getBodyText()
-        likesLabel.text = "\(dataSource.getNumberOfLikes()) likes"
-        commentsLabel.text = "\(dataSource.getNumberOfComments()) comments"
         
-        contentView.addSubview(imagesCollectionView)
         isImageCollectionViewNeeded = true
-        configureBodyView()
-        
-        setNeedsLayout()
-        layoutIfNeeded()
+        configureViews()
     }
     
     // MARK: - Selectors

@@ -23,6 +23,12 @@ class Post {
         if let likers = json["likers"] as? [User] {
             self.likers = likers
         }
+        if let comments = json["comments"] as? [Comment] {
+            self.comments = comments
+        }
+        if let images = json["images"] as? [UIImage] {
+            self.images = images
+        }
     }
 
     static func generateDummyPosts() -> [Post] {
@@ -31,6 +37,7 @@ class Post {
             "user" : user1,
             "bodyText" : "Hello, this is a test of the body text adding more to make the text longer",
             "likers" : [user1],
+            "images" : [UIImage(named: "boxed-water-is-better-1464052-unsplash")]
             ] as [String : Any]
         
         let user2 = User.generateDummyUser()
@@ -38,6 +45,7 @@ class Post {
             "user" : user2,
             "bodyText" : "Hello, this is a test of the body text adding more to make the text longer and actually a unique text hehehehehe",
             "likers" : [user1, user2],
+            "images" : [UIImage(named: "boxed-water-is-better-1464052-unsplash"), UIImage(named: "edgar-chaparro-669210-unsplash"), UIImage(named: "boxed-water-is-better-1464052-unsplash"), UIImage(named: "boxed-water-is-better-1464052-unsplash"), UIImage(named: "boxed-water-is-better-1464052-unsplash"), UIImage(named: "boxed-water-is-better-1464052-unsplash")]
             ] as [String : Any]
         
         let user3 = User.generateDummyUser()

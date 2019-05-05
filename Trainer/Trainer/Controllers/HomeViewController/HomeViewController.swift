@@ -53,6 +53,10 @@ class HomeViewController: UICollectionViewController, UICollectionViewDelegateFl
     }
     
     private func configureCollectionView() {
+        let flowLayout = UICollectionViewFlowLayout()
+        flowLayout.estimatedItemSize = CGSize(width: view.frame.width, height: 1)
+        collectionView.collectionViewLayout = flowLayout
+        
         collectionView?.backgroundColor = .clear
         collectionView.alwaysBounceVertical = true
         configureRefreshControl()
@@ -99,8 +103,8 @@ class HomeViewController: UICollectionViewController, UICollectionViewDelegateFl
         tabBarController?.selectedIndex = indexPath.row
     }
     
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: view.frame.width, height: 400)
-    }
+//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+//        return CGSize(width: view.frame.width, height: 400)
+//    }
     
 }

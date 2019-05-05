@@ -37,6 +37,6 @@ class FeaturedTrainersCell: UICollectionViewCell {
     
     func configureViews() {
         contentView.addSubview(label)
-        label.anchor(top: contentView.topAnchor, left: contentView.leadingAnchor, bottom: nil, right: contentView.trailingAnchor, paddingTop: 16, paddingLeft: 16, paddingBottom: 16, paddingRight: 0, width: 0, height: 0)
+        label.anchor(top: contentView.topAnchor, leading: contentView.leadingAnchor, bottom: nil, trailing: contentView.trailingAnchor, paddingTop: 16, paddingLeft: 16, paddingBottom: 16, paddingRight: 0, width: 0, height: 0)
     }
 }
