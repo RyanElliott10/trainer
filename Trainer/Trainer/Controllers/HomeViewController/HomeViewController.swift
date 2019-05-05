@@ -13,15 +13,21 @@ class HomeViewController: UICollectionViewController, UICollectionViewDelegateFl
     // MARK: - Properties
     
     private let refreshControl = UIRefreshControl()
-    private let cellReuseID = "cellID"
+    private let cellID = "cellID"
+    
+    // Auto-sizing for cells
+    let autoSizingCellLayout: UICollectionViewFlowLayout = {
+        let layout = UICollectionViewFlowLayout()
+        let width = UIScreen.main.bounds.size.width
+//        layout.estimatedItemSize = CGSize(width: width, height: 100)
+        layout.estimatedItemSize = UICollectionViewFlowLayout.automaticSize
+        return layout
+    }()
     
     // Navigation Bar Images
     let profileImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.contentMode = .scaleAspectFit
-        imageView.layer.masksToBounds = false
-        imageView.frame = CGRect(x: 0, y: 0, width: 20, height: 20)
         imageView.layer.cornerRadius = imageView.frame.size.width / 2
         imageView.clipsToBounds = true
         imageView.image = #imageLiteral(resourceName: "zac_perna.jpeg") // assign the image from Firebase here
@@ -32,11 +38,6 @@ class HomeViewController: UICollectionViewController, UICollectionViewDelegateFl
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        collectionView.collectionViewLayout = Constants.AUTOSIZING_FLOW_LAYOUT
-        collectionView.dataSource = self
-        collectionView.delegate = self
-        
         configureViews()
     }
     
@@ -53,10 +54,11 @@ class HomeViewController: UICollectionViewController, UICollectionViewDelegateFl
     }
     
     private func configureCollectionView() {
-        collectionView?.backgroundColor = .clear
+        collectionView?.backgroundColor = .white
         collectionView.alwaysBounceVertical = true
+        collectionView.collectionViewLayout = autoSizingCellLayout
         configureRefreshControl()
-        collectionView?.register(PostCellView.self, forCellWithReuseIdentifier: cellReuseID)
+        collectionView?.register(PostCellView.self, forCellWithReuseIdentifier: cellID)
     }
     
     func configureRefreshControl() {
@@ -66,41 +68,27 @@ class HomeViewController: UICollectionViewController, UICollectionViewDelegateFl
     
     // MARK: - Selectors
     
-    @objc func postOnPress() {
-        print("Post on press")
+    @objc func test() {
+        print(123)
     }
     
     @objc func refreshControlSelectorTest() {
         print("Refreshing")
-        collectionView.refreshControl?.endRefreshing()
     }
     
     // MARK: - CollectionView
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return Post.generateDummyPosts().count
+        return 4
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellReuseID, for: indexPath) as? PostCellView {
-            let post = Post.generateDummyPosts()[indexPath.row]
-            cell.postDataSource = post
-            return cell
-        }
-        return UICollectionViewCell()
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellID, for: indexPath) as! PostCellView
+        return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         return 0
-    }
-    
-    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        print("Cell was selected at:", indexPath.row)
-        tabBarController?.selectedIndex = indexPath.row
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: view.frame.width, height: 400)
     }
     
 }

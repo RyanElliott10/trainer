@@ -9,7 +9,7 @@
 import UIKit
 
 extension UIView {
-    
+
     func anchor(top: NSLayoutYAxisAnchor?, left: NSLayoutXAxisAnchor?, bottom: NSLayoutYAxisAnchor?, right: NSLayoutXAxisAnchor?, paddingTop: CGFloat, paddingLeft: CGFloat, paddingBottom: CGFloat, paddingRight: CGFloat, width: CGFloat, height: CGFloat) {
         translatesAutoresizingMaskIntoConstraints = false
         
@@ -17,13 +17,13 @@ extension UIView {
             self.topAnchor.constraint(equalTo: top, constant: paddingTop).isActive = true
         }
         if let left = left {
-            self.leadingAnchor.constraint(equalTo: left, constant: paddingLeft).isActive = true
+            self.leftAnchor.constraint(equalTo: left, constant: paddingLeft).isActive = true
         }
         if let bottom = bottom {
             self.bottomAnchor.constraint(equalTo: bottom, constant: -paddingBottom).isActive = true
         }
         if let right = right {
-            self.trailingAnchor.constraint(equalTo: right, constant: -paddingRight).isActive = true
+            self.rightAnchor.constraint(equalTo: right, constant: -paddingRight).isActive = true
         }
         if width != 0 {
             widthAnchor.constraint(equalToConstant: width).isActive = true
@@ -47,13 +47,11 @@ extension UIView {
         self.layer.addSublayer(border)
     }
     
-    func addBottomBorder(withColor color: UIColor, andHeight height: CGFloat, atY yPosition: inout CGFloat = 0) {
-        if yPosition == 0 {
-            yPosition = self.frame.size.height
-        }
+    func addBottomBorderWithColor(color: UIColor, height: CGFloat) {
         let border = CALayer()
+        print(self.frame.size.height)
         border.backgroundColor = color.cgColor
-        border.frame = CGRect(x: 0, y: yPosition - height, width: self.frame.size.width, height: height)
+        border.frame = CGRect(x: 0, y: self.frame.size.height - height, width: self.frame.size.width, height: height)
         self.layer.addSublayer(border)
     }
     
@@ -67,11 +65,7 @@ extension UIView {
 
 extension UIColor {
     
-    static func rgba(red: CGFloat, green: CGFloat, blue: CGFloat, alpha: CGFloat) -> UIColor {
+    static func rgb(red: CGFloat, green: CGFloat, blue: CGFloat, alpha: CGFloat) -> UIColor {
         return UIColor(red: red / 255, green: green / 255, blue: blue / 255, alpha: alpha)
-    }
-    
-    static func rgb(red: CGFloat, green: CGFloat, blue: CGFloat) -> UIColor {
-        return UIColor(red: red / 255, green: green / 255, blue: blue / 255, alpha: 1)
     }
 }

@@ -9,7 +9,7 @@
 import UIKit
 
 extension HomeViewController {
-    
+        
     func configureNavBarItems() {
 //        configureLeftNavBarItem()
         configureRightNavBarItem()
@@ -21,7 +21,7 @@ extension HomeViewController {
     }
     
     private func configureRightNavBarItem() {
-        navigationItem.rightBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "post"), style: .plain, target: self, action: #selector(postOnPress))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "post"), style: .plain, target: self, action: #selector(test))
         navigationItem.rightBarButtonItem?.tintColor = .black
     }
 }
