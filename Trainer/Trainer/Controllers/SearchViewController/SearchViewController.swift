@@ -8,29 +8,27 @@
 
 import UIKit
 
-class SearchViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
+class SearchViewController: UIViewController {
     
     // MARK: - Properties
     
-    let cellID = "cellID"
+    private let cellReuseID = "cellID"
+    private let headerTrainerReuseID = "headerID"
     let searchController = UISearchController(searchResultsController: nil)
-    // Will have to add the search bar to the UICollectionView's header
-    // Will have CollectionView inside each cell
-    // Will probably want to hide the navigation bar on the main ViewController, then show it on subsequent ViewControllers
     
-    // Auto-sizing for cells
-    let autoSizingCellLayout: UICollectionViewFlowLayout = {
-        let layout = UICollectionViewFlowLayout()
-        let width = UIScreen.main.bounds.size.width
-        layout.estimatedItemSize = CGSize(width: width, height: 100)
-        return layout
+    let collectionView: UICollectionView = {
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
+        collectionView.translatesAutoresizingMaskIntoConstraints = false
+        return collectionView
     }()
     
-    let featuredTrainersLabel: UILabel = {
-        let label = UILabel()
-        label.text = "Featured Trainers"
-        label.font = UIFont.boldSystemFont(ofSize: 28)
-        return label
+    let searchBar: UISearchBar = {
+        let search = UISearchBar()
+        search.placeholder = "Search"
+        search.translatesAutoresizingMaskIntoConstraints = false
+        search.sizeToFit()
+        search.barStyle = .default
+        return search
     }()
     
     // MARK: - Init
@@ -44,35 +42,70 @@ class SearchViewController: UICollectionViewController, UICollectionViewDelegate
     
     private func configureViews() {
         view.backgroundColor = .white
-        navigationController?.navigationBar.isHidden = true
         configureCollectionView()
-//        configureSearchBar()
-//        configureFeaturedTrainers()
+        configureSearchBar()
     }
     
     private func configureCollectionView() {
-        collectionView?.backgroundColor = .white
+        view.addSubview(collectionView)
+        collectionView.backgroundColor = .yellow
         collectionView.alwaysBounceVertical = true
-        collectionView.collectionViewLayout = autoSizingCellLayout
-        collectionView?.register(FeaturedTrainersCell.self, forCellWithReuseIdentifier: cellID)
-//        collectionView?.register(HeaderView.self, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: <#T##String#>)
-        collectionView?.register(<#T##viewClass: AnyClass?##AnyClass?#>, forSupplementaryViewOfKind: <#T##String#>, withReuseIdentifier: <#T##String#>)
+        // This causes an issue with the frame. Figure out how to auto resize later
+//        collectionView.collectionViewLayout = Constants.AUTOSIZING_FLOW_LAYOUT
+        collectionView.register(FeaturedTrainersCell.self, forCellWithReuseIdentifier: cellReuseID)
+        collectionView.register(SearchHeaderView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: headerTrainerReuseID)
+        
+        collectionView.delegate = self
+        collectionView.dataSource = self
+        collectionView.anchor(top: view.safeAreaLayoutGuide.topAnchor, left: view.safeAreaLayoutGuide.leadingAnchor, bottom: view.safeAreaLayoutGuide.bottomAnchor, right: view.safeAreaLayoutGuide.trailingAnchor, paddingTop: 0, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: view.frame.width, height: 0)
     }
     
-    private func configureFeaturedTrainers() {
-        view.addSubview(featuredTrainersLabel)
-        featuredTrainersLabel.anchor(top: view.topAnchor, left: view.leftAnchor, bottom: nil, right: nil, paddingTop: 8, paddingLeft: 16, paddingBottom: 0, paddingRight: 0, width: 0, height: 0)
-    }
+}
+
+extension SearchViewController: UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
     
     // MARK: - CollectionView
     
-    override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 4
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        return 2
     }
     
-    override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellID, for: indexPath) as! FeaturedTrainersCell
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        switch section {
+        case 0: return 1
+        case 1: return 2
+        default: assert(false, "Unexpected number of sections")
+        }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellReuseID, for: indexPath) as! FeaturedTrainersCell
         return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        switch kind {
+        case UICollectionView.elementKindSectionHeader:
+            return getHeader(ofKind: kind, for: indexPath)
+        default:
+            assert(false, "Unexpected element kind")
+        }
+        return UICollectionReusableView()
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return CGSize(width: view.frame.width / 2, height: 300)
+    }
+    
+    // MARK: - CollectionView Header
+    
+    private func getHeader(ofKind kind: String, for indexPath: IndexPath) -> UICollectionReusableView {
+        let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: headerTrainerReuseID, for: indexPath) as! SearchHeaderView
+        return headerView
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
+        return CGSize(width: view.frame.width, height: Constants.SEARCH_SCREEN_HEADER_HEIGHT)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {

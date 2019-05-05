@@ -16,16 +16,17 @@ class TabBarController: UITabBarController {
     }
     
     private func configureTabBar() {
-        // Important to use UICollectionViewFlowLayout and not UICollectoinViewLayout
         tabBar.isTranslucent = false
         
         let homeViewController = HomeViewController(collectionViewLayout: UICollectionViewFlowLayout())
         let homeNavigationController = UINavigationController(rootViewController: homeViewController)
         homeNavigationController.tabBarItem.image = #imageLiteral(resourceName: "home")
         
-        let searchViewController = SearchViewController(collectionViewLayout: UICollectionViewFlowLayout())
-        let searchNavigationController = UINavigationController(rootViewController: searchViewController)
-        searchNavigationController.tabBarItem.image = #imageLiteral(resourceName: "search")
+//        let homeViewController = UINavigationController(rootViewController: TableViewHomeViewController())
+//        homeViewController.tabBarItem.image = #imageLiteral(resourceName: "home")
+        
+        let searchViewController = UINavigationController(rootViewController: SearchViewController())
+        searchViewController.tabBarItem.image = #imageLiteral(resourceName: "search")
         
         let progressViewController = UINavigationController(rootViewController: ProgressViewController())
         progressViewController.tabBarItem.image = #imageLiteral(resourceName: "bar-chart")
@@ -33,6 +34,14 @@ class TabBarController: UITabBarController {
         let profileViewController = UINavigationController(rootViewController: ProfileViewController())
         profileViewController.tabBarItem.image = #imageLiteral(resourceName: "user")
         
-        viewControllers = [homeNavigationController, searchNavigationController, progressViewController, profileViewController]
+        viewControllers = [homeNavigationController, searchViewController, progressViewController, profileViewController]
+        
+        // Center tab bar items
+        if let tabBarItems = tabBar.items {
+            for tabItem in tabBarItems {
+                tabItem.title = nil
+                tabItem.imageInsets = UIEdgeInsets(top: 5, left: 0, bottom: -5, right: 0)
+            }
+        }
     }
 }

@@ -11,13 +11,14 @@ import UIKit
 extension SearchViewController: UISearchResultsUpdating {
     
     func configureSearchBar() {
-        searchController.searchResultsUpdater = self
-        searchController.obscuresBackgroundDuringPresentation = false
-        searchController.searchBar.placeholder = "Search"
         searchController.searchBar.translatesAutoresizingMaskIntoConstraints = false
+        searchController.searchBar.placeholder = "Search"
+        searchController.obscuresBackgroundDuringPresentation = false
+        searchController.searchResultsUpdater = self
         searchController.isActive = true
         definesPresentationContext = true
-
+        
+        navigationItem.title = "Test"
         navigationItem.searchController = searchController
     }
     
