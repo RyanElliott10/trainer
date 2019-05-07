@@ -48,16 +48,16 @@ class SearchViewController: UIViewController {
     
     private func configureCollectionView() {
         view.addSubview(collectionView)
-        collectionView.backgroundColor = .yellow
-        collectionView.alwaysBounceVertical = true
-        // This causes an issue with the frame. Figure out how to auto resize later
-//        collectionView.collectionViewLayout = Constants.AUTOSIZING_FLOW_LAYOUT
+        collectionView.anchor(top: view.safeAreaLayoutGuide.topAnchor, leading: view.safeAreaLayoutGuide.leadingAnchor, bottom: view.safeAreaLayoutGuide.bottomAnchor, trailing: view.safeAreaLayoutGuide.trailingAnchor, paddingTop: 0, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: view.frame.width, height: 0)
+        
+        collectionView.collectionViewLayout = Constants.Cell.AUTOSIZING_FLOW_LAYOUT
         collectionView.register(FeaturedTrainersCell.self, forCellWithReuseIdentifier: cellReuseID)
         collectionView.register(SearchHeaderView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: headerTrainerReuseID)
-        
         collectionView.delegate = self
         collectionView.dataSource = self
-        collectionView.anchor(top: view.safeAreaLayoutGuide.topAnchor, leading: view.safeAreaLayoutGuide.leadingAnchor, bottom: view.safeAreaLayoutGuide.bottomAnchor, trailing: view.safeAreaLayoutGuide.trailingAnchor, paddingTop: 0, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: view.frame.width, height: 0)
+        
+        collectionView.backgroundColor = .clear
+        collectionView.alwaysBounceVertical = true
     }
     
 }
@@ -105,7 +105,7 @@ extension SearchViewController: UICollectionViewDelegate, UICollectionViewDelega
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
-        return CGSize(width: view.frame.width, height: Constants.SEARCH_SCREEN_HEADER_HEIGHT)
+        return CGSize(width: view.frame.width, height: Constants.SearchScreen.HEADER_HEIGHT)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {

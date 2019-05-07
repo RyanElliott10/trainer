@@ -28,7 +28,7 @@ class PostCellView: UICollectionViewCell {
     let profileImageView: UIImageView = {
         let profileImage = UIImageView(image: #imageLiteral(resourceName: "zac_perna"))
         profileImage.translatesAutoresizingMaskIntoConstraints = false
-        profileImage.layer.cornerRadius = Constants.PROFILE_IMAGE_VIEW_WIDTH / 2
+        profileImage.layer.cornerRadius = Constants.Cell.PROFILE_IMAGE_VIEW_WIDTH / 2
         profileImage.contentMode = .scaleToFill
         profileImage.clipsToBounds = true
         
@@ -99,7 +99,7 @@ class PostCellView: UICollectionViewCell {
     let bottomBorder: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = .lightGray
+        view.backgroundColor = UIColor.rgb(red: 215, green: 215, blue: 215)
         
         return view;
     }()

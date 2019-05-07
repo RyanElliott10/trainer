@@ -8,24 +8,20 @@
 
 import UIKit
 
-class HomeViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
+class HomeViewController: UIViewController {
     
     // MARK: - Properties
     
     private let refreshControl = UIRefreshControl()
     private let cellReuseID = "cellID"
     
-    // Navigation Bar Images
-    let profileImageView: UIImageView = {
-        let imageView = UIImageView()
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.contentMode = .scaleAspectFit
-        imageView.layer.masksToBounds = false
-        imageView.frame = CGRect(x: 0, y: 0, width: 20, height: 20)
-        imageView.layer.cornerRadius = imageView.frame.size.width / 2
-        imageView.clipsToBounds = true
-        imageView.image = #imageLiteral(resourceName: "zac_perna.jpeg") // assign the image from Firebase here
-        return imageView
+    let collectionView: UICollectionView = {
+        let layout = UICollectionViewFlowLayout()
+        layout.estimatedItemSize = UICollectionViewFlowLayout.automaticSize
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        collectionView.translatesAutoresizingMaskIntoConstraints = false
+        
+        return collectionView
     }()
     
     // MARK: - Init
@@ -33,10 +29,7 @@ class HomeViewController: UICollectionViewController, UICollectionViewDelegateFl
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        collectionView.collectionViewLayout = Constants.AUTOSIZING_FLOW_LAYOUT
-        collectionView.dataSource = self
-        collectionView.delegate = self
-        
+        configureCollectionView()
         configureViews()
     }
     
@@ -46,21 +39,34 @@ class HomeViewController: UICollectionViewController, UICollectionViewDelegateFl
         view.backgroundColor = .white
         configureNavBar()
         configureCollectionView()
+        configureWhiteStatusBar()
     }
     
     private func configureNavBar() {
         configureNavBarItems()
     }
     
+    private func configureWhiteStatusBar() {
+        let statusBarView = UIView(frame: UIApplication.shared.statusBarFrame)
+        let statusBarColor = UIColor.rgb(red: 255, green: 255, blue: 255)
+        statusBarView.backgroundColor = statusBarColor
+        view.addSubview(statusBarView)
+    }
+    
     private func configureCollectionView() {
-        let flowLayout = UICollectionViewFlowLayout()
-        flowLayout.estimatedItemSize = CGSize(width: view.frame.width, height: 1)
-        collectionView.collectionViewLayout = flowLayout
+        view.addSubview(collectionView)
+        collectionView.anchor(top: view.topAnchor, leading: view.safeAreaLayoutGuide.leadingAnchor, bottom: view.safeAreaLayoutGuide.bottomAnchor, trailing: view.safeAreaLayoutGuide.trailingAnchor, paddingTop: 0, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 0, height: 0)
         
-        collectionView?.backgroundColor = .clear
+        collectionView.collectionViewLayout = Constants.Cell.AUTOSIZING_FLOW_LAYOUT
+        collectionView.register(PostCellView.self, forCellWithReuseIdentifier: cellReuseID)
+        collectionView.dataSource = self
+        collectionView.delegate = self
+        
+        collectionView.backgroundColor = .clear
         collectionView.alwaysBounceVertical = true
+        collectionView.delaysContentTouches = false
+        
         configureRefreshControl()
-        collectionView?.register(PostCellView.self, forCellWithReuseIdentifier: cellReuseID)
     }
     
     func configureRefreshControl() {
@@ -74,18 +80,26 @@ class HomeViewController: UICollectionViewController, UICollectionViewDelegateFl
         print("Post on press")
     }
     
+    @objc func navigationProfileImageOnPress() {
+        print("Navigation profile image on press")
+    }
+    
     @objc func refreshControlSelectorTest() {
         print("Refreshing")
         collectionView.refreshControl?.endRefreshing()
     }
     
-    // MARK: - CollectionView
+}
+
+// MARK: - CollectionView
+
+extension HomeViewController: UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
     
-    override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return Post.generateDummyPosts().count
     }
     
-    override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellReuseID, for: indexPath) as? PostCellView {
             let post = Post.generateDummyPosts()[indexPath.row]
             cell.postDataSource = post
@@ -98,13 +112,18 @@ class HomeViewController: UICollectionViewController, UICollectionViewDelegateFl
         return 0
     }
     
-    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         print("Cell was selected at:", indexPath.row)
-        tabBarController?.selectedIndex = indexPath.row
+        
+        navigationController?.pushViewController(ProgressViewController(), animated: true)
     }
     
-//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-//        return CGSize(width: view.frame.width, height: 400)
-//    }
+    func collectionView(_ collectionView: UICollectionView, didHighlightItemAt indexPath: IndexPath) {
+        collectionView.cellForItem(at: indexPath)?.backgroundColor = UIColor.rgb(red: 235, green: 235, blue: 235)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didUnhighlightItemAt indexPath: IndexPath) {
+        collectionView.cellForItem(at: indexPath)?.backgroundColor = .white
+    }
     
 }

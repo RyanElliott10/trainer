@@ -14,7 +14,7 @@ class SearchHeaderView: UICollectionReusableView, UISearchBarDelegate {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = "Featured Trainers"
-        label.font = UIFont.boldSystemFont(ofSize: Constants.SEARCH_SCREEN_BOLD_LABEL_FONT)
+        label.font = UIFont.boldSystemFont(ofSize: Constants.SearchScreen.BOLD_LABEL_FONT)
         return label
     }()
     

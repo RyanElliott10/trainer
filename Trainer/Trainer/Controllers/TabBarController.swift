@@ -18,12 +18,8 @@ class TabBarController: UITabBarController {
     private func configureTabBar() {
         tabBar.isTranslucent = false
         
-        let homeViewController = HomeViewController(collectionViewLayout: UICollectionViewFlowLayout())
-        let homeNavigationController = UINavigationController(rootViewController: homeViewController)
-        homeNavigationController.tabBarItem.image = #imageLiteral(resourceName: "home")
-        
-//        let homeViewController = UINavigationController(rootViewController: TableViewHomeViewController())
-//        homeViewController.tabBarItem.image = #imageLiteral(resourceName: "home")
+        let homeViewController = UINavigationController(rootViewController: HomeViewController())
+        homeViewController.tabBarItem.image = #imageLiteral(resourceName: "home")
         
         let searchViewController = UINavigationController(rootViewController: SearchViewController())
         searchViewController.tabBarItem.image = #imageLiteral(resourceName: "search")
@@ -34,7 +30,8 @@ class TabBarController: UITabBarController {
         let profileViewController = UINavigationController(rootViewController: ProfileViewController())
         profileViewController.tabBarItem.image = #imageLiteral(resourceName: "user")
         
-        viewControllers = [homeNavigationController, searchViewController, progressViewController, profileViewController]
+        viewControllers = [homeViewController, searchViewController, progressViewController, profileViewController]
+//        viewControllers = [profileViewController, homeViewController, searchViewController, progressViewController]
         
         // Center tab bar items
         if let tabBarItems = tabBar.items {

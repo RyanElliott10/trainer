@@ -11,13 +11,22 @@ import UIKit
 extension HomeViewController {
     
     func configureNavBarItems() {
-//        configureLeftNavBarItem()
+//        navigationController?.hidesBarsOnSwipe = true
+        configureLeftNavBarItem()
         configureRightNavBarItem()
         navigationItem.title = "Home"
     }
     
     private func configureLeftNavBarItem() {
-        navigationItem.leftBarButtonItem = UIBarButtonItem(customView: profileImageView)
+        let button = UIButton(type: .system)
+        button.setImage(#imageLiteral(resourceName: "zac_perna").withRenderingMode(.alwaysOriginal), for: .normal)
+        button.layer.masksToBounds = true
+        button.layer.cornerRadius = 18
+        button.anchor(top: nil, leading: nil, bottom: nil, trailing: nil, paddingTop: 0, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 36, height: 36)
+        button.addTarget(self, action: #selector(navigationProfileImageOnPress), for: .touchUpInside)
+        
+        let barButton = UIBarButtonItem(customView: button)
+        navigationItem.leftBarButtonItem = barButton
     }
     
     private func configureRightNavBarItem() {

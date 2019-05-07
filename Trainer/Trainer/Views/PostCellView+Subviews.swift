@@ -16,6 +16,9 @@ extension PostCellView {
     }
     
     private func addSubviews() {
+        contentView.translatesAutoresizingMaskIntoConstraints = false
+        contentView.anchor(top: topAnchor, leading: leadingAnchor, bottom: bottomAnchor, trailing: trailingAnchor, paddingTop: 0, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 0, height: 0)
+        
         // Top Views
         contentView.addSubview(profileImageView)
         contentView.addSubview(usernameLabel)
@@ -44,7 +47,7 @@ extension PostCellView {
     }
     
     private func configureTopViews() {
-        profileImageView.anchor(top: contentView.topAnchor, leading: contentView.leadingAnchor, bottom: nil, trailing: nil, paddingTop: 12, paddingLeft: 8, paddingBottom: 0, paddingRight: 0, width: Constants.PROFILE_IMAGE_VIEW_WIDTH, height: Constants.PROFILE_IMAGE_VIEW_WIDTH)
+        profileImageView.anchor(top: contentView.topAnchor, leading: contentView.leadingAnchor, bottom: nil, trailing: nil, paddingTop: 12, paddingLeft: 8, paddingBottom: 0, paddingRight: 0, width: Constants.Cell.PROFILE_IMAGE_VIEW_WIDTH, height: Constants.Cell.PROFILE_IMAGE_VIEW_WIDTH)
         usernameLabel.text = self.postDataSource?.getUser().getName()
         usernameLabel.anchor(top: contentView.topAnchor, leading: profileImageView.trailingAnchor, bottom: nil, trailing: contentView.trailingAnchor, paddingTop: 12, paddingLeft: 8, paddingBottom: 0, paddingRight: 8, width: 0, height: 0)
     }
@@ -61,7 +64,7 @@ extension PostCellView {
         
         var imagesCollectionViewHeight: CGFloat = 0
         if let numberOfImages = self.postDataSource?.getNumberOfImages() {
-            imagesCollectionViewHeight = numberOfImages > 0 ? Constants.IMAGES_COLLECTION_VIEW_HEIGHT : 0.0
+            imagesCollectionViewHeight = numberOfImages > 0 ? Constants.Cell.IMAGES_COLLECTION_VIEW_HEIGHT : 0.0
         }
         return imagesCollectionViewHeight
     }
@@ -76,7 +79,7 @@ extension PostCellView {
         let numberOfComments = self.postDataSource?.getNumberOfComments()
         let commentsText = "\(numberOfComments ?? 0) comment\(numberOfComments != 1 ? "s" : "")"
         commentsLabel.text = commentsText
-        commentsImage.anchor(top: imagesCollectionView.bottomAnchor, leading: likesLabel.trailingAnchor, bottom: contentView.bottomAnchor, trailing: nil, paddingTop: 12, paddingLeft: 8, paddingBottom: 12, paddingRight: 0, width: 16, height: 16)
+        commentsImage.anchor(top: imagesCollectionView.bottomAnchor, leading: likesLabel.trailingAnchor, bottom: contentView.bottomAnchor, trailing: nil, paddingTop: 12, paddingLeft: 12, paddingBottom: 12, paddingRight: 0, width: 16, height: 16)
         commentsLabel.anchor(top: imagesCollectionView.bottomAnchor, leading: commentsImage.trailingAnchor, bottom: contentView.bottomAnchor, trailing: nil, paddingTop: 12, paddingLeft: 4, paddingBottom: 12, paddingRight: 0, width: 0, height: 0)
     }
     
@@ -122,6 +125,7 @@ extension PostCellView: UICollectionViewDelegateFlowLayout, UICollectionViewData
         
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.anchor(top: cell.contentView.topAnchor, leading: cell.contentView.leadingAnchor, bottom: cell.contentView.bottomAnchor, trailing: cell.contentView.trailingAnchor, paddingTop: 0, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 0, height: 0)
+        imageView.frame = CGRect(x: cell.contentView.frame.origin.x, y: cell.contentView.frame.origin.y, width: cell.contentView.frame.width, height: cell.contentView.frame.height)
         imageView.layer.cornerRadius = 8
         imageView.clipsToBounds = true
         imageView.contentMode = .scaleAspectFill

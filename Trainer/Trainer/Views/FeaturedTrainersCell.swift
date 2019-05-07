@@ -24,7 +24,6 @@ class FeaturedTrainersCell: UICollectionViewCell {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-//        backgroundColor = .yellow
         backgroundColor = .clear
         configureViews()
     }

@@ -14,6 +14,7 @@ class ProgressViewController: UIViewController {
         super.viewDidLoad()
         
         view.backgroundColor = .white
+        navigationItem.title = "Your Journey"
     }
     
 }

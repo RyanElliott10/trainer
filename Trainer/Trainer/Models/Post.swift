@@ -54,7 +54,15 @@ class Post {
             "bodyText" : "Hello, this is a test of the body text adding more to make the text longer and actually a unique text hehehehehe and oh my god there is a lot of text here " + (json2["bodyText"] as! String),
             "likers" : [user1, user2],
             ] as [String : Any]
-        return [Post(json: json1), Post(json: json3), Post(json: json2)]
+        
+        let user4 = User.generateDummyUser()
+        let json4 = [
+            "user" : user4,
+            "bodyText" : "Hello, this is a test of the body text adding more to make the text longer and actually a unique text hehehehehe and oh my god there is a lot of text here " + (json3["bodyText"] as! String),
+            "likers" : [user1, user2, user3, user4],
+            "images" : [UIImage(named: "boxed-water-is-better-1464052-unsplash"), UIImage(named: "edgar-chaparro-669210-unsplash")]
+            ] as [String : Any]
+        return [Post(json: json1), Post(json: json3), Post(json: json2), Post(json: json4)]
     }
     
     func getUser() -> User {
