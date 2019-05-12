@@ -32,70 +32,64 @@ class Post {
     }
 
     static func generateDummyPosts() -> [Post] {
-        let user1 = User.generateDummyUser()
+        let user = User.generateDummyUser()
         let json1 = [
-            "user" : user1,
-            "bodyText" : "Hello, this should have 1 image.",
-            "likers" : [user1],
+            "user" : user,
+            "bodyText" : "Hello, this should have 1 image. 1",
+            "likers" : [user],
             "images" : [UIImage(named: "boxed-water-is-better-1464052-unsplash")]
             ] as [String : Any]
         
-        let user2 = User.generateDummyUser()
         let json2 = [
-            "user" : user2,
-            "bodyText" : "This cell should have 6 images. I'll be adding more text to this to test the auto-sizing cell size.",
-            "likers" : [user1, user2],
+            "user" : user,
+            "bodyText" : "This cell should have 6 images. I'll be adding more text to this to test the auto-sizing cell size. 2",
+            "likers" : [user],
             "images" : [UIImage(named: "boxed-water-is-better-1464052-unsplash"), UIImage(named: "edgar-chaparro-669210-unsplash"), UIImage(named: "boxed-water-is-better-1464052-unsplash"), UIImage(named: "boxed-water-is-better-1464052-unsplash"), UIImage(named: "boxed-water-is-better-1464052-unsplash"), UIImage(named: "boxed-water-is-better-1464052-unsplash")]
             ] as [String : Any]
         
-        let user3 = User.generateDummyUser()
         let json3 = [
-            "user" : user3,
-            "bodyText" : "This cell shouldn't have any images.",
-            "likers" : [user1, user2],
+            "user" : user,
+            "bodyText" : "This cell shouldn't have any images. 3",
+            "likers" : [user],
+//            "images" : [UIImage(named: "lock")]
             ] as [String : Any]
         
-        let user4 = User.generateDummyUser()
         let json4 = [
-            "user" : user4,
-            "bodyText" : "This cell should have exactly 2 images.",
-            "likers" : [user1, user2, user3, user4],
-            "images" : [UIImage(named: "boxed-water-is-better-1464052-unsplash"), UIImage(named: "edgar-chaparro-669210-unsplash")]
+            "user" : user,
+            "bodyText" : "This cell shouldn't have any images. 4",
+            "likers" : [user],
+//            "images" : [UIImage(named: "home"), UIImage(named: "home")]
             ] as [String : Any]
         
-        let user5 = User.generateDummyUser()
         let json5 = [
-            "user" : user5,
-            "bodyText" : "This cell should have exactly 2 images.",
-            "likers" : [user1, user2, user3, user4],
-            "images" : [UIImage(named: "boxed-water-is-better-1464052-unsplash"), UIImage(named: "edgar-chaparro-669210-unsplash")]
+            "user" : user,
+            "bodyText" : "This cell should have exactly 2 images. 5",
+            "likers" : [user],
+            "images" : [UIImage(named: "settings"), UIImage(named: "settings")]
             ] as [String : Any]
         
-        let user6 = User.generateDummyUser()
         let json6 = [
-            "user" : user6,
-            "bodyText" : "This cell should have exactly 2 images.",
-            "likers" : [user1, user2, user3, user4],
-            "images" : [UIImage(named: "boxed-water-is-better-1464052-unsplash"), UIImage(named: "edgar-chaparro-669210-unsplash")]
+            "user" : user,
+            "bodyText" : "This cell should have exactly 2 images. 6",
+            "likers" : [user],
+            "images" : [UIImage(named: "search"), UIImage(named: "search")]
             ] as [String : Any]
         
-        let user7 = User.generateDummyUser()
         let json7 = [
-            "user" : user7,
-            "bodyText" : "This cell should have exactly 2 images.",
-            "likers" : [user1, user2, user3, user4],
-            "images" : [UIImage(named: "boxed-water-is-better-1464052-unsplash"), UIImage(named: "edgar-chaparro-669210-unsplash")]
+            "user" : user,
+            "bodyText" : "This cell should have exactly 2 images. 7",
+            "likers" : [user],
+            "images" : [UIImage(named: "lock"), UIImage(named: "lock")]
             ] as [String : Any]
         
-        let user8 = User.generateDummyUser()
         let json8 = [
-            "user" : user8,
-            "bodyText" : "This cell should have exactly 2 images.",
-            "likers" : [user1, user2, user3, user4],
-            "images" : [UIImage(named: "boxed-water-is-better-1464052-unsplash"), UIImage(named: "edgar-chaparro-669210-unsplash")]
+            "user" : user,
+            "bodyText" : "This cell should have exactly 2 images. 8",
+            "likers" : [user],
+            "images" : [UIImage(named: "home"), UIImage(named: "home")]
             ] as [String : Any]
         
-        return [Post(json: json1), Post(json: json3), Post(json: json2), Post(json: json4), Post(json: json5), Post(json: json6), Post(json: json7), Post(json: json8)]
+        return [Post(json: json1), Post(json: json2), Post(json: json3), Post(json: json4), Post(json: json5), Post(json: json6), Post(json: json7), Post(json: json8), Post(json: json1), Post(json: json2), Post(json: json3), Post(json: json4), Post(json: json5), Post(json: json6), Post(json: json7), Post(json: json8)]
     }
     
     func getUser() -> User {

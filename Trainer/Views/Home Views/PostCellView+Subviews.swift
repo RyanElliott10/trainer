@@ -45,22 +45,27 @@ extension PostCellView {
     
     private func configureTopViews() {
         profileImageView.anchor(top: contentView.topAnchor, leading: contentView.leadingAnchor, bottom: nil, trailing: nil, paddingTop: 12, paddingLeft: 8, paddingBottom: 0, paddingRight: 0, width: Constants.Cell.PROFILE_IMAGE_VIEW_WIDTH, height: Constants.Cell.PROFILE_IMAGE_VIEW_WIDTH)
-        usernameLabel.text = self.postDataSource?.getUser().getName()
+        usernameLabel.text = postDataSource?.getUser().getName()
         usernameLabel.anchor(top: contentView.topAnchor, leading: profileImageView.trailingAnchor, bottom: nil, trailing: contentView.trailingAnchor, paddingTop: 12, paddingLeft: 8, paddingBottom: 0, paddingRight: 8, width: 0, height: 20)
     }
     
     func configureMainViews() {
         let imagesCollectionViewHeight = getImagesCollectionViewHeight()
-        bodyLabel.text = self.postDataSource?.getBodyText()
+        bodyLabel.text = postDataSource?.getBodyText()
         bodyLabel.anchor(top: usernameLabel.bottomAnchor, leading: profileImageView.trailingAnchor, bottom: nil, trailing: contentView.trailingAnchor, paddingTop: 0, paddingLeft: 8, paddingBottom: 0, paddingRight: 8, width: 0, height: 0)
         
         imagesCollectionView.anchor(top: bodyLabel.bottomAnchor, leading: contentView.leadingAnchor, bottom: nil, trailing: contentView.trailingAnchor, paddingTop: 8, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 0, height: imagesCollectionViewHeight)
+        
+        // If there aren't any images to render, remove imagesCollectionView
+        if (postDataSource?.getNumberOfImages() ?? 0 < 1) {
+            imagesCollectionView.removeFromSuperview()
+        }
     }
     
     func getImagesCollectionViewHeight() -> CGFloat {
         
         var imagesCollectionViewHeight: CGFloat = 0
-        if let numberOfImages = self.postDataSource?.getNumberOfImages() {
+        if let numberOfImages = postDataSource?.getNumberOfImages() {
             imagesCollectionViewHeight = numberOfImages > 0 ? Constants.Cell.IMAGES_COLLECTION_VIEW_HEIGHT : 0.0
         }
         return imagesCollectionViewHeight
@@ -72,19 +77,21 @@ extension PostCellView {
     }
     
     private func configureLikesView() {
-        let numberOfLikes = self.postDataSource?.getNumberOfLikes()
+        let numberOfLikes = postDataSource?.getNumberOfLikes()
         let likesText = "\(numberOfLikes ?? 0) like\(numberOfLikes != 1 ? "s" : "")"
+        
         likesLabel.text = likesText
-        likesImage.anchor(top: imagesCollectionView.bottomAnchor, leading: contentView.leadingAnchor, bottom: nil, trailing: nil, paddingTop: 12, paddingLeft: 8, paddingBottom: 12, paddingRight: 0, width: 16, height: 16)
-        likesLabel.anchor(top: imagesCollectionView.bottomAnchor, leading: likesImage.trailingAnchor, bottom: nil, trailing: nil, paddingTop: 12, paddingLeft: 4, paddingBottom: 12, paddingRight: 0, width: 0, height: 20)
+        likesImage.anchor(top: nil, leading: contentView.leadingAnchor, bottom: bottomBorder.topAnchor, trailing: nil, paddingTop: 12, paddingLeft: 8, paddingBottom: 12, paddingRight: 0, width: 16, height: 16)
+        likesLabel.anchor(top: nil, leading: likesImage.trailingAnchor, bottom: bottomBorder.topAnchor, trailing: nil, paddingTop: 12, paddingLeft: 4, paddingBottom: 12, paddingRight: 0, width: 0, height: 20)
     }
     
     private func configureCommentsView() {
-        let numberOfComments = self.postDataSource?.getNumberOfComments()
+        let numberOfComments = postDataSource?.getNumberOfComments()
         let commentsText = "\(numberOfComments ?? 0) comment\(numberOfComments != 1 ? "s" : "")"
+        
         commentsLabel.text = commentsText
-        commentsImage.anchor(top: imagesCollectionView.bottomAnchor, leading: likesLabel.trailingAnchor, bottom: nil, trailing: nil, paddingTop: 12, paddingLeft: 12, paddingBottom: 12, paddingRight: 0, width: 16, height: 16)
-        commentsLabel.anchor(top: imagesCollectionView.bottomAnchor, leading: commentsImage.trailingAnchor, bottom: nil, trailing: nil, paddingTop: 12, paddingLeft: 4, paddingBottom: 12, paddingRight: 0, width: 0, height: 20)
+        commentsImage.anchor(top: nil, leading: likesLabel.trailingAnchor, bottom: bottomBorder.topAnchor, trailing: nil, paddingTop: 12, paddingLeft: 12, paddingBottom: 12, paddingRight: 0, width: 16, height: 16)
+        commentsLabel.anchor(top: nil, leading: commentsImage.trailingAnchor, bottom: bottomBorder.topAnchor, trailing: nil, paddingTop: 12, paddingLeft: 4, paddingBottom: 12, paddingRight: 0, width: 0, height: 20)
     }
     
     private func configureBorderView() {
@@ -97,22 +104,20 @@ extension PostCellView {
 
 extension PostCellView: UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
     
-    // The issue is probably in here. Perhaps make the imageView a seperate View object
-    
     func configureImagesCollectionView() {
-        // I feel like this should be in viewDidLoad
         imagesCollectionView.dataSource = self
         imagesCollectionView.delegate = self
         imagesCollectionView.register(ScrollableImageView.self, forCellWithReuseIdentifier: imageCellID)
+        imagesCollectionView.reloadData()
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return self.postDataSource?.getNumberOfImages() ?? 0
+        return postDataSource?.getNumberOfImages() ?? 0
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: imageCellID, for: indexPath) as? ScrollableImageView {
-            if let image = self.postDataSource?.getImages()[indexPath.row] {
+            if let image = postDataSource?.getImages()[indexPath.row] {
                 cell.image = image
             }
             return cell
@@ -121,7 +126,7 @@ extension PostCellView: UICollectionViewDelegateFlowLayout, UICollectionViewData
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        if let numberOfImages = self.postDataSource?.getNumberOfImages() {
+        if let numberOfImages = postDataSource?.getNumberOfImages() {
             let maxHeight = imagesCollectionView.frame.height - 20
             switch numberOfImages {
             case 1:

@@ -70,7 +70,7 @@ class HomeViewController: UIViewController {
         view.addSubview(collectionView)
         
         if let flowLayout = collectionView.collectionViewLayout as? UICollectionViewFlowLayout {
-            flowLayout.estimatedItemSize = CGSize(width: view.frame.width, height: 500)
+            flowLayout.estimatedItemSize = CGSize(width: view.frame.width, height: 1)
         }
         
         collectionView.register(PostCellView.self, forCellWithReuseIdentifier: cellReuseID)
@@ -127,7 +127,6 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDelegate
         if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellReuseID, for: indexPath) as? PostCellView {
             let post = Post.generateDummyPosts()[indexPath.row]
             cell.postDataSource = post
-            cell.indexPath = indexPath
             return cell
         }
         return UICollectionViewCell()
@@ -138,8 +137,6 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDelegate
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        print("Cell was selected at:", indexPath.row)
-        
         navigationController?.pushViewController(ProgressViewController(), animated: true)
     }
     
@@ -149,10 +146,6 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDelegate
     
     func collectionView(_ collectionView: UICollectionView, didUnhighlightItemAt indexPath: IndexPath) {
         collectionView.cellForItem(at: indexPath)?.backgroundColor = .white
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: view.frame.width, height: 300)
     }
     
 }

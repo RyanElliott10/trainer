@@ -13,11 +13,6 @@ class PostCellView: UICollectionViewCell {
     // MARK: - Properties
     
     let imageCellID = "imageCellID"
-    var indexPath: IndexPath? {
-        didSet {
-            usernameLabel.text = String(indexPath!.row) + " " + String(postDataSource!.getImages().count)
-        }
-    }
     var userDataSource: User?
     var postDataSource: Post? {
         didSet {
@@ -64,7 +59,6 @@ class PostCellView: UICollectionViewCell {
         collection.translatesAutoresizingMaskIntoConstraints = false
         collection.alwaysBounceHorizontal = true
         collection.backgroundColor = .clear
-        collection.backgroundColor = .red
         
         return collection
     }()
@@ -81,7 +75,7 @@ class PostCellView: UICollectionViewCell {
     let likesLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = label.font.withSize(12)
+        label.font = label.font.withSize(14)
         
         return label
     }()
@@ -97,7 +91,7 @@ class PostCellView: UICollectionViewCell {
     let commentsLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = label.font.withSize(12)
+        label.font = label.font.withSize(14)
         
         return label
     }()
@@ -126,7 +120,6 @@ class PostCellView: UICollectionViewCell {
         for subview in contentView.subviews {
             subview.removeFromSuperview()
         }
-        print(contentView.subviews.count)
     }
     
     // MARK: - Data Configuration
@@ -150,17 +143,13 @@ class PostCellView: UICollectionViewCell {
         setNeedsLayout()
         layoutIfNeeded()
         
-        // Tries to fit content view to the target size in layoutAttributes
         // let size = contentView.systemLayoutSizeFitting(layoutAttributes.size)
         
-        // Update layoutAttributes with the height that was just calculated
         var frame = layoutAttributes.frame
         // frame.size.height = ceil(size.height)
         
-        /*
-         * This is a very poor way of doing this, but it'll work for now. Figure out how to add true
-         * self-sizing capabilities in the future
-         */
+        // This is a very poor way of doing this, but it'll work for now
+        // TODO: Add true self-sizing capabilities
         frame.size.height = 80
         frame.size.height += getImagesCollectionViewHeight()
         frame.size.height += bodyLabel.frame.height
