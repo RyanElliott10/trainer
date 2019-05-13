@@ -40,13 +40,13 @@ class ScrollableImageView: UICollectionViewCell {
     
     private func configureViews() {
         let imageView = UIImageView(image: image)
-        contentView.addSubview(imageView)
         
         imageView.clipsToBounds = true
         imageView.contentMode = .scaleAspectFill
         
         imageView.layer.cornerRadius = 8
         
+        contentView.addSubview(imageView)
         imageView.anchor(top: contentView.topAnchor, leading: contentView.leadingAnchor, bottom: contentView.bottomAnchor, trailing: contentView.trailingAnchor, paddingTop: 0, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 0, height: 0)
     }
     

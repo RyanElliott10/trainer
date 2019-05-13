@@ -9,6 +9,10 @@
 import UIKit
 import AMScrollingNavbar
 
+protocol HomeViewControllerDelegate {
+    func push(viewController controller: UIViewController)
+}
+
 class HomeViewController: UIViewController {
     
     // MARK: - Properties
@@ -98,7 +102,7 @@ class HomeViewController: UIViewController {
         transition.duration = 0.35
         transition.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeInEaseOut)
         transition.type = CATransitionType.moveIn
-        transition.subtype = CATransitionSubtype.fromTop
+        transition.subtype = .fromTop
         
         navigationController?.view.layer.add(transition, forKey: kCATransition)
         navigationController?.pushViewController(PostViewController(), animated: false)
@@ -127,6 +131,7 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDelegate
         if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellReuseID, for: indexPath) as? PostCellView {
             let post = Post.generateDummyPosts()[indexPath.row]
             cell.postDataSource = post
+            cell.homeViewDelegate = self
             return cell
         }
         return UICollectionViewCell()
@@ -137,7 +142,10 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDelegate
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        navigationController?.pushViewController(ProgressViewController(), animated: true)
+        let detailedPostViewController = DetailedPostViewController()
+        detailedPostViewController.post = Post.generateDummyPosts()[indexPath.row]
+        
+        navigationController?.pushViewController(detailedPostViewController, animated: true)
     }
     
     func collectionView(_ collectionView: UICollectionView, didHighlightItemAt indexPath: IndexPath) {
@@ -152,11 +160,41 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDelegate
 
 extension HomeViewController: UITabBarControllerDelegate {
     
+    // TODO: - Only scroll to top if current VC is HomeViewController
+    
     func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController) {
         let tabBarIndex = tabBarController.selectedIndex
-        if tabBarIndex == 0 {
-            collectionView.setContentOffset(.zero, animated: true)
+        if tabBarIndex == 0, tabBarController.selectedIndex == 0 {
+            if let _ = view.window?.rootViewController as? HomeViewController {
+                return
+            }
+            if let navigationController = navigationController as? ScrollingNavigationController {
+                navigationController.showNavbar(animated: true)
+            }
+            
+            // Calculate correct height from top of screen to bottom of nav bar
+            let barHeight = navigationController?.navigationBar.frame.height ?? 0
+            let statusBarHeight = UIApplication.shared.statusBarFrame.height
+            let yOffset = barHeight + statusBarHeight
+            
+            collectionView.setContentOffset(CGPoint(x: 0, y: -yOffset), animated: true)
         }
+    }
+    
+}
+
+extension HomeViewController: HomeViewControllerDelegate {
+    
+    func push(viewController controller: UIViewController) {
+        let transition: CATransition = CATransition()
+        transition.duration = 0.1
+        transition.timingFunction = CAMediaTimingFunction(name: .easeInEaseOut)
+        transition.type = .fade
+        
+        controller.modalPresentationStyle = .overCurrentContext
+        controller.modalTransitionStyle = .crossDissolve
+        navigationController?.view.layer.add(transition, forKey: kCATransition)
+        tabBarController?.present(controller, animated: true)
     }
     
 }

@@ -56,7 +56,6 @@ class PostViewController: UIViewController {
     // MARK: - Init
     
     override func viewWillAppear(_ animated: Bool) {
-        navigationController?.navigationBar.isHidden = true
         navigationController?.hidesBottomBarWhenPushed = true
     }
     

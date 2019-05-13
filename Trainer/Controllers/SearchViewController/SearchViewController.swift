@@ -19,6 +19,9 @@ class SearchViewController: UIViewController {
     let collectionView: UICollectionView = {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
         collectionView.translatesAutoresizingMaskIntoConstraints = false
+        collectionView.backgroundColor = .clear
+        collectionView.alwaysBounceVertical = true
+        
         return collectionView
     }()
     
@@ -28,6 +31,7 @@ class SearchViewController: UIViewController {
         search.translatesAutoresizingMaskIntoConstraints = false
         search.sizeToFit()
         search.barStyle = .default
+        
         return search
     }()
     
@@ -48,16 +52,17 @@ class SearchViewController: UIViewController {
     
     private func configureCollectionView() {
         view.addSubview(collectionView)
-        collectionView.anchor(top: view.safeAreaLayoutGuide.topAnchor, leading: view.safeAreaLayoutGuide.leadingAnchor, bottom: view.safeAreaLayoutGuide.bottomAnchor, trailing: view.safeAreaLayoutGuide.trailingAnchor, paddingTop: 0, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: view.frame.width, height: 0)
         
-        collectionView.collectionViewLayout = Constants.Cell.AUTOSIZING_FLOW_LAYOUT
-        collectionView.register(FeaturedTrainersCell.self, forCellWithReuseIdentifier: cellReuseID)
-        collectionView.register(SearchHeaderView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: headerTrainerReuseID)
+        if let flowLayout = collectionView.collectionViewLayout as? UICollectionViewFlowLayout {
+            flowLayout.estimatedItemSize = CGSize(width: view.frame.width, height: 1)
+        }
+        
         collectionView.delegate = self
         collectionView.dataSource = self
+        collectionView.register(FeaturedTrainersCell.self, forCellWithReuseIdentifier: cellReuseID)
+        collectionView.register(SearchHeaderView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: headerTrainerReuseID)
         
-        collectionView.backgroundColor = .clear
-        collectionView.alwaysBounceVertical = true
+        collectionView.anchor(top: view.safeAreaLayoutGuide.topAnchor, leading: view.safeAreaLayoutGuide.leadingAnchor, bottom: view.safeAreaLayoutGuide.bottomAnchor, trailing: view.safeAreaLayoutGuide.trailingAnchor, paddingTop: 0, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: view.frame.width, height: 0)
     }
     
 }
@@ -67,7 +72,7 @@ extension SearchViewController: UICollectionViewDelegate, UICollectionViewDelega
     // MARK: - CollectionView
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return 2
+        return 1
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -93,16 +98,11 @@ extension SearchViewController: UICollectionViewDelegate, UICollectionViewDelega
         return UICollectionReusableView()
     }
     
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: view.frame.width / 2, height: 300)
-    }
+//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+//        return CGSize(width: view.frame.width / 2, height: 300)
+//    }
     
     // MARK: - CollectionView Header
-    
-    private func getHeader(ofKind kind: String, for indexPath: IndexPath) -> UICollectionReusableView {
-        let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: headerTrainerReuseID, for: indexPath) as! SearchHeaderView
-        return headerView
-    }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
         return CGSize(width: view.frame.width, height: Constants.SearchScreen.HEADER_HEIGHT)
@@ -110,6 +110,11 @@ extension SearchViewController: UICollectionViewDelegate, UICollectionViewDelega
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         return 0
+    }
+    
+    private func getHeader(ofKind kind: String, for indexPath: IndexPath) -> UICollectionReusableView {
+        let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: headerTrainerReuseID, for: indexPath) as! SearchHeaderView
+        return headerView
     }
     
 }

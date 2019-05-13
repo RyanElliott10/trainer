@@ -25,10 +25,8 @@ extension PostCellView {
         contentView.addSubview(imagesCollectionView)
         
         // Bottom Views
-        contentView.addSubview(likesImage)
-        contentView.addSubview(likesLabel)
-        contentView.addSubview(commentsImage)
-        contentView.addSubview(commentsLabel)
+        contentView.addSubview(likesButton)
+        contentView.addSubview(commentsButton)
         
         // Border View
         contentView.addSubview(bottomBorder)
@@ -62,6 +60,41 @@ extension PostCellView {
         }
     }
     
+    private func configureBottomViews() {
+        configureLikesView()
+        configureCommentsView()
+    }
+    
+    private func configureLikesView() {
+        let numberOfLikes = postDataSource?.getNumberOfLikes()
+        let likesText = "\(numberOfLikes ?? 0)"
+        
+        likesButton.setTitle(likesText, for: .normal)
+        likesButton.anchor(top: nil, leading: contentView.leadingAnchor, bottom: bottomBorder.topAnchor, trailing: nil, paddingTop: 12, paddingLeft: 0, paddingBottom: 12, paddingRight: 4, width: 50, height: 18)
+    }
+    
+    private func configureCommentsView() {
+        let numberOfComments = postDataSource?.getNumberOfComments()
+        let commentsText = "\(numberOfComments ?? 0)"
+        
+        commentsButton.setTitle(commentsText, for: .normal)
+        commentsButton.anchor(top: nil, leading: likesButton.trailingAnchor, bottom: bottomBorder.topAnchor, trailing: nil, paddingTop: 12, paddingLeft: 12, paddingBottom: 12, paddingRight: 0, width: 50, height: 18)
+    }
+    
+    private func setBottomViewText() {
+        let numberOfLikes = postDataSource?.getNumberOfLikes()
+        let likesText = "\(numberOfLikes ?? 0) like\(numberOfLikes != 1 ? "s" : "")"
+        likesButton.setTitle(likesText, for: .normal)
+        
+        let numberOfComments = postDataSource?.getNumberOfComments()
+        let commentsText = "\(numberOfComments ?? 0) comment\(numberOfComments != 1 ? "s" : "")"
+        commentsButton.setTitle(commentsText, for: .normal)
+    }
+    
+    private func configureBorderView() {
+        bottomBorder.anchor(top: nil, leading: contentView.leadingAnchor, bottom: contentView.bottomAnchor, trailing: contentView.trailingAnchor, paddingTop: 0, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 0, height: 0.5)
+    }
+    
     func getImagesCollectionViewHeight() -> CGFloat {
         
         var imagesCollectionViewHeight: CGFloat = 0
@@ -71,38 +104,11 @@ extension PostCellView {
         return imagesCollectionViewHeight
     }
     
-    private func configureBottomViews() {
-        configureLikesView()
-        configureCommentsView()
-    }
-    
-    private func configureLikesView() {
-        let numberOfLikes = postDataSource?.getNumberOfLikes()
-        let likesText = "\(numberOfLikes ?? 0) like\(numberOfLikes != 1 ? "s" : "")"
-        
-        likesLabel.text = likesText
-        likesImage.anchor(top: nil, leading: contentView.leadingAnchor, bottom: bottomBorder.topAnchor, trailing: nil, paddingTop: 12, paddingLeft: 8, paddingBottom: 12, paddingRight: 0, width: 16, height: 16)
-        likesLabel.anchor(top: nil, leading: likesImage.trailingAnchor, bottom: bottomBorder.topAnchor, trailing: nil, paddingTop: 12, paddingLeft: 4, paddingBottom: 12, paddingRight: 0, width: 0, height: 20)
-    }
-    
-    private func configureCommentsView() {
-        let numberOfComments = postDataSource?.getNumberOfComments()
-        let commentsText = "\(numberOfComments ?? 0) comment\(numberOfComments != 1 ? "s" : "")"
-        
-        commentsLabel.text = commentsText
-        commentsImage.anchor(top: nil, leading: likesLabel.trailingAnchor, bottom: bottomBorder.topAnchor, trailing: nil, paddingTop: 12, paddingLeft: 12, paddingBottom: 12, paddingRight: 0, width: 16, height: 16)
-        commentsLabel.anchor(top: nil, leading: commentsImage.trailingAnchor, bottom: bottomBorder.topAnchor, trailing: nil, paddingTop: 12, paddingLeft: 4, paddingBottom: 12, paddingRight: 0, width: 0, height: 20)
-    }
-    
-    private func configureBorderView() {
-        bottomBorder.anchor(top: nil, leading: contentView.leadingAnchor, bottom: contentView.bottomAnchor, trailing: contentView.trailingAnchor, paddingTop: 0, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 0, height: 0.5)
-    }
-    
 }
 
 // MARK: - Images Collection View
 
-extension PostCellView: UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
+extension PostCellView: UICollectionViewDelegateFlowLayout, UICollectionViewDataSource, UICollectionViewDelegate {
     
     func configureImagesCollectionView() {
         imagesCollectionView.dataSource = self
@@ -131,11 +137,9 @@ extension PostCellView: UICollectionViewDelegateFlowLayout, UICollectionViewData
             switch numberOfImages {
             case 1:
                 let maxWidth = imagesCollectionView.frame.width - 16
-                imagesCollectionView.isScrollEnabled = false
                 return CGSize(width: maxWidth, height: maxHeight)
             case 2:
                 let maxWidth = imagesCollectionView.frame.width - 26
-                imagesCollectionView.isScrollEnabled = false
                 return CGSize(width: maxWidth / 2, height: maxHeight)
             default:
                 let maxWidth = imagesCollectionView.frame.width - 20
@@ -148,6 +152,12 @@ extension PostCellView: UICollectionViewDelegateFlowLayout, UICollectionViewData
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         return UIEdgeInsets(top: 0, left: 8, bottom: 0, right: 8)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let imagePreviewViewController = ImagePreviewViewController()
+        imagePreviewViewController.image = postDataSource!.getImages()[indexPath.row]
+        homeViewDelegate?.push(viewController: imagePreviewViewController)
     }
     
 }

@@ -13,6 +13,8 @@ class PostCellView: UICollectionViewCell {
     // MARK: - Properties
     
     let imageCellID = "imageCellID"
+    var homeViewDelegate: HomeViewControllerDelegate?
+    var imagePreviewViewController: ImagePreviewViewController?
     var userDataSource: User?
     var postDataSource: Post? {
         didSet {
@@ -63,37 +65,24 @@ class PostCellView: UICollectionViewCell {
         return collection
     }()
     
-    let likesImage: UIImageView = {
-        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(likeSelector))
-        let imageView = UIImageView()
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.image = #imageLiteral(resourceName: "thumbs-up")
+    let likesButton: ButtonWithImage = {
+        let button = ButtonWithImage(type: .system)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.setImage(#imageLiteral(resourceName: "thumbs-up"), for: .normal)
+        button.tintColor = .gray
+        button.imageView?.contentMode = .scaleAspectFit
         
-        return imageView
+        return button
     }()
     
-    let likesLabel: UILabel = {
-        let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = label.font.withSize(14)
+    let commentsButton: ButtonWithImage = {
+        let button = ButtonWithImage(type: .system)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.setImage(#imageLiteral(resourceName: "message-circle"), for: .normal)
+        button.tintColor = .gray
+        button.imageView?.contentMode = .scaleAspectFit
         
-        return label
-    }()
-    
-    let commentsImage: UIImageView = {
-        let imageView = UIImageView()
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.image = #imageLiteral(resourceName: "message-circle")
-        
-        return imageView
-    }()
-    
-    let commentsLabel: UILabel = {
-        let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = label.font.withSize(14)
-        
-        return label
+        return button
     }()
     
     let bottomBorder: UIView = {
@@ -116,7 +105,7 @@ class PostCellView: UICollectionViewCell {
     
     override func prepareForReuse() {
         super.prepareForReuse()
-
+        
         for subview in contentView.subviews {
             subview.removeFromSuperview()
         }

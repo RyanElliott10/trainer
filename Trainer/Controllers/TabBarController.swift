@@ -13,11 +13,13 @@ class TabBarController: UITabBarController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         configureTabBar()
     }
     
     private func configureTabBar() {
         tabBar.isTranslucent = false
+        tabBar.tintColor = UIColor.black.withAlphaComponent(0.95)
         
         let homeViewController = ScrollingNavigationController(rootViewController: HomeViewController())
         homeViewController.tabBarItem.image = #imageLiteral(resourceName: "home")
@@ -32,7 +34,6 @@ class TabBarController: UITabBarController {
         profileViewController.tabBarItem.image = #imageLiteral(resourceName: "user")
         
         viewControllers = [homeViewController, searchViewController, progressViewController, profileViewController]
-//        viewControllers = [profileViewController, homeViewController, searchViewController, progressViewController]
         
         // Center tab bar items
         if let tabBarItems = tabBar.items {

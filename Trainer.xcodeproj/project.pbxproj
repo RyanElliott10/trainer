@@ -29,6 +29,9 @@
 		6033D939227F5FE400D74FAA /* PostCellView+Subviews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6033D938227F5FE400D74FAA /* PostCellView+Subviews.swift */; };
 		60CA469322876B7C0082893E /* PostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60CA469222876B7C0082893E /* PostViewController.swift */; };
 		60CA4696228794370082893E /* ScrollableImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60CA4695228794370082893E /* ScrollableImageView.swift */; };
+		60CA4698228893C50082893E /* DetailedPostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60CA4697228893C50082893E /* DetailedPostViewController.swift */; };
+		60CA469C22889BC10082893E /* ImagePreviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60CA469B22889BC10082893E /* ImagePreviewViewController.swift */; };
+		60CA46A02289108B0082893E /* ButtonWithImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60CA469F2289108B0082893E /* ButtonWithImage.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -55,6 +58,9 @@
 		6033D938227F5FE400D74FAA /* PostCellView+Subviews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PostCellView+Subviews.swift"; sourceTree = "<group>"; };
 		60CA469222876B7C0082893E /* PostViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostViewController.swift; sourceTree = "<group>"; };
 		60CA4695228794370082893E /* ScrollableImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollableImageView.swift; sourceTree = "<group>"; };
+		60CA4697228893C50082893E /* DetailedPostViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailedPostViewController.swift; sourceTree = "<group>"; };
+		60CA469B22889BC10082893E /* ImagePreviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePreviewViewController.swift; sourceTree = "<group>"; };
+		60CA469F2289108B0082893E /* ButtonWithImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonWithImage.swift; sourceTree = "<group>"; };
 		AEE660003C4A9DB2260E64AF /* Pods-Trainer.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Trainer.debug.xcconfig"; path = "Target Support Files/Pods-Trainer/Pods-Trainer.debug.xcconfig"; sourceTree = "<group>"; };
 		B4DDB689A3DF34C3E9B3B129 /* Pods_Trainer.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Trainer.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DA2034F8074CB63128A822F1 /* Pods-Trainer.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Trainer.release.xcconfig"; path = "Target Support Files/Pods-Trainer/Pods-Trainer.release.xcconfig"; sourceTree = "<group>"; };
@@ -101,6 +107,7 @@
 		60248F11226CCAB700D15454 /* Trainer */ = {
 			isa = PBXGroup;
 			children = (
+				60CA46A1228913690082893E /* Custom UI */,
 				60248F3F226D390900D15454 /* Utils */,
 				60248F36226D111600D15454 /* Controllers */,
 				60248F38226D112300D15454 /* Models */,
@@ -129,6 +136,7 @@
 				60248F3C226D115600D15454 /* ProgressViewController */,
 				60248F3A226D114700D15454 /* ProfileViewController */,
 				60248F2A226CCC0F00D15454 /* TabBarController.swift */,
+				60CA469B22889BC10082893E /* ImagePreviewViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -159,6 +167,7 @@
 				60CA469122876B6F0082893E /* Post */,
 				60248F2C226CCC6300D15454 /* HomeViewController.swift */,
 				60248F34226D110D00D15454 /* HomeViewController+NavBar.swift */,
+				60CA4697228893C50082893E /* DetailedPostViewController.swift */,
 			);
 			path = HomeViewController;
 			sourceTree = "<group>";
@@ -213,6 +222,14 @@
 				60CA4695228794370082893E /* ScrollableImageView.swift */,
 			);
 			path = "Home Views";
+			sourceTree = "<group>";
+		};
+		60CA46A1228913690082893E /* Custom UI */ = {
+			isa = PBXGroup;
+			children = (
+				60CA469F2289108B0082893E /* ButtonWithImage.swift */,
+			);
+			path = "Custom UI";
 			sourceTree = "<group>";
 		};
 		72999F96FD487445E3AF0F35 /* Pods */ = {
@@ -353,7 +370,9 @@
 				6033D9312278062D00D74FAA /* Comment.swift in Sources */,
 				60248F2B226CCC0F00D15454 /* TabBarController.swift in Sources */,
 				602425E322714C3300B98A7B /* SearchHeaderView.swift in Sources */,
+				60CA46A02289108B0082893E /* ButtonWithImage.swift in Sources */,
 				602425E1227028A100B98A7B /* FeaturedTrainersCell.swift in Sources */,
+				60CA4698228893C50082893E /* DetailedPostViewController.swift in Sources */,
 				60248F41226D391700D15454 /* Extensions.swift in Sources */,
 				60248F3E226D1B0F00D15454 /* PostCellView.swift in Sources */,
 				60CA469322876B7C0082893E /* PostViewController.swift in Sources */,
@@ -363,6 +382,7 @@
 				60248F33226CCC7F00D15454 /* ProfileViewController.swift in Sources */,
 				6009A2182275266B00F5BD72 /* Constants.swift in Sources */,
 				60248F13226CCAB700D15454 /* AppDelegate.swift in Sources */,
+				60CA469C22889BC10082893E /* ImagePreviewViewController.swift in Sources */,
 				60248F35226D110D00D15454 /* HomeViewController+NavBar.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

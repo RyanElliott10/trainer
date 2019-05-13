@@ -30,13 +30,6 @@ struct CellConstants {
     
     static let AUTO_SIZING_HEIGHT: CGFloat = 1
     
-    static let AUTOSIZING_FLOW_LAYOUT: UICollectionViewFlowLayout = {
-        let width = UIScreen.main.bounds.size.width
-        let layout = UICollectionViewFlowLayout()
-        layout.estimatedItemSize = CGSize(width: width, height: CellConstants.AUTO_SIZING_HEIGHT)
-        return layout
-    }()
-    
 }
 
 struct ProfileScreenConstants {
