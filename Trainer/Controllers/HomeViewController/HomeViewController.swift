@@ -141,6 +141,10 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDelegate
         return 0
     }
     
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+        return 10
+    }
+    
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let detailedPostViewController = DetailedPostViewController()
         detailedPostViewController.post = Post.generateDummyPosts()[indexPath.row]

@@ -16,6 +16,8 @@ extension PostCellView {
     }
     
     private func addSubviews() {
+        contentView.addSubview(mainContainer)
+        
         // Top Views
         contentView.addSubview(profileImageView)
         contentView.addSubview(usernameLabel)
@@ -156,7 +158,8 @@ extension PostCellView: UICollectionViewDelegateFlowLayout, UICollectionViewData
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let imagePreviewViewController = ImagePreviewViewController()
-        imagePreviewViewController.image = postDataSource!.getImages()[indexPath.row]
+        imagePreviewViewController.images = postDataSource!.getImages()
+        imagePreviewViewController.startingIndexPath = indexPath
         homeViewDelegate?.push(viewController: imagePreviewViewController)
     }
     

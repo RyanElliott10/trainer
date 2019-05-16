@@ -26,6 +26,16 @@ class PostCellView: UICollectionViewCell {
     
     // MARK: - Views
     
+    let mainContainer: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.layer.cornerRadius = 8
+        view.layer.shadowColor = UIColor.black.cgColor
+        view.layer.shadowOffset = CGSize(width: 200, height: 3)
+        
+        return view
+    }()
+    
     let profileImageView: UIImageView = {
         let profileImage = UIImageView(image: #imageLiteral(resourceName: "zac_perna"))
         profileImage.translatesAutoresizingMaskIntoConstraints = false
@@ -59,7 +69,6 @@ class PostCellView: UICollectionViewCell {
         layout.scrollDirection = .horizontal
         let collection = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collection.translatesAutoresizingMaskIntoConstraints = false
-        collection.alwaysBounceHorizontal = true
         collection.backgroundColor = .clear
         
         return collection
