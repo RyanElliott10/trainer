@@ -12,6 +12,8 @@ class DetailedPostViewController: UIViewController {
     
     // MARK: - Properties
     
+    let postHeaderCellReuseId = "postHeaderCellReuseId"
+    let commentCellReuseId = "commentCellReuseId"
     var post: Post? {
         didSet {
             if let p = post {
@@ -19,78 +21,110 @@ class DetailedPostViewController: UIViewController {
             }
         }
     }
+    // Var beause this will fetch more comments the further the user scrolls
+    var comments = [Comment]()
     
-    let mainStackView: UIStackView = {
-        let mainStackView = UIStackView()
-        mainStackView.translatesAutoresizingMaskIntoConstraints = false
-        mainStackView.axis = .vertical
-        mainStackView.spacing = 4
+    private lazy var postCommentsCollectionView: UICollectionView = {
+        let layout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .vertical
+        let collection = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        collection.translatesAutoresizingMaskIntoConstraints = false
+        collection.backgroundColor = .white
+        collection.alwaysBounceVertical = true
         
-        return mainStackView
-    }()
-    
-    let mainView: UIView = {
-        let view = UIView()
-        view.translatesAutoresizingMaskIntoConstraints = false
+        collection.register(PostCellView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: postHeaderCellReuseId)
+//        collection.register(CommentCellView.self, forCellWithReuseIdentifier: commentCellReuseId)
+        collection.register(ExpandablePostCell.self, forCellWithReuseIdentifier: commentCellReuseId)
         
-        return view
-    }()
-    
-    let postStackView: UIStackView = {
-        let stackView = UIStackView()
-        stackView.translatesAutoresizingMaskIntoConstraints = false
-        stackView.axis = .vertical
-        stackView.spacing = 8
-        
-        return stackView
-    }()
-    
-    let usernameLabel: UILabel = {
-        let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = UIFont.systemFont(ofSize: 22, weight: .bold)
-        
-        return label
-    }()
-    
-    let postBodyLabel: UILabel = {
-        let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = UIFont.systemFont(ofSize: 18)
-        
-        return label
+        return collection
     }()
     
     // MARK: - Init
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        configureViews()
     }
     
     // MARK: - View Configuration
     
     private func configureViews() {
-        view.backgroundColor = .white
-        configurePostBodyView()
-        mainStackView.addArrangedSubview(mainView)
-        
-        view.addSubview(mainStackView)
-        mainStackView.anchor(top: view.safeAreaLayoutGuide.topAnchor, leading: view.leadingAnchor, bottom: view.bottomAnchor, trailing: view.trailingAnchor, paddingTop: 0, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 0, height: 0)
+        addSubviews()
+        configurePostCommentsCollectionView()
     }
     
-    private func configurePostBodyView() {
-        mainView.addSubview(postStackView)
-        postStackView.addArrangedSubview(usernameLabel)
-        postStackView.addArrangedSubview(postBodyLabel)
+    private func addSubviews() {
+        view.addSubview(postCommentsCollectionView)
+    }
+    
+    private func configurePostCommentsCollectionView() {
+        if let flowLayout = postCommentsCollectionView.collectionViewLayout as? UICollectionViewFlowLayout {
+            flowLayout.estimatedItemSize = CGSize(width: view.frame.width - 24, height: 1)
+        }
+        
+        postCommentsCollectionView.delegate = self
+        postCommentsCollectionView.dataSource = self
+        postCommentsCollectionView.anchor(top: view.topAnchor, leading: view.leadingAnchor, bottom: view.bottomAnchor, trailing: view.trailingAnchor, paddingTop: 0, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 0, height: 0)
     }
     
     // MARK: - Data
     
     private func load(data: Post) {
-        usernameLabel.text = post?.getUser().getName()
-        postBodyLabel.text = post?.getBodyText()
+        configureViews()
+    }
+    
+}
+
+// MARK: - Collection View
+
+extension DetailedPostViewController: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
+    
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        return 1
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return 4
+        //        return comments.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return CGSize(width: collectionView.frame.width - 24, height: 200)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        switch kind {
+        case UICollectionView.elementKindSectionHeader:
+            if let cell = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: postHeaderCellReuseId, for: indexPath) as? PostCellView {
+                cell.post = post
+                return cell
+            }
+            return UICollectionReusableView()
+        default:
+            return UICollectionReusableView()
+        }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: commentCellReuseId, for: indexPath) as? ExpandablePostCell {
+            cell.post = post
+            cell.succeedingComments = [Comment()]
+            return cell
+        }
+        return UICollectionViewCell()
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        return 16
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        return UIEdgeInsets(top: 8, left: 0, bottom: 8, right: 0)
+    }
+    
+    // MARK: - CollectionView Header
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
+        return CGSize(width: collectionView.frame.width - 24, height: 200)
     }
     
 }

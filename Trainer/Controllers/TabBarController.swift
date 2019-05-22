@@ -19,7 +19,11 @@ class TabBarController: UITabBarController {
     
     private func configureTabBar() {
         tabBar.isTranslucent = false
-        tabBar.tintColor = UIColor.black.withAlphaComponent(0.95)
+        tabBar.tintColor = .black
+        tabBar.layer.borderColor = UIColor.clear.cgColor
+        view.backgroundColor = .white
+        UITabBar.appearance().layer.borderWidth = 0
+        UITabBar.appearance().clipsToBounds = true
         
         let homeViewController = ScrollingNavigationController(rootViewController: HomeViewController())
         homeViewController.tabBarItem.image = #imageLiteral(resourceName: "home")

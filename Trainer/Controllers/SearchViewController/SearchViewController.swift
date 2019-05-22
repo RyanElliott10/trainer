@@ -98,10 +98,6 @@ extension SearchViewController: UICollectionViewDelegate, UICollectionViewDelega
         return UICollectionReusableView()
     }
     
-//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-//        return CGSize(width: view.frame.width / 2, height: 300)
-//    }
-    
     // MARK: - CollectionView Header
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
@@ -113,8 +109,10 @@ extension SearchViewController: UICollectionViewDelegate, UICollectionViewDelega
     }
     
     private func getHeader(ofKind kind: String, for indexPath: IndexPath) -> UICollectionReusableView {
-        let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: headerTrainerReuseID, for: indexPath) as! SearchHeaderView
-        return headerView
+        if let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: headerTrainerReuseID, for: indexPath) as? SearchHeaderView {
+            return headerView
+        }
+        return UICollectionReusableView()
     }
     
 }
