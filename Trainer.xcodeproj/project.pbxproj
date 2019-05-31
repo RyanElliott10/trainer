@@ -21,17 +21,21 @@
 		60248F31226CCC7600D15454 /* ProgressViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60248F30226CCC7600D15454 /* ProgressViewController.swift */; };
 		60248F33226CCC7F00D15454 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60248F32226CCC7F00D15454 /* ProfileViewController.swift */; };
 		60248F35226D110D00D15454 /* HomeViewController+NavBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60248F34226D110D00D15454 /* HomeViewController+NavBar.swift */; };
-		60248F3E226D1B0F00D15454 /* PostCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60248F3D226D1B0F00D15454 /* PostCellView.swift */; };
 		60248F41226D391700D15454 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60248F40226D391700D15454 /* Extensions.swift */; };
 		6033D92D2278052F00D74FAA /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6033D92C2278052F00D74FAA /* Post.swift */; };
 		6033D92F2278057800D74FAA /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6033D92E2278057800D74FAA /* User.swift */; };
 		6033D9312278062D00D74FAA /* Comment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6033D9302278062D00D74FAA /* Comment.swift */; };
-		6033D939227F5FE400D74FAA /* PostCellView+Subviews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6033D938227F5FE400D74FAA /* PostCellView+Subviews.swift */; };
-		60CA469322876B7C0082893E /* PostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60CA469222876B7C0082893E /* PostViewController.swift */; };
+		60BDD3E922923FEA00128352 /* ExpandablePostCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60BDD3E822923FEA00128352 /* ExpandablePostCell.swift */; };
+		60BDD3EE22925B5600128352 /* PostCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60BDD3ED22925B5600128352 /* PostCellView.swift */; };
+		60BDD3F022925C6600128352 /* HomeScreenPostCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60BDD3EF22925C6600128352 /* HomeScreenPostCellView.swift */; };
 		60CA4696228794370082893E /* ScrollableImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60CA4695228794370082893E /* ScrollableImageView.swift */; };
 		60CA4698228893C50082893E /* DetailedPostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60CA4697228893C50082893E /* DetailedPostViewController.swift */; };
 		60CA469C22889BC10082893E /* ImagePreviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60CA469B22889BC10082893E /* ImagePreviewViewController.swift */; };
 		60CA46A02289108B0082893E /* ButtonWithImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60CA469F2289108B0082893E /* ButtonWithImage.swift */; };
+		60F26D91228EDB470042664D /* PostBottomSheetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60F26D90228EDB470042664D /* PostBottomSheetViewController.swift */; };
+		60F9A8402298DC73007D34BD /* HomeScreenStoryCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60F9A83F2298DC73007D34BD /* HomeScreenStoryCellView.swift */; };
+		60F9A8422298EC3E007D34BD /* Story.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60F9A8412298EC3E007D34BD /* Story.swift */; };
+		60F9A8442298FEDB007D34BD /* StoryImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60F9A8432298FEDB007D34BD /* StoryImageView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -50,17 +54,21 @@
 		60248F30226CCC7600D15454 /* ProgressViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressViewController.swift; sourceTree = "<group>"; };
 		60248F32226CCC7F00D15454 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		60248F34226D110D00D15454 /* HomeViewController+NavBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HomeViewController+NavBar.swift"; sourceTree = "<group>"; };
-		60248F3D226D1B0F00D15454 /* PostCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostCellView.swift; sourceTree = "<group>"; };
 		60248F40226D391700D15454 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		6033D92C2278052F00D74FAA /* Post.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
 		6033D92E2278057800D74FAA /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		6033D9302278062D00D74FAA /* Comment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Comment.swift; sourceTree = "<group>"; };
-		6033D938227F5FE400D74FAA /* PostCellView+Subviews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PostCellView+Subviews.swift"; sourceTree = "<group>"; };
-		60CA469222876B7C0082893E /* PostViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostViewController.swift; sourceTree = "<group>"; };
+		60BDD3E822923FEA00128352 /* ExpandablePostCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpandablePostCell.swift; sourceTree = "<group>"; };
+		60BDD3ED22925B5600128352 /* PostCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostCellView.swift; sourceTree = "<group>"; };
+		60BDD3EF22925C6600128352 /* HomeScreenPostCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeScreenPostCellView.swift; sourceTree = "<group>"; };
 		60CA4695228794370082893E /* ScrollableImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollableImageView.swift; sourceTree = "<group>"; };
 		60CA4697228893C50082893E /* DetailedPostViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailedPostViewController.swift; sourceTree = "<group>"; };
 		60CA469B22889BC10082893E /* ImagePreviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePreviewViewController.swift; sourceTree = "<group>"; };
 		60CA469F2289108B0082893E /* ButtonWithImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonWithImage.swift; sourceTree = "<group>"; };
+		60F26D90228EDB470042664D /* PostBottomSheetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostBottomSheetViewController.swift; sourceTree = "<group>"; };
+		60F9A83F2298DC73007D34BD /* HomeScreenStoryCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeScreenStoryCellView.swift; sourceTree = "<group>"; };
+		60F9A8412298EC3E007D34BD /* Story.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Story.swift; sourceTree = "<group>"; };
+		60F9A8432298FEDB007D34BD /* StoryImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoryImageView.swift; sourceTree = "<group>"; };
 		AEE660003C4A9DB2260E64AF /* Pods-Trainer.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Trainer.debug.xcconfig"; path = "Target Support Files/Pods-Trainer/Pods-Trainer.debug.xcconfig"; sourceTree = "<group>"; };
 		B4DDB689A3DF34C3E9B3B129 /* Pods_Trainer.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Trainer.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DA2034F8074CB63128A822F1 /* Pods-Trainer.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Trainer.release.xcconfig"; path = "Target Support Files/Pods-Trainer/Pods-Trainer.release.xcconfig"; sourceTree = "<group>"; };
@@ -90,6 +98,7 @@
 			isa = PBXGroup;
 			children = (
 				60248F11226CCAB700D15454 /* Trainer */,
+				60248F27226CCAC400D15454 /* Supporting Files */,
 				60248F10226CCAB700D15454 /* Products */,
 				72999F96FD487445E3AF0F35 /* Pods */,
 				2D1F6731D2E58A8F6D02FDB6 /* Frameworks */,
@@ -111,7 +120,6 @@
 				60248F3F226D390900D15454 /* Utils */,
 				60248F36226D111600D15454 /* Controllers */,
 				60248F38226D112300D15454 /* Models */,
-				60248F27226CCAC400D15454 /* Supporting Files */,
 				60248F37226D111E00D15454 /* Views */,
 			);
 			path = Trainer;
@@ -131,10 +139,10 @@
 		60248F36226D111600D15454 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				60248F39226D113B00D15454 /* HomeViewController */,
-				60248F3B226D114E00D15454 /* SearchViewController */,
-				60248F3C226D115600D15454 /* ProgressViewController */,
-				60248F3A226D114700D15454 /* ProfileViewController */,
+				60248F39226D113B00D15454 /* Home View Controllers */,
+				60248F3B226D114E00D15454 /* Search View Controllers */,
+				60248F3C226D115600D15454 /* Progress View Controllers */,
+				60248F3A226D114700D15454 /* Profile View Controllers */,
 				60248F2A226CCC0F00D15454 /* TabBarController.swift */,
 				60CA469B22889BC10082893E /* ImagePreviewViewController.swift */,
 			);
@@ -157,11 +165,12 @@
 				6033D92C2278052F00D74FAA /* Post.swift */,
 				6033D92E2278057800D74FAA /* User.swift */,
 				6033D9302278062D00D74FAA /* Comment.swift */,
+				60F9A8412298EC3E007D34BD /* Story.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
 		};
-		60248F39226D113B00D15454 /* HomeViewController */ = {
+		60248F39226D113B00D15454 /* Home View Controllers */ = {
 			isa = PBXGroup;
 			children = (
 				60CA469122876B6F0082893E /* Post */,
@@ -169,32 +178,32 @@
 				60248F34226D110D00D15454 /* HomeViewController+NavBar.swift */,
 				60CA4697228893C50082893E /* DetailedPostViewController.swift */,
 			);
-			path = HomeViewController;
+			path = "Home View Controllers";
 			sourceTree = "<group>";
 		};
-		60248F3A226D114700D15454 /* ProfileViewController */ = {
+		60248F3A226D114700D15454 /* Profile View Controllers */ = {
 			isa = PBXGroup;
 			children = (
 				60248F32226CCC7F00D15454 /* ProfileViewController.swift */,
 			);
-			path = ProfileViewController;
+			path = "Profile View Controllers";
 			sourceTree = "<group>";
 		};
-		60248F3B226D114E00D15454 /* SearchViewController */ = {
+		60248F3B226D114E00D15454 /* Search View Controllers */ = {
 			isa = PBXGroup;
 			children = (
 				60248F2E226CCC6C00D15454 /* SearchViewController.swift */,
 				602425DE2270171B00B98A7B /* SearchViewController+SearchBar.swift */,
 			);
-			path = SearchViewController;
+			path = "Search View Controllers";
 			sourceTree = "<group>";
 		};
-		60248F3C226D115600D15454 /* ProgressViewController */ = {
+		60248F3C226D115600D15454 /* Progress View Controllers */ = {
 			isa = PBXGroup;
 			children = (
 				60248F30226CCC7600D15454 /* ProgressViewController.swift */,
 			);
-			path = ProgressViewController;
+			path = "Progress View Controllers";
 			sourceTree = "<group>";
 		};
 		60248F3F226D390900D15454 /* Utils */ = {
@@ -209,7 +218,7 @@
 		60CA469122876B6F0082893E /* Post */ = {
 			isa = PBXGroup;
 			children = (
-				60CA469222876B7C0082893E /* PostViewController.swift */,
+				60F26D90228EDB470042664D /* PostBottomSheetViewController.swift */,
 			);
 			path = Post;
 			sourceTree = "<group>";
@@ -217,9 +226,12 @@
 		60CA4694228793F30082893E /* Home Views */ = {
 			isa = PBXGroup;
 			children = (
-				60248F3D226D1B0F00D15454 /* PostCellView.swift */,
-				6033D938227F5FE400D74FAA /* PostCellView+Subviews.swift */,
+				60BDD3ED22925B5600128352 /* PostCellView.swift */,
+				60BDD3EF22925C6600128352 /* HomeScreenPostCellView.swift */,
+				60F9A83F2298DC73007D34BD /* HomeScreenStoryCellView.swift */,
+				60BDD3E822923FEA00128352 /* ExpandablePostCell.swift */,
 				60CA4695228794370082893E /* ScrollableImageView.swift */,
+				60F9A8432298FEDB007D34BD /* StoryImageView.swift */,
 			);
 			path = "Home Views";
 			sourceTree = "<group>";
@@ -318,6 +330,7 @@
 			inputPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-Trainer/Pods-Trainer-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/AMScrollingNavbar/AMScrollingNavbar.framework",
+				"${BUILT_PRODUCTS_DIR}/PanModal/PanModal.framework",
 				"${BUILT_PRODUCTS_DIR}/SVProgressHUD/SVProgressHUD.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
@@ -325,6 +338,7 @@
 			);
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AMScrollingNavbar.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PanModal.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SVProgressHUD.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -361,27 +375,31 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6033D939227F5FE400D74FAA /* PostCellView+Subviews.swift in Sources */,
 				60248F2F226CCC6C00D15454 /* SearchViewController.swift in Sources */,
+				60F26D91228EDB470042664D /* PostBottomSheetViewController.swift in Sources */,
 				60248F2D226CCC6300D15454 /* HomeViewController.swift in Sources */,
+				60BDD3EE22925B5600128352 /* PostCellView.swift in Sources */,
 				60248F1B226CCAB700D15454 /* Trainer.xcdatamodeld in Sources */,
 				60248F31226CCC7600D15454 /* ProgressViewController.swift in Sources */,
+				60BDD3E922923FEA00128352 /* ExpandablePostCell.swift in Sources */,
 				6033D92F2278057800D74FAA /* User.swift in Sources */,
 				6033D9312278062D00D74FAA /* Comment.swift in Sources */,
+				60F9A8402298DC73007D34BD /* HomeScreenStoryCellView.swift in Sources */,
 				60248F2B226CCC0F00D15454 /* TabBarController.swift in Sources */,
 				602425E322714C3300B98A7B /* SearchHeaderView.swift in Sources */,
 				60CA46A02289108B0082893E /* ButtonWithImage.swift in Sources */,
 				602425E1227028A100B98A7B /* FeaturedTrainersCell.swift in Sources */,
 				60CA4698228893C50082893E /* DetailedPostViewController.swift in Sources */,
 				60248F41226D391700D15454 /* Extensions.swift in Sources */,
-				60248F3E226D1B0F00D15454 /* PostCellView.swift in Sources */,
-				60CA469322876B7C0082893E /* PostViewController.swift in Sources */,
 				60CA4696228794370082893E /* ScrollableImageView.swift in Sources */,
 				6033D92D2278052F00D74FAA /* Post.swift in Sources */,
 				602425DF2270171B00B98A7B /* SearchViewController+SearchBar.swift in Sources */,
 				60248F33226CCC7F00D15454 /* ProfileViewController.swift in Sources */,
+				60F9A8442298FEDB007D34BD /* StoryImageView.swift in Sources */,
 				6009A2182275266B00F5BD72 /* Constants.swift in Sources */,
+				60F9A8422298EC3E007D34BD /* Story.swift in Sources */,
 				60248F13226CCAB700D15454 /* AppDelegate.swift in Sources */,
+				60BDD3F022925C6600128352 /* HomeScreenPostCellView.swift in Sources */,
 				60CA469C22889BC10082893E /* ImagePreviewViewController.swift in Sources */,
 				60248F35226D110D00D15454 /* HomeViewController+NavBar.swift in Sources */,
 			);
@@ -513,7 +531,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 7C6T4SXM4J;
-				INFOPLIST_FILE = "$(SRCROOT)/Trainer/Supporting Files/Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/Supporting Files/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -532,7 +550,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 7C6T4SXM4J;
-				INFOPLIST_FILE = "$(SRCROOT)/Trainer/Supporting Files/Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/Supporting Files/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

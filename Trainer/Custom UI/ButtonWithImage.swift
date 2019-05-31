@@ -14,8 +14,8 @@ class ButtonWithImage: UIButton {
         super.layoutSubviews()
         if imageView != nil {
             imageEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
-            if let width = imageView?.frame.width {
-                titleEdgeInsets = UIEdgeInsets(top: 0, left: width, bottom: 0, right: 0)
+            if let _ = imageView?.frame.width {
+                titleEdgeInsets = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 0)
             }
         }
     }
