@@ -8,6 +8,8 @@
 
 import UIKit
 
+import AMScrollingNavbar
+
 class DetailedPostViewController: UIViewController {
     
     // MARK: - Properties
@@ -27,17 +29,25 @@ class DetailedPostViewController: UIViewController {
     private lazy var postCommentsCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .vertical
-        let collection = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        collection.translatesAutoresizingMaskIntoConstraints = false
-        collection.backgroundColor = .white
-        collection.alwaysBounceVertical = true
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        collectionView.translatesAutoresizingMaskIntoConstraints = false
+        collectionView.backgroundColor = Constants.Global.BACKGROUND_COLOR
+        collectionView.alwaysBounceVertical = true
         
-        collection.register(PostCellView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: postHeaderCellReuseId)
-//        collection.register(CommentCellView.self, forCellWithReuseIdentifier: commentCellReuseId)
-        collection.register(ExpandablePostCell.self, forCellWithReuseIdentifier: commentCellReuseId)
+        collectionView.register(PostCellView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: postHeaderCellReuseId)
+        collectionView.register(ExpandablePostCell.self, forCellWithReuseIdentifier: commentCellReuseId)
         
-        return collection
+        return collectionView
     }()
+    
+    // AMScrollingNavbar override
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        if let navigationController = self.navigationController as? ScrollingNavigationController {
+            navigationController.followScrollView(postCommentsCollectionView, delay: 50.0)
+        }
+    }
     
     // MARK: - Init
     

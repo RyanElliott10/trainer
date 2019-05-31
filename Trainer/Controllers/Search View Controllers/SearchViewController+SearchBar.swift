@@ -18,7 +18,7 @@ extension SearchViewController: UISearchResultsUpdating {
         searchController.isActive = true
         definesPresentationContext = true
         
-        navigationItem.title = "Test"
+        navigationItem.title = "Search"
         navigationItem.searchController = searchController
     }
     

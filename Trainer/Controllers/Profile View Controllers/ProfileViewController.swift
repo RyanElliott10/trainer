@@ -101,8 +101,8 @@ class ProfileViewController: UIViewController {
         
         memberInfoView.anchor(top: profileHeaderView.bottomAnchor, leading: view.leadingAnchor, bottom: nil, trailing: profileImageView.leadingAnchor, paddingTop: 0, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 0, height: 80)
         
-        profileImageView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        profileImageView.anchor(top: view.topAnchor, leading: nil, bottom: nil, trailing: nil, paddingTop: 100, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: Constants.ProfileScreen.PROFILE_IMAGE_WIDTH, height: Constants.ProfileScreen.PROFILE_IMAGE_HEIGHT)
+        profileImageView.centerYAnchor.constraint(equalTo: view.topAnchor, constant: 155).isActive = true
+        profileImageView.anchor(top: nil, leading: nil, bottom: nil, trailing: view.trailingAnchor, paddingTop: 0, paddingLeft: 0, paddingBottom: 0, paddingRight: 30, width: Constants.ProfileScreen.PROFILE_IMAGE_WIDTH, height: Constants.ProfileScreen.PROFILE_IMAGE_HEIGHT)
         
         configureMemberInfoView()
     }

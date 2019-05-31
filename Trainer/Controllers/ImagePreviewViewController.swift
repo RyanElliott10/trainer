@@ -28,7 +28,7 @@ class ImagePreviewViewController: UIViewController {
         collection.isPagingEnabled = true
         collection.showsHorizontalScrollIndicator = false
         
-        collection.layer.cornerRadius = 8
+        collection.layer.cornerRadius = 6
         
         return collection
     }()
@@ -140,7 +140,7 @@ fileprivate class ImageCell: UICollectionViewCell {
     
     let imageView: UIImageView = {
         let view = UIImageView()
-        view.layer.cornerRadius = 8
+        view.layer.cornerRadius = 6
         view.clipsToBounds = true
         view.contentMode = .scaleAspectFill
         

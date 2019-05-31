@@ -78,19 +78,20 @@ extension UIView {
         self.layer.addSublayer(border)
     }
     
-    func dropShadow() {
-        self.layer.shadowColor = UIColor.gray.cgColor
-        self.layer.shadowOpacity = 0.4
-        self.layer.shadowOffset = CGSize(width: 1, height: 1)
-        self.layer.shadowRadius = 6
-    }
-    
     func topShadow() {
         self.layer.shadowColor = UIColor.gray.cgColor
         self.layer.shadowOpacity = 0.2
-        self.layer.shadowOffset = CGSize(width: 0, height: -5)
-        self.layer.shadowRadius = 3
+        self.layer.shadowOffset = CGSize(width: 0, height: -3)
+        self.layer.shadowRadius = 6
     }
+    
+    func dropShadow(withHeight height: CGFloat = 1, opacity: Float = 0.4, radius: CGFloat = 2) {
+        self.layer.shadowColor = UIColor.gray.cgColor
+        self.layer.shadowOpacity = opacity
+        self.layer.shadowOffset = CGSize(width: 1, height: height)
+        self.layer.shadowRadius = radius
+    }
+    
 }
 
 extension UIColor {
@@ -104,9 +105,11 @@ extension UIColor {
     }
     
     static let AppBlue = UIColor.rgb(red: 75, green: 145, blue: 255)
+    
 }
 
 extension UIApplication {
+    
     class func topViewController(base: UIViewController? = UIApplication.shared.keyWindow?.rootViewController) -> UIViewController? {
         if let nav = base as? UINavigationController {
             return topViewController(base: nav.visibleViewController)
@@ -121,4 +124,5 @@ extension UIApplication {
         }
         return base
     }
+    
 }

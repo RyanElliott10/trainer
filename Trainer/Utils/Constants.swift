@@ -8,6 +8,12 @@
 
 import UIKit
 
+struct GlobalConstants {
+    
+    static let BACKGROUND_COLOR: UIColor = UIColor.rgb(red: 244, green: 244, blue: 243)
+    
+}
+
 struct HomeScreenConstants {
     
     static let POST_CONTAINER_HEIGHT: CGFloat = 50
@@ -36,13 +42,23 @@ struct CellConstants {
 
 struct ProfileScreenConstants {
     
-    static let PROFILE_IMAGE_WIDTH: CGFloat = 110
+    static let PROFILE_IMAGE_WIDTH: CGFloat = 75
     
-    static let PROFILE_IMAGE_HEIGHT: CGFloat = 110
+    static let PROFILE_IMAGE_HEIGHT: CGFloat = 75
+    
+}
+
+struct PostBottomSheetConstants {
+    
+    static let AUTOMATED_SLIDE_UP_DOWN_ANIMATION_DURATION: Double = 0.85
+    
+    static let FULL_VIEW_TOP_INSET: CGFloat = 100
     
 }
 
 struct Constants {
+    
+    static let Global = GlobalConstants.self
     
     static let HomeScreen = HomeScreenConstants.self
     
@@ -51,5 +67,7 @@ struct Constants {
     static let Cell = CellConstants.self
     
     static let ProfileScreen = ProfileScreenConstants.self
+    
+    static let PostBottomSheet = PostBottomSheetConstants.self
     
 }

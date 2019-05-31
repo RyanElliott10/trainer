@@ -50,7 +50,6 @@ class ExpandablePostCell: HomeScreenPostCellView {
         leftBar.topAnchor.constraint(equalTo: profileImageView.bottomAnchor, constant: 8).isActive = true
         leftBar.heightAnchor.constraint(equalToConstant: getImagesCollectionViewHeight()).isActive = true
         leftBar.widthAnchor.constraint(equalToConstant: 2).isActive = true
-        print("HELLO")
     }
     
     override func configureImagesCollectionView() {
@@ -61,6 +60,22 @@ class ExpandablePostCell: HomeScreenPostCellView {
         configureLeftBar()
         super.configureMainViews()
         configureSucceedingCommentViews()
+    }
+    
+    override func configureLikesView(withTopView topView: UIView, paddingTop: CGFloat) {
+        let numberOfLikes = post?.getNumberOfLikes()
+        let likesText = "\(numberOfLikes ?? 0)"
+        
+        likesButton.setTitle(likesText, for: .normal)
+        likesButton.anchor(top: topView.bottomAnchor, leading: leftBar.trailingAnchor, bottom: nil, trailing: nil, paddingTop: paddingTop, paddingLeft: 10, paddingBottom: 12, paddingRight: 0, width: 50, height: 18)
+    }
+    
+    override func configureCommentsView(withTopView topView: UIView, paddingTop: CGFloat) {
+        let numberOfComments = post?.getNumberOfComments()
+        let commentsText = "\(numberOfComments ?? 0)"
+        
+        commentsButton.setTitle(commentsText, for: .normal)
+        commentsButton.anchor(top: topView.bottomAnchor, leading: likesButton.trailingAnchor, bottom: nil, trailing: nil, paddingTop: paddingTop, paddingLeft: 12, paddingBottom: 12, paddingRight: 0, width: 50, height: 18)
     }
     
     private func configureSucceedingCommentViews() {

@@ -57,6 +57,7 @@ class PostCellView: UICollectionViewCell {
         button.setImage(#imageLiteral(resourceName: "thumbs-up"), for: .normal)
         button.tintColor = .gray
         button.imageView?.contentMode = .scaleAspectFit
+        button.contentMode = .scaleAspectFit
         
         return button
     }()
@@ -67,6 +68,7 @@ class PostCellView: UICollectionViewCell {
         button.setImage(#imageLiteral(resourceName: "message-circle"), for: .normal)
         button.tintColor = .gray
         button.imageView?.contentMode = .scaleAspectFit
+        button.contentMode = .scaleAspectFit
         
         return button
     }()
@@ -104,7 +106,7 @@ class PostCellView: UICollectionViewCell {
     // MARK: - Selectors
     
     @objc func likeSelector() {
-        print(123)
+        debugPrint("Like button")
     }
     
     // MARK: - Self-sizing logic
@@ -162,7 +164,7 @@ class PostCellView: UICollectionViewCell {
     }
     
     func configureContentView() {
-        contentView.layer.cornerRadius = 8
+        contentView.layer.cornerRadius = 6
         contentView.backgroundColor = .white
         contentView.dropShadow()
     }

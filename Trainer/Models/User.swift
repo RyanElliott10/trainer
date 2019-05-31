@@ -14,15 +14,17 @@ class User {
     private var username: String?
     private var profileImageURL: NSURL?
     private var profileImage: UIImage?
+    private var storyContent: [UIImage]?
     
     init(json: [String: Any]) {
-        if let name = json["name"] as? String {
-            self.name = name;
+        if let _name = json["name"] as? String {
+            name = _name;
         }
-        if let username = json["username"] as? String {
-            self.username = username
+        if let _username = json["username"] as? String {
+            username = _username
         }
-        self.profileImageURL = json["profileImageURL"] as? NSURL
+        profileImageURL = json["profileImageURL"] as? NSURL
+        storyContent = json["storyContent"] as? [UIImage]
     }
     
     static func generateDummyUser() -> User {
@@ -30,7 +32,8 @@ class User {
             "name" : "Ryan Elliott",
             "username" : "handlerandle",
             "profileImageURL" : "www.google.com",
-        ]
+            "storyContent" : [#imageLiteral(resourceName: "boxed-water-is-better-1464052-unsplash")]
+        ] as [String : Any]
         return User(json: json)
     }
     
@@ -39,19 +42,24 @@ class User {
     }
     
     func getName() -> String {
-        guard let name = self.name else { return "" }
-        return name
+        guard let _name = name else { return "" }
+        return _name
     }
     
     func getUsername() -> String {
-        guard let username = self.username else { return "" }
-        return username
+        guard let _username = username else { return "" }
+        return _username
     }
     
     func getProfileImage() -> UIImage {
         // Return whatever is grabbed from the fetch for the url
-        guard let profileImage = self.profileImage else { return UIImage() }
-        return profileImage
+        guard let _profileImage = profileImage else { return UIImage() }
+        return _profileImage
+    }
+    
+    func getStoryContent() -> [UIImage] {
+        guard let content = storyContent else { return [] }
+        return content
     }
     
 }

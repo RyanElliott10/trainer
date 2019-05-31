@@ -9,7 +9,6 @@
 import UIKit
 
 import AMScrollingNavbar
-import PanModal
 
 protocol HomeViewControllerDelegate {
     func push(viewController controller: UIViewController)
@@ -21,36 +20,15 @@ class HomeViewController: UIViewController, UIGestureRecognizerDelegate {
     
     private let refreshControl = UIRefreshControl()
     private let cellReuseID = "cellID"
+    private let storyReuseID = "storyID"
+    private let postBottomSheetVC = PostBottomSheetViewController()
     
     let collectionView: UICollectionView = {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
         collectionView.translatesAutoresizingMaskIntoConstraints = false
+        collectionView.showsVerticalScrollIndicator = false
         
         return collectionView
-    }()
-    
-    // TODO: - Before going any further, take a look at Slack's open source slider on GitHub
-    let postBarContainer: UIView = {
-        // TODO: - Add indicator showing you can slide it up, and textfield
-        let view = UIView()
-        view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = .white
-        
-        view.layer.borderColor = UIColor.clear.cgColor
-        view.layer.cornerRadius = 8
-        view.topShadow()
-        
-        return view
-    }()
-    
-    let createPostLabel: UILabel = {
-        let label = UILabel(frame: .zero)
-        label.text = "Create a Post"
-        label.numberOfLines = 1
-        label.font = UIFont.boldSystemFont(ofSize: 22)
-        label.textAlignment = .left
-        
-        return label
     }()
     
     // MARK: - Init
@@ -68,19 +46,32 @@ class HomeViewController: UIViewController, UIGestureRecognizerDelegate {
         super.viewDidLoad()
         
         configureViews()
+        addBottomSheetView()
+        
+        let statusBarView = UIView(frame: UIApplication.shared.statusBarFrame)
+        statusBarView.backgroundColor = Constants.Global.BACKGROUND_COLOR
+        view.addSubview(statusBarView)
+    }
+
+    func addBottomSheetView() {
+        addChild(postBottomSheetVC)
+        view.addSubview(postBottomSheetVC.view)
+        postBottomSheetVC.didMove(toParent: self)
+        
+        let yOrig = tabBarController?.tabBar.frame.height ?? 0
+        let height = view.frame.height
+        let width = view.frame.width
+        postBottomSheetVC.view.frame = CGRect(x: 0, y: view.frame.height - (yOrig + 60), width: width, height: height)
     }
     
     // MARK: - Configuration
     
     func configureViews() {
-        view.backgroundColor = .white
-        
+        view.backgroundColor = Constants.Global.BACKGROUND_COLOR
         view.addSubview(collectionView)
-        view.addSubview(postBarContainer)
         
         configureNavBar()
         configureTabBar()
-        configurePostBar()
         configureCollectionView()
         configureWhiteStatusBar()
     }
@@ -100,31 +91,20 @@ class HomeViewController: UIViewController, UIGestureRecognizerDelegate {
         view.addSubview(statusBarView)
     }
     
-    private func configurePostBar() {
-        let upSwipe = UIPanGestureRecognizer(target: self, action: #selector(presentScrollablePostVC(_:)))
-        upSwipe.delegate = self
-        let tap = UITapGestureRecognizer(target: self, action: #selector(presentPostVC(_:)))
-        tap.delegate = self
-        
-        postBarContainer.anchor(top: nil, leading: view.leadingAnchor, bottom: view.bottomAnchor, trailing: view.trailingAnchor, paddingTop: 0, paddingLeft: 0, paddingBottom: -8, paddingRight: 0, width: 0, height: Constants.HomeScreen.POST_CONTAINER_HEIGHT)
-        postBarContainer.addGestureRecognizer(upSwipe)
-        postBarContainer.addGestureRecognizer(tap)
-        
-        postBarContainer.addSubview(createPostLabel)
-        createPostLabel.anchor(top: postBarContainer.topAnchor, leading: postBarContainer.leadingAnchor, bottom: nil, trailing: postBarContainer.trailingAnchor, paddingTop: 8, paddingLeft: 32, paddingBottom: 0, paddingRight: 0, width: 0, height: 30)
-    }
-    
     private func configureCollectionView() {
         if let flowLayout = collectionView.collectionViewLayout as? UICollectionViewFlowLayout {
             flowLayout.estimatedItemSize = CGSize(width: view.frame.width - 24, height: 1)
         }
         
         collectionView.register(HomeScreenPostCellView.self, forCellWithReuseIdentifier: cellReuseID)
+        collectionView.register(HomeScreenStoryCellView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: storyReuseID)
         collectionView.dataSource = self
         collectionView.delegate = self
         
         collectionView.backgroundColor = .clear
         collectionView.alwaysBounceVertical = true
+        
+        collectionView.contentInset = UIEdgeInsets(top: 8, left: 12, bottom: 0, right: 12)
         
         collectionView.anchor(top: view.topAnchor, leading: view.safeAreaLayoutGuide.leadingAnchor, bottom: view.bottomAnchor, trailing: view.safeAreaLayoutGuide.trailingAnchor, paddingTop: 0, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 0, height: 0)
         
@@ -136,84 +116,25 @@ class HomeViewController: UIViewController, UIGestureRecognizerDelegate {
         collectionView.refreshControl?.addTarget(self, action: #selector(refreshControlSelectorTest), for: .valueChanged)
     }
     
-    // MARK: - Swipe Gesture
-    
-    func wasDragged(gesture: UIPanGestureRecognizer) {
-        print("wasDragged", gesture)
-    }
-    
     // MARK: - Selectors
     
     @objc func postOnPress() {
-        let transition: CATransition = CATransition()
-        transition.duration = 0.35
-        transition.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeInEaseOut)
-        transition.type = CATransitionType.moveIn
-        transition.subtype = .fromTop
-        
-        navigationController?.view.layer.add(transition, forKey: kCATransition)
-        navigationController?.pushViewController(PostViewController(), animated: false)
+        presentPostVC()
     }
     
     @objc func navigationProfileImageOnPress() {
-        print("Navigation profile image on press")
+        debugPrint("Navigation profile image on press")
     }
     
     @objc private func refreshControlSelectorTest() {
-        print("Refreshing")
+        debugPrint("Refreshing")
         collectionView.refreshControl?.endRefreshing()
     }
     
-    @objc private func presentScrollablePostVC(_ gesture: UIPanGestureRecognizer) {
-        var tabBarFrame = tabBarController?.tabBar.frame
-        tabBarFrame?.origin.y = view.frame.height
-        // If the user is dragging
-        if gesture.state == .began || gesture.state == .changed {
-            let translation = gesture.translation(in: self.view)
-            
-            // If the user is dragging up
-            if -translation.y > 0 {
-                if let constraint = (postBarContainer.constraints.filter{$0.firstAttribute == .height}.first) {
-                    // PostBarContainer translation
-                    constraint.constant = -translation.y + Constants.HomeScreen.POST_CONTAINER_HEIGHT
-                    
-                    // TabBar translation
-                    if let tabBar = tabBarController?.tabBar {
-                        let origin = CGPoint(x: tabBar.frame.origin.x, y: view.frame.height - (translation.y * 0.5))
-                        let frame = CGRect(origin: origin, size: CGSize(width: tabBar.frame.width, height: tabBar.frame.height))
-                        tabBar.frame = frame
-                    }
-                    
-                    // Return to normal state
-                    if (-translation.y + Constants.HomeScreen.POST_CONTAINER_HEIGHT >= 200) {
-                        tabBarController?.presentPanModal(PostPanModalViewController())
-                        constraint.constant = Constants.HomeScreen.POST_CONTAINER_HEIGHT
-                        UIView.animate(withDuration: 0.0, delay: 0.5, usingSpringWithDamping: 0.6, initialSpringVelocity: 0, options: .curveEaseIn, animations: {
-                            if let tabBar = self.tabBarController?.tabBar {
-                                let origin = CGPoint(x: tabBar.frame.origin.x, y: self.view.frame.height)
-                                let frame = CGRect(origin: origin, size: CGSize(width: tabBar.frame.width, height: tabBar.frame.height))
-                                tabBar.frame = frame
-                            }
-                            self.view.layoutIfNeeded()
-                        }, completion: nil)
-                    }
-                }
-            }
-        } else if gesture.state == .ended {
-            if let constraint = (self.postBarContainer.constraints.filter{$0.firstAttribute == .height}.first) {
-                constraint.constant = Constants.HomeScreen.POST_CONTAINER_HEIGHT
-            }
-            UIView.animate(withDuration: 0.5, delay: 0.0, usingSpringWithDamping: 0.6, initialSpringVelocity: 0, options: .curveEaseIn, animations: {
-                if let tabBar = self.tabBarController?.tabBar {
-                    tabBar.frame = tabBarFrame!
-                }
-                self.view.layoutIfNeeded()
-            }, completion: nil)
-        }
-    }
-    
-    @objc private func presentPostVC(_ gesture: UITapGestureRecognizer) {
-        tabBarController?.presentPanModal(PostPanModalViewController(), sourceView: postBarContainer)
+    func presentPostVC() {
+        UIView.animate(withDuration: 0.4, delay: 0.0, usingSpringWithDamping: 0.75, initialSpringVelocity: 0, options: [.allowUserInteraction], animations: {
+            self.postBottomSheetVC.view.frame = CGRect(x: 0, y: self.postBottomSheetVC.fullViewTopInset, width: self.postBottomSheetVC.view.frame.width, height: self.postBottomSheetVC.view.frame.height)
+        }, completion: nil)
     }
     
 }
@@ -258,7 +179,30 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDelegate
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        return UIEdgeInsets(top: 8, left: 0, bottom: 8, right: 0)
+        var bottomInsetHeight: CGFloat = 0
+        if let height = tabBarController?.tabBar.frame.height {
+            bottomInsetHeight = height + 40
+        }
+        return UIEdgeInsets(top: 12, left: 0, bottom: bottomInsetHeight, right: 0)
+    }
+    
+    // MARK: - CollectionView Header
+        
+    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        switch kind {
+        case UICollectionView.elementKindSectionHeader:
+            if let cell = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: storyReuseID, for: indexPath) as? HomeScreenStoryCellView {
+                cell.stories = Story.generateDummyStoryData()
+                return cell
+            }
+            return UICollectionReusableView()
+        default:
+            return UICollectionReusableView()
+        }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
+        return CGSize(width: 1, height: 275)
     }
     
 }
