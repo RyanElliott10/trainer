@@ -36,6 +36,7 @@ class PostBottomSheetViewController: UIViewController, PanModalPresentable {
     let createPostLabel: UILabel = {
         let label = UILabel(frame: .zero)
         label.text = "Create a Post"
+        label.textColor = .black
         label.numberOfLines = 1
         label.font = UIFont.boldSystemFont(ofSize: 22)
         label.textAlignment = .left
@@ -47,7 +48,11 @@ class PostBottomSheetViewController: UIViewController, PanModalPresentable {
         let view = UITextView()
         view.translatesAutoresizingMaskIntoConstraints = false
         view.font = UIFont.systemFont(ofSize: 18)
-        view.backgroundColor = .yellow
+        view.backgroundColor = .clear
+        
+        view.layer.borderColor = UIColor.lightGray.cgColor
+        view.layer.borderWidth = 1
+        view.layer.cornerRadius = 8
         
         return view
     }()

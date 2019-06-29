@@ -1,118 +1,170 @@
 //
-//  SearchViewController.swift
+//  SwipeController.swift
 //  Trainer
 //
-//  Created by Ryan Elliott on 4/21/19.
+//  Created by Ryan Elliott on 6/22/19.
 //  Copyright © 2019 Ryan Elliott. All rights reserved.
 //
 
 import UIKit
 
-class SearchViewController: UIViewController {
+class SearchViewController : UIViewController {
     
-    // MARK: - Properties
+    private let cellID = "cellID"
+    private let NUM_PAGES: CGFloat = 3
+    private let HEADER_HEIGHT: CGFloat = 135
     
-    private let cellReuseID = "cellID"
-    private let headerTrainerReuseID = "headerID"
-    let searchController = UISearchController(searchResultsController: nil)
+    private let searchController = UISearchController(searchResultsController: nil)
+    private var viewControllers = [BaseSearchPageViewController]()
     
-    let collectionView: UICollectionView = {
-        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
-        collectionView.translatesAutoresizingMaskIntoConstraints = false
-        collectionView.backgroundColor = .clear
-        collectionView.alwaysBounceVertical = true
-        
-        return collectionView
+    private var startOffset: CGFloat = 0
+    private var direction = 0
+    
+    private lazy var pageViewController: UIPageViewController = {
+        let pageViewController = UIPageViewController(transitionStyle: .scroll, navigationOrientation: .horizontal, options: nil)
+        pageViewController.view.backgroundColor = .clear
+        pageViewController.delegate = self
+        pageViewController.dataSource = self
+        return pageViewController
     }()
     
-    let searchBar: UISearchBar = {
-        let search = UISearchBar()
-        search.placeholder = "Search"
-        search.translatesAutoresizingMaskIntoConstraints = false
-        search.sizeToFit()
-        search.barStyle = .default
-        
-        return search
+    lazy var headerView: SearchHeader = {
+        let header = SearchHeader(frame: .zero)
+        return header
     }()
-    
-    // MARK: - Init
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        configureViews()
-    }
-    
-    // MARK: - Configurations
-    
-    private func configureViews() {
-        view.backgroundColor = .white
-        configureCollectionView()
-        configureSearchBar()
-    }
-    
-    private func configureCollectionView() {
-        view.addSubview(collectionView)
         
-        if let flowLayout = collectionView.collectionViewLayout as? UICollectionViewFlowLayout {
-            flowLayout.estimatedItemSize = CGSize(width: view.frame.width, height: 1)
+        configureSubViews()
+        setPageViewScrollViewDelegate()
+        navigationController?.setNavigationBarHidden(true, animated: false)
+    }
+    
+    private func setPageViewScrollViewDelegate() {
+        for v in pageViewController.view.subviews {
+            if v is UIScrollView {
+                (v as! UIScrollView).delegate = self
+                break
+            }
         }
+    }
+    
+    private func configureSubViews() {
+        view.backgroundColor = Constants.Global.BACKGROUND_COLOR
+        configureHeader()
+        configurePageViewController()
+    }
+    
+    private func configureHeader() {
+        view.addSubview(headerView)
+        headerView.anchor(top: view.topAnchor, leading: view.safeAreaLayoutGuide.leadingAnchor, bottom: nil, trailing: view.safeAreaLayoutGuide.trailingAnchor, paddingTop: 0, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 0, height: HEADER_HEIGHT)
+    }
+    
+    private func configurePageViewController() {
+        let vc1 = TrainersSearchViewController()
+        vc1.label.text = "1"
+        let vc2 = GymsSearchViewController()
+        vc2.label.text = "2"
+        let vc3 = WorkoutsSearchViewController()
+        vc3.label.text = "3"
         
-        collectionView.delegate = self
-        collectionView.dataSource = self
-        collectionView.register(FeaturedTrainersCell.self, forCellWithReuseIdentifier: cellReuseID)
-        collectionView.register(SearchHeaderView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: headerTrainerReuseID)
+        viewControllers.append(vc1)
+        viewControllers.append(vc2)
+        viewControllers.append(vc3)
         
-        collectionView.anchor(top: view.safeAreaLayoutGuide.topAnchor, leading: view.safeAreaLayoutGuide.leadingAnchor, bottom: view.safeAreaLayoutGuide.bottomAnchor, trailing: view.safeAreaLayoutGuide.trailingAnchor, paddingTop: 0, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: view.frame.width, height: 0)
+        addChild(pageViewController)
+        view.addSubview(pageViewController.view)
+        pageViewController.view.frame = CGRect(x: 0, y: HEADER_HEIGHT, width: view.frame.width, height: view.frame.height - HEADER_HEIGHT)
+        pageViewController.didMove(toParent: self)
+        
+        pageViewController.setViewControllers([viewControllerAtIndex(0)!], direction: .forward, animated: false, completion: nil)
     }
     
 }
 
-extension SearchViewController: UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
+extension SearchViewController : UIPageViewControllerDataSource, UIPageViewControllerDelegate {
     
-    // MARK: - CollectionView
-    
-    func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return 1
+    func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
+        var index = indexOfViewController(viewController as! BaseSearchPageViewController)
+        if index == 0 {
+            return nil
+        }
+        index -= 1
+        return viewControllerAtIndex(index)
     }
     
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        switch section {
-        case 0: return 1
-        case 1: return 2
-        default: assert(false, "Unexpected number of sections")
+    func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController? {
+        var index = indexOfViewController(viewController as! BaseSearchPageViewController)
+        print(index)
+        if index == viewControllers.count - 1 {
+            return nil
+        }
+        index += 1
+        return viewControllerAtIndex(index)
+    }
+    
+    func pageViewController(_ pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
+        if previousViewControllers.count > 0 {
+            // We know it's not the first viewController
+            if var newIndex = viewControllers.firstIndex(of: previousViewControllers[0] as! BaseSearchPageViewController) {
+                print("direction", direction)
+                newIndex += (direction > 0 ? 1 : -1)
+                print(newIndex)
+                
+                let oldFrame = headerView.highlightBar.frame
+                let strictFrame = (view.frame.width - (24 * 3)) / 3
+                print(strictFrame)
+                let x = strictFrame * CGFloat(newIndex)
+                let newFrame = CGRect(x: x, y: oldFrame.origin.y, width: oldFrame.width, height: oldFrame.height)
+                headerView.highlightBar.frame = newFrame
+            }
         }
     }
     
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellReuseID, for: indexPath) as! FeaturedTrainersCell
-        return cell
-    }
+}
+
+extension SearchViewController {
     
-    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-        switch kind {
-        case UICollectionView.elementKindSectionHeader:
-            return getHeader(ofKind: kind, for: indexPath)
-        default:
-            assert(false, "Unexpected element kind")
+    fileprivate func viewControllerAtIndex(_ index: Int) -> UIViewController? {
+        if viewControllers.count == 0 || index >= viewControllers.count {
+            return nil
         }
-        return UICollectionReusableView()
+        return viewControllers[index]
     }
     
-    // MARK: - CollectionView Header
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
-        return CGSize(width: view.frame.width, height: Constants.SearchScreen.HEADER_HEIGHT)
+    fileprivate func indexOfViewController(_ viewController: BaseSearchPageViewController) -> Int {
+        return viewControllers.firstIndex(of: viewController) ?? NSNotFound
     }
     
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        return 0
-    }
+}
+
+extension SearchViewController : UIScrollViewDelegate {
     
-    private func getHeader(ofKind kind: String, for indexPath: IndexPath) -> UICollectionReusableView {
-        if let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: headerTrainerReuseID, for: indexPath) as? SearchHeaderView {
-            return headerView
+    // Used to move the highlight bar
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+//        let newPage = ceil(collectionView.contentOffset.x / collectionView.frame.width)
+//        let collectionViewWidth = collectionView.frame.width * NUM_PAGES
+//        let percentComplete = collectionView.contentOffset.x / collectionViewWidth
+//        let x = ceil((collectionView.frame.width - 48) * percentComplete + 24) + newPage
+//
+//        let oldFrame = headerView.highlightBar.frame
+//        let newFrame = CGRect(x: x, y: oldFrame.origin.y, width: oldFrame.width, height: oldFrame.height)
+//        headerView.highlightBar.frame = newFrame
+        
+        if startOffset < scrollView.contentOffset.x {
+            direction = 1 // Going right
+        } else if startOffset > scrollView.contentOffset.x {
+            direction = -1 // Going left
         }
-        return UICollectionReusableView()
+        startOffset = scrollView.contentOffset.x
+        
+        let positionFromStartOfCurrentPage = abs(startOffset - scrollView.contentOffset.x)
+        var percent = positionFromStartOfCurrentPage / view.frame.width
+        let newPage = ceil(percent)
+        percent /= NUM_PAGES
+//        print("Percent:", percent)
+//        print("New page:", newPage)
     }
     
 }

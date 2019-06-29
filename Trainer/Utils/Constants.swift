@@ -10,7 +10,7 @@ import UIKit
 
 struct GlobalConstants {
     
-    static let BACKGROUND_COLOR: UIColor = UIColor.rgb(red: 244, green: 244, blue: 243)
+    static let BACKGROUND_COLOR: UIColor = UIColor.rgb(red: 244, green: 244, blue: 244)
     
 }
 
@@ -28,6 +28,14 @@ struct SearchScreenConstants {
     
 }
 
+struct ProfileScreenConstants {
+    
+    static let PROFILE_IMAGE_WIDTH: CGFloat = 75
+    
+    static let PROFILE_IMAGE_HEIGHT: CGFloat = 75
+    
+}
+
 struct CellConstants {
     
     static let BORDER_COLOR: UIColor = UIColor.rgb(red: 175, green: 175, blue: 175)
@@ -37,14 +45,6 @@ struct CellConstants {
     static let PROFILE_IMAGE_VIEW_WIDTH: CGFloat = 45
     
     static let AUTO_SIZING_HEIGHT: CGFloat = 1
-    
-}
-
-struct ProfileScreenConstants {
-    
-    static let PROFILE_IMAGE_WIDTH: CGFloat = 75
-    
-    static let PROFILE_IMAGE_HEIGHT: CGFloat = 75
     
 }
 
