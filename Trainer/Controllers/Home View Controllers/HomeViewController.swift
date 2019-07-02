@@ -22,7 +22,6 @@ class HomeViewController: UIViewController, UIGestureRecognizerDelegate {
     private let refreshControl = UIRefreshControl()
     private let cellReuseID = "cellID"
     private let storyReuseID = "storyID"
-    private let postBottomSheetVC = PostBottomSheetViewController()
     private let floatingPanelController = FloatingPanelController()
     
     let collectionView: UICollectionView = {
@@ -132,7 +131,7 @@ class HomeViewController: UIViewController, UIGestureRecognizerDelegate {
     
     func presentPostVC() {
         UIView.animate(withDuration: 0.4, delay: 0.0, usingSpringWithDamping: 0.75, initialSpringVelocity: 0, options: [.allowUserInteraction], animations: {
-//            self.postBottomSheetVC.view.frame = CGRect(x: 0, y: self.postBottomSheetVC.fullViewTopInset, width: self.postBottomSheetVC.view.frame.width, height: self.postBottomSheetVC.view.frame.height)
+            // TODO: - Bring up the floatingPanelView
         }, completion: nil)
     }
     
