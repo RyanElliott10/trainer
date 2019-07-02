@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -98,7 +98,6 @@
 			isa = PBXGroup;
 			children = (
 				60248F11226CCAB700D15454 /* Trainer */,
-				60248F27226CCAC400D15454 /* Supporting Files */,
 				60248F10226CCAB700D15454 /* Products */,
 				72999F96FD487445E3AF0F35 /* Pods */,
 				2D1F6731D2E58A8F6D02FDB6 /* Frameworks */,
@@ -116,6 +115,7 @@
 		60248F11226CCAB700D15454 /* Trainer */ = {
 			isa = PBXGroup;
 			children = (
+				60248F27226CCAC400D15454 /* Supporting Files */,
 				60CA46A1228913690082893E /* Custom UI */,
 				60248F3F226D390900D15454 /* Utils */,
 				60248F36226D111600D15454 /* Controllers */,
@@ -326,20 +326,11 @@
 			files = (
 			);
 			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Trainer/Pods-Trainer-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/AMScrollingNavbar/AMScrollingNavbar.framework",
-				"${BUILT_PRODUCTS_DIR}/PanModal/PanModal.framework",
-				"${BUILT_PRODUCTS_DIR}/SVProgressHUD/SVProgressHUD.framework",
+				"${PODS_ROOT}/Target Support Files/Pods-Trainer/Pods-Trainer-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
-			);
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AMScrollingNavbar.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PanModal.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SVProgressHUD.framework",
+				"${PODS_ROOT}/Target Support Files/Pods-Trainer/Pods-Trainer-frameworks-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -531,14 +522,15 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 7C6T4SXM4J;
-				INFOPLIST_FILE = "$(SRCROOT)/Supporting Files/Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/Trainer/Supporting Files/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.ryanelliott.Trainer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 5.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -550,14 +542,15 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 7C6T4SXM4J;
-				INFOPLIST_FILE = "$(SRCROOT)/Supporting Files/Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/Trainer/Supporting Files/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.ryanelliott.Trainer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 5.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;

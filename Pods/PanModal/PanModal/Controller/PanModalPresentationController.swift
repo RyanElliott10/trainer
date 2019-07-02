@@ -213,6 +213,26 @@ public class PanModalPresentationController: UIPresentationController {
         backgroundView.removeFromSuperview()
     }
 
+    /**
+     Update presented view size in response to size class changes
+     */
+    override public func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransition(to: size, with: coordinator)
+
+        coordinator.animate(alongsideTransition: { [weak self] _ in
+            guard
+                let self = self,
+                let presentable = self.presentable
+                else { return }
+
+            self.adjustPresentedViewFrame()
+
+            if presentable.shouldRoundTopCorners {
+                self.addRoundedCorners(to: self.presentedView)
+            }
+        })
+    }
+
 }
 
 // MARK: - Public Methods
@@ -223,7 +243,7 @@ public extension PanModalPresentationController {
      Transition the PanModalPresentationController
      to the given presentation state
      */
-    public func transition(to state: PresentationState) {
+    func transition(to state: PresentationState) {
 
         guard presentable?.shouldTransition(to: state) == true
             else { return }
@@ -247,7 +267,7 @@ public extension PanModalPresentationController {
      This method pauses the content offset KVO, performs the content offset change
      and then resumes content offset observation.
      */
-    public func setContentOffset(offset: CGPoint) {
+    func setContentOffset(offset: CGPoint) {
 
         guard let scrollView = presentable?.panScrollable
             else { return }
@@ -278,7 +298,7 @@ public extension PanModalPresentationController {
      - Note: This should be called whenever any
      pan modal presentable value changes after the initial presentation
      */
-    public func setNeedsLayoutUpdate() {
+    func setNeedsLayoutUpdate() {
         configureViewLayout()
         adjustPresentedViewFrame()
         observe(scrollView: presentable?.panScrollable)
@@ -342,9 +362,13 @@ private extension PanModalPresentationController {
      Reduce height of presentedView so that it sits at the bottom of the screen
      */
     func adjustPresentedViewFrame() {
-        let frame = containerView?.frame ?? .zero
-        let size = CGSize(width: frame.size.width, height: frame.height - anchoredYPosition)
-        presentedViewController.view.frame = CGRect(origin: .zero, size: size)
+
+        guard let frame = containerView?.frame
+            else { return }
+
+        let adjustedSize = CGSize(width: frame.size.width, height: frame.size.height - anchoredYPosition)
+        panContainerView.frame.size = frame.size
+        presentedViewController.view.frame = CGRect(origin: .zero, size: adjustedSize)
     }
 
     /**
@@ -798,11 +822,11 @@ extension PanModalPresentationController: UIGestureRecognizerDelegate {
     }
 
     /**
-     Allow simultaneous gesture recognizers only when the other gesture recognizer
-     is a pan gesture recognizer
+     Allow simultaneous gesture recognizers only when the other gesture recognizer's view
+     is the pan scrollable view
      */
     public func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
-        return otherGestureRecognizer.isKind(of: UIPanGestureRecognizer.self)
+        return otherGestureRecognizer.view == presentable?.panScrollable
     }
 }
 

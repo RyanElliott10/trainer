@@ -61,7 +61,7 @@ extension UIView {
         self.layer.addSublayer(border)
     }
     
-    func addBottomBorder(withColor color: UIColor, andHeight height: CGFloat, atY yPosition: inout CGFloat = 0) {
+    func addBottomBorder(withColor color: UIColor, andHeight height: CGFloat, atY yPosition: inout CGFloat) {
         if yPosition == 0 {
             yPosition = self.frame.size.height
         }

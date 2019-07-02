@@ -9,6 +9,7 @@
 import UIKit
 
 import AMScrollingNavbar
+import FloatingPanel
 
 protocol HomeViewControllerDelegate {
     func push(viewController controller: UIViewController)
@@ -22,6 +23,7 @@ class HomeViewController: UIViewController, UIGestureRecognizerDelegate {
     private let cellReuseID = "cellID"
     private let storyReuseID = "storyID"
     private let postBottomSheetVC = PostBottomSheetViewController()
+    private let floatingPanelController = FloatingPanelController()
     
     let collectionView: UICollectionView = {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
@@ -54,14 +56,11 @@ class HomeViewController: UIViewController, UIGestureRecognizerDelegate {
     }
 
     func addBottomSheetView() {
-        addChild(postBottomSheetVC)
-        view.addSubview(postBottomSheetVC.view)
-        postBottomSheetVC.didMove(toParent: self)
-        
-        let yOrig = tabBarController?.tabBar.frame.height ?? 0
-        let height = view.frame.height
-        let width = view.frame.width
-        postBottomSheetVC.view.frame = CGRect(x: 0, y: view.frame.height - (yOrig + 60), width: width, height: height)
+        floatingPanelController.delegate = self
+        floatingPanelController.surfaceView.cornerRadius = 12
+        let contentVC = DetailedPostViewController()
+        floatingPanelController.set(contentViewController: contentVC)
+        floatingPanelController.addPanel(toParent: self)
     }
     
     // MARK: - Configuration
@@ -133,7 +132,7 @@ class HomeViewController: UIViewController, UIGestureRecognizerDelegate {
     
     func presentPostVC() {
         UIView.animate(withDuration: 0.4, delay: 0.0, usingSpringWithDamping: 0.75, initialSpringVelocity: 0, options: [.allowUserInteraction], animations: {
-            self.postBottomSheetVC.view.frame = CGRect(x: 0, y: self.postBottomSheetVC.fullViewTopInset, width: self.postBottomSheetVC.view.frame.width, height: self.postBottomSheetVC.view.frame.height)
+//            self.postBottomSheetVC.view.frame = CGRect(x: 0, y: self.postBottomSheetVC.fullViewTopInset, width: self.postBottomSheetVC.view.frame.width, height: self.postBottomSheetVC.view.frame.height)
         }, completion: nil)
     }
     
@@ -244,6 +243,31 @@ extension HomeViewController: HomeViewControllerDelegate {
         controller.modalTransitionStyle = .crossDissolve
         navigationController?.view.layer.add(transition, forKey: kCATransition)
         tabBarController?.present(controller, animated: true)
+    }
+    
+}
+
+extension HomeViewController: FloatingPanelControllerDelegate {
+    
+    func floatingPanel(_ vc: FloatingPanelController, layoutFor newCollection: UITraitCollection) -> FloatingPanelLayout? {
+        return HomeScreenFloatingPanelLayout()
+    }
+    
+}
+
+class HomeScreenFloatingPanelLayout: FloatingPanelLayout {
+    
+    var initialPosition: FloatingPanelPosition {
+        return .tip
+    }
+    
+    func insetFor(position: FloatingPanelPosition) -> CGFloat? {
+        switch position {
+        case .full: return 16.0  // A top inset from safe area
+        case .half: return 216.0 // A bottom inset from the safe area
+        case .tip: return 44.0   // A bottom inset from the safe area
+        default: return nil      // Or `case .hidden: return nil`
+        }
     }
     
 }

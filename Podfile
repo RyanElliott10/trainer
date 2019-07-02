@@ -7,5 +7,6 @@ target 'Trainer' do
   pod 'AMScrollingNavbar'
   pod 'SVProgressHUD'
   pod 'PanModal'
+  pod 'FloatingPanel'
 
 end
