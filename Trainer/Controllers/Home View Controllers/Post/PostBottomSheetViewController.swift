@@ -24,11 +24,13 @@ class PostBottomSheetViewController: UIViewController {
         return label
     }()
     
-    private let textView: UITextView = {
+    let textView: UITextView = {
         let view = UITextView()
         view.translatesAutoresizingMaskIntoConstraints = false
         view.font = UIFont.systemFont(ofSize: 18)
-        view.backgroundColor = .yellow
+        view.layer.borderWidth = 0.5
+        view.layer.borderColor = UIColor.lightGray.cgColor
+        view.layer.cornerRadius = 12
         
         return view
     }()
@@ -37,6 +39,12 @@ class PostBottomSheetViewController: UIViewController {
         super.viewDidLoad()
 
         configureSubViews()
+        configureGestureRecognizers()
+    }
+    
+    private func configureGestureRecognizers() {
+//        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissTextViewKeyboard))
+//        view.addGestureRecognizer(tapGesture)
     }
     
     private func configureSubViews() {
@@ -53,6 +61,36 @@ class PostBottomSheetViewController: UIViewController {
         view.addSubview(textView)
         textView.delegate = self
         textView.anchor(top: createPostLabel.bottomAnchor, leading: view.safeAreaLayoutGuide.leadingAnchor, bottom: view.safeAreaLayoutGuide.bottomAnchor, trailing: view.safeAreaLayoutGuide.trailingAnchor, paddingTop: 8, paddingLeft: 8, paddingBottom: 8, paddingRight: 8, width: 0, height: 0)
+    }
+    
+    // MARK: - Selectors
+    
+    @objc private func dismissTextViewKeyboard() {
+        print("dismissTextViewKeyboard")
+        if textView.isFirstResponder {
+            textView.resignFirstResponder()
+        }
+        
+        let nextPosition = getNextFloatingPanelPosition()
+        print(nextPosition)
+        showKeyboardIfNeeded(forPosition: nextPosition)
+        controllerDelegate?.move(to: nextPosition, animated: true)
+    }
+    
+    private func getNextFloatingPanelPosition() -> FloatingPanelPosition {
+        if let rawValue = controllerDelegate?.position.rawValue {
+            if let position = FloatingPanelPosition(rawValue: rawValue - 1) {
+                print(position)
+                return position
+            }
+        }
+        return .full
+    }
+    
+    private func showKeyboardIfNeeded(forPosition position: FloatingPanelPosition) {
+        if position == .full {
+            textView.becomeFirstResponder()
+        }
     }
 
 }

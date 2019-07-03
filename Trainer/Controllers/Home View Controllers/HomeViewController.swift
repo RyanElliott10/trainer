@@ -23,7 +23,7 @@ class HomeViewController: UIViewController, UIGestureRecognizerDelegate {
     private let cellReuseID = "cellID"
     private let storyReuseID = "storyID"
     private let floatingPanelController = FloatingPanelController()
-    private let postBottomSheet = PostBottomSheetViewController()
+    private let postBottomSheetController = PostBottomSheetViewController()
     
     let collectionView: UICollectionView = {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
@@ -48,18 +48,32 @@ class HomeViewController: UIViewController, UIGestureRecognizerDelegate {
         super.viewDidLoad()
         
         configureViews()
+        configureStatusBar()
         addBottomSheetView()
-        
+    }
+    
+    private func configureStatusBar() {
         let statusBarView = UIView(frame: UIApplication.shared.statusBarFrame)
         statusBarView.backgroundColor = Constants.Global.BACKGROUND_COLOR
         view.addSubview(statusBarView)
     }
 
-    func addBottomSheetView() {
+    private func addBottomSheetView() {
+        configureFloatingPanel()
+    }
+    
+    private func configureFloatingPanel() {
+        let surfaceTapGesture = UITapGestureRecognizer(target: self, action: #selector(handleSurface(tapGesture:)))
+        floatingPanelController.surfaceView.addGestureRecognizer(surfaceTapGesture)
+        let backdropTapGesture = UITapGestureRecognizer(target: self, action: #selector(handleBackdrop(tapGesture:)))
+        floatingPanelController.backdropView.addGestureRecognizer(backdropTapGesture)
+        
         floatingPanelController.delegate = self
-        postBottomSheet.controllerDelegate = floatingPanelController
+        postBottomSheetController.controllerDelegate = floatingPanelController
+        floatingPanelController.view.topShadow()
+        
         floatingPanelController.surfaceView.cornerRadius = 12
-        floatingPanelController.set(contentViewController: postBottomSheet)
+        floatingPanelController.set(contentViewController: postBottomSheetController)
         floatingPanelController.addPanel(toParent: self)
     }
     
@@ -105,7 +119,7 @@ class HomeViewController: UIViewController, UIGestureRecognizerDelegate {
         
         collectionView.contentInset = UIEdgeInsets(top: 8, left: 12, bottom: 0, right: 12)
         
-        collectionView.anchor(top: view.topAnchor, leading: view.safeAreaLayoutGuide.leadingAnchor, bottom: view.bottomAnchor, trailing: view.safeAreaLayoutGuide.trailingAnchor, paddingTop: 0, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 0, height: 0)
+        collectionView.anchor(top: view.safeAreaLayoutGuide.topAnchor, leading: view.safeAreaLayoutGuide.leadingAnchor, bottom: view.bottomAnchor, trailing: view.safeAreaLayoutGuide.trailingAnchor, paddingTop: 0, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 0, height: 0)
         
         configureRefreshControl()
     }
@@ -130,10 +144,39 @@ class HomeViewController: UIViewController, UIGestureRecognizerDelegate {
         collectionView.refreshControl?.endRefreshing()
     }
     
+    @objc private func handleSurface(tapGesture gesture: UITapGestureRecognizer) {
+        print("handleSurface")
+//        if postBottomSheetController.textView.isFirstResponder {
+        if floatingPanelController.position == .full {
+            postBottomSheetController.textView.resignFirstResponder()
+        } else {
+            let nextPosition = getNextFloatingPanelPosition()
+            showKeyboardIfNeeded(forPosition: nextPosition)
+            floatingPanelController.move(to: nextPosition, animated: true)
+        }
+    }
+    
+    @objc private func handleBackdrop(tapGesture gesture: UITapGestureRecognizer) {
+        floatingPanelController.move(to: .tip, animated: true)
+    }
+    
     func presentPostVC() {
         UIView.animate(withDuration: 0.4, delay: 0.0, usingSpringWithDamping: 0.75, initialSpringVelocity: 0, options: [.allowUserInteraction], animations: {
             // TODO: - Bring up the floatingPanelView
         }, completion: nil)
+    }
+    
+    private func getNextFloatingPanelPosition() -> FloatingPanelPosition {
+        if let position = FloatingPanelPosition(rawValue: floatingPanelController.position.rawValue - 1) {
+            return position
+        }
+        return .full
+    }
+    
+    private func showKeyboardIfNeeded(forPosition position: FloatingPanelPosition) {
+        if position == .full {
+            postBottomSheetController.textView.becomeFirstResponder()
+        }
     }
     
 }
@@ -251,6 +294,12 @@ extension HomeViewController: FloatingPanelControllerDelegate {
     
     func floatingPanel(_ vc: FloatingPanelController, layoutFor newCollection: UITraitCollection) -> FloatingPanelLayout? {
         return HomeScreenFloatingPanelLayout()
+    }
+    
+    func floatingPanelDidChangePosition(_ vc: FloatingPanelController) {
+        if vc.position == .half {
+            postBottomSheetController.textView.resignFirstResponder()
+        }
     }
     
 }
