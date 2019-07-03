@@ -23,6 +23,7 @@ class HomeViewController: UIViewController, UIGestureRecognizerDelegate {
     private let cellReuseID = "cellID"
     private let storyReuseID = "storyID"
     private let floatingPanelController = FloatingPanelController()
+    private let postBottomSheet = PostBottomSheetViewController()
     
     let collectionView: UICollectionView = {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
@@ -56,9 +57,9 @@ class HomeViewController: UIViewController, UIGestureRecognizerDelegate {
 
     func addBottomSheetView() {
         floatingPanelController.delegate = self
+        postBottomSheet.controllerDelegate = floatingPanelController
         floatingPanelController.surfaceView.cornerRadius = 12
-        let contentVC = DetailedPostViewController()
-        floatingPanelController.set(contentViewController: contentVC)
+        floatingPanelController.set(contentViewController: postBottomSheet)
         floatingPanelController.addPanel(toParent: self)
     }
     
