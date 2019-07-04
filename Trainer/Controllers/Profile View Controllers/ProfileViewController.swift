@@ -116,7 +116,7 @@ class ProfileViewController: UIViewController {
     private func configureUserInfoView() {
         view.addSubview(profileNameView)
         
-        profileNameView.centerXAnchor.constraint(equalTo: view.centerXAnchor)
+        profileNameView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         profileNameView.anchor(top: profileImageView.bottomAnchor, leading: view.leadingAnchor, bottom: nil, trailing: view.trailingAnchor, paddingTop: 12, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 0, height: 40)
     }
 
