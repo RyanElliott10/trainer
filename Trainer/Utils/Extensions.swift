@@ -104,7 +104,7 @@ extension UIColor {
         return UIColor(red: red / 255, green: green / 255, blue: blue / 255, alpha: 1)
     }
     
-    static let AppBlue = UIColor.rgb(red: 75, green: 145, blue: 255)
+    static let AppBlue = UIColor.rgb(red: 64, green: 125, blue: 255)
     
 }
 

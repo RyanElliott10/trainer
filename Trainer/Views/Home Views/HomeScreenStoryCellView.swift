@@ -27,6 +27,7 @@ class HomeScreenStoryCellView: UICollectionViewCell {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = "Stories"
         label.font = UIFont.systemFont(ofSize: 32, weight: .bold)
+        label.textColor = .black
         label.sizeToFit()
         
         return label
@@ -36,6 +37,7 @@ class HomeScreenStoryCellView: UICollectionViewCell {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = "Explore the stories shared by your friends and trainers"
+        label.textColor = .black
         label.font = UIFont.systemFont(ofSize: 14)
         label.numberOfLines = 0
         
@@ -72,7 +74,7 @@ class HomeScreenStoryCellView: UICollectionViewCell {
     private func addSubviews() {
         contentView.addSubview(storiesLabel)
         contentView.addSubview(descriptionLabel)
-//        contentView.addSubview(imagePreviewView)
+        //        contentView.addSubview(imagePreviewView)
         contentView.addSubview(collectionView)
     }
     

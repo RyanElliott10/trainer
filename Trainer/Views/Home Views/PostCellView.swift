@@ -37,6 +37,7 @@ class PostCellView: UICollectionViewCell {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.boldSystemFont(ofSize: 16)
+        label.textColor = .black
         
         return label
     }()
@@ -47,6 +48,7 @@ class PostCellView: UICollectionViewCell {
         label.numberOfLines = 0
         label.font = label.font.withSize(14)
         label.contentHuggingPriority(for: .horizontal)
+        label.textColor = .black
         
         return label
     }()
