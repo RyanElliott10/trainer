@@ -145,8 +145,6 @@ class HomeViewController: UIViewController, UIGestureRecognizerDelegate {
     }
     
     @objc private func handleSurface(tapGesture gesture: UITapGestureRecognizer) {
-        print("handleSurface")
-//        if postBottomSheetController.textView.isFirstResponder {
         if floatingPanelController.position == .full {
             postBottomSheetController.textView.resignFirstResponder()
         } else {
