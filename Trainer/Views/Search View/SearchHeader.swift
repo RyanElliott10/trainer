@@ -64,15 +64,13 @@ class SearchHeader : UIView {
     }
     
     private func createGradientLayer() {
-        let startColor = UIColor.rgb(red: 126, green: 164, blue: 245).cgColor
-        let endColor = UIColor.AppBlue.cgColor
         let gradientLayer = CAGradientLayer()
         gradientLayer.frame = bounds
-        gradientLayer.colors = [startColor, endColor]
-        gradientLayer.startPoint = CGPoint(x: 0.0, y: 1.0)
-        gradientLayer.endPoint = CGPoint(x: 1.0, y: 1.0)
-        
-        layer.addSublayer(gradientLayer)
+        gradientLayer.colors = [UIColor.appPrimaryColor.cgColor, UIColor.appSecondaryColor.cgColor]
+        gradientLayer.startPoint = CGPoint(x: -1.0, y: 2.0)
+        gradientLayer.endPoint = CGPoint(x: 2.0, y: 1.0)
+        gradientLayer.locations = [0.0, 1.0]
+        layer.insertSublayer(gradientLayer, at: 0)
     }
     
     private func configureSearchBar() {

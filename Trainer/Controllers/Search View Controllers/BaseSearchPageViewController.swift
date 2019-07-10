@@ -8,7 +8,7 @@
 
 import UIKit
 
-class BaseSearchPageViewController : UIViewController {
+class BaseSearchPageViewController: UIViewController {
     
     // MARK: - Properties
     

@@ -8,5 +8,6 @@ target 'Trainer' do
   pod 'SVProgressHUD'
   pod 'PanModal'
   pod 'FloatingPanel'
+  pod 'IQKeyboardManagerSwift'
 
 end

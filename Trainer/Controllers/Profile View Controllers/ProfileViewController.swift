@@ -12,7 +12,7 @@ class ProfileViewController: UIViewController {
     
     let profileHeaderView: UIView = {
         let view = UIView()
-        view.backgroundColor = .AppBlue
+        view.backgroundColor = .appPrimaryColor
         
         return view
     }()

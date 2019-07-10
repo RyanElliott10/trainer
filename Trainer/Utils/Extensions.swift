@@ -22,6 +22,15 @@ extension UIViewController {
     
 }
 
+//extension UITextView {
+//
+//    open override func becomeFirstResponder() -> Bool {
+//        let retValue = super.becomeFirstResponder()
+//        return retValue
+//    }
+//
+//}
+
 extension UIView {
     
     func anchor(top: NSLayoutYAxisAnchor?, leading: NSLayoutXAxisAnchor?, bottom: NSLayoutYAxisAnchor?, trailing: NSLayoutXAxisAnchor?, paddingTop: CGFloat, paddingLeft: CGFloat, paddingBottom: CGFloat, paddingRight: CGFloat, width: CGFloat, height: CGFloat) {
@@ -104,7 +113,9 @@ extension UIColor {
         return UIColor(red: red / 255, green: green / 255, blue: blue / 255, alpha: 1)
     }
     
-    static let AppBlue = UIColor.rgb(red: 64, green: 125, blue: 255)
+    static let appPrimaryColor = UIColor.rgb(red: 65, green: 125, blue: 255)
+    
+    static let appSecondaryColor = UIColor.rgb(red: 110, green: 200, blue: 180)
     
 }
 

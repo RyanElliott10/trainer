@@ -47,9 +47,27 @@ class HomeViewController: UIViewController, UIGestureRecognizerDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+//        if authenticateUserAndConfigureView() {
+//            return
+//        }
+        authenticateUserAndConfigureView()
         configureViews()
         configureStatusBar()
         addBottomSheetView()
+    }
+    
+    private func authenticateUserAndConfigureView() -> Bool {
+        // This is where the Firebase check for a user will be
+        view.backgroundColor = .white
+        if true {
+            DispatchQueue.main.async {
+                let baseWelcomeViewController = BaseWelcomeViewController()
+                baseWelcomeViewController.homeControllerDelegate = self
+                self.present(baseWelcomeViewController, animated: true, completion: nil)
+            }
+            return true
+        }
+        return false
     }
     
     private func configureStatusBar() {
