@@ -122,6 +122,14 @@ extension SearchViewController : UIPageViewControllerDataSource, UIPageViewContr
         }
     }
     
+    func switchTo(_ page: SearchPage) {
+        switch page {
+        case .Trainers: pageViewController.setViewControllers(viewControllers[0], direction: .reverse, animated: true, completion: nil)
+        case .Gyms: pageViewController.setViewControllers(viewControllers[1], direction: .reverse, animated: true, completion: nil)
+        case .Workouts: pageViewController.setViewControllers(viewControllers[2], direction: .reverse, animated: true, completion: nil)
+        }
+    }
+    
 }
 
 extension SearchViewController {

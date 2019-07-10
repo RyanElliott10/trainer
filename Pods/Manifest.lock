@@ -1,12 +1,14 @@
 PODS:
   - AMScrollingNavbar (5.2.0)
   - FloatingPanel (1.6.1)
+  - IQKeyboardManagerSwift (6.4.0)
   - PanModal (1.2.4)
   - SVProgressHUD (2.2.5)
 
 DEPENDENCIES:
   - AMScrollingNavbar
   - FloatingPanel
+  - IQKeyboardManagerSwift
   - PanModal
   - SVProgressHUD
 
@@ -14,15 +16,17 @@ SPEC REPOS:
   https://github.com/cocoapods/specs.git:
     - AMScrollingNavbar
     - FloatingPanel
+    - IQKeyboardManagerSwift
     - PanModal
     - SVProgressHUD
 
 SPEC CHECKSUMS:
   AMScrollingNavbar: 9df3652d6757f1a24646d8e90cb458591d8b1a6a
   FloatingPanel: 46f000f80eddffd7c27acdb48b813eb1b4ba7d79
+  IQKeyboardManagerSwift: ed9b04ee0e3067ffba543283462d619f944b05e5
   PanModal: 275f6d4d07565ddf4ed16d7be5d9cd275682d80d
   SVProgressHUD: 1428aafac632c1f86f62aa4243ec12008d7a51d6
 
-PODFILE CHECKSUM: 54dbc0a199c80c895645581e3fd01bcd6579af69
+PODFILE CHECKSUM: 720dc3223c1bca188704daaa1bc32cf31cf4bcb1
 
 COCOAPODS: 1.7.3
