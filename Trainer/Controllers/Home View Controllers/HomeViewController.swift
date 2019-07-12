@@ -27,8 +27,6 @@ class HomeViewController: UIViewController, UIGestureRecognizerDelegate {
     
     let collectionView: UICollectionView = {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
-        collectionView.translatesAutoresizingMaskIntoConstraints = false
-        collectionView.showsVerticalScrollIndicator = false
         
         return collectionView
     }()
@@ -39,8 +37,16 @@ class HomeViewController: UIViewController, UIGestureRecognizerDelegate {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        if let navigationController = self.navigationController as? ScrollingNavigationController {
-            navigationController.followScrollView(collectionView, delay: 50.0)
+        if let navigationController = navigationController as? ScrollingNavigationController {
+            navigationController.followScrollView(collectionView, delay: 0.0)
+        }
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        
+        if let navigationController = navigationController as? ScrollingNavigationController {
+            navigationController.stopFollowingScrollView()
         }
     }
     
@@ -50,6 +56,13 @@ class HomeViewController: UIViewController, UIGestureRecognizerDelegate {
         configureViews()
         configureStatusBar()
         addBottomSheetView()
+    }
+    
+    func scrollViewShouldScrollToTop(_ scrollView: UIScrollView) -> Bool {
+        if let navigationController = navigationController as? ScrollingNavigationController {
+            navigationController.showNavbar(animated: true)
+        }
+        return true
     }
     
     private func configureStatusBar() {
@@ -106,7 +119,7 @@ class HomeViewController: UIViewController, UIGestureRecognizerDelegate {
     
     private func configureCollectionView() {
         if let flowLayout = collectionView.collectionViewLayout as? UICollectionViewFlowLayout {
-            flowLayout.estimatedItemSize = CGSize(width: view.frame.width - 24, height: 1)
+            flowLayout.estimatedItemSize = CGSize(width: view.frame.width - 24, height: 300)
         }
         
         collectionView.register(HomeScreenPostCellView.self, forCellWithReuseIdentifier: cellReuseID)
@@ -119,7 +132,7 @@ class HomeViewController: UIViewController, UIGestureRecognizerDelegate {
         
         collectionView.contentInset = UIEdgeInsets(top: 8, left: 12, bottom: 0, right: 12)
         
-        collectionView.anchor(top: view.safeAreaLayoutGuide.topAnchor, leading: view.safeAreaLayoutGuide.leadingAnchor, bottom: view.bottomAnchor, trailing: view.safeAreaLayoutGuide.trailingAnchor, paddingTop: 0, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 0, height: 0)
+        collectionView.anchor(top: view.topAnchor, leading: view.safeAreaLayoutGuide.leadingAnchor, bottom: view.bottomAnchor, trailing: view.safeAreaLayoutGuide.trailingAnchor, paddingTop: 0, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 0, height: 0)
         
         configureRefreshControl()
     }

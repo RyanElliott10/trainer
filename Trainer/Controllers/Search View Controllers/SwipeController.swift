@@ -6,12 +6,16 @@
 //  Copyright © 2019 Ryan Elliott. All rights reserved.
 //
 
+/**
+ CURRENTLY UNUSED
+ */
+
 import UIKit
 
-class SwipeController : UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
+class SwipeController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
     
     private let cellID = "cellID"
-    private let NUM_PAGES: CGFloat = 3
+    private let NUM_PAGES: CGFloat = 2
     private let searchController = UISearchController(searchResultsController: nil)
     
     private let collectionView: UICollectionView = {

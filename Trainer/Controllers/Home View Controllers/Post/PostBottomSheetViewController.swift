@@ -66,13 +66,11 @@ class PostBottomSheetViewController: UIViewController {
     // MARK: - Selectors
     
     @objc private func dismissTextViewKeyboard() {
-        print("dismissTextViewKeyboard")
         if textView.isFirstResponder {
             textView.resignFirstResponder()
         }
         
         let nextPosition = getNextFloatingPanelPosition()
-        print(nextPosition)
         showKeyboardIfNeeded(forPosition: nextPosition)
         controllerDelegate?.move(to: nextPosition, animated: true)
     }
@@ -80,7 +78,6 @@ class PostBottomSheetViewController: UIViewController {
     private func getNextFloatingPanelPosition() -> FloatingPanelPosition {
         if let rawValue = controllerDelegate?.position.rawValue {
             if let position = FloatingPanelPosition(rawValue: rawValue - 1) {
-                print(position)
                 return position
             }
         }

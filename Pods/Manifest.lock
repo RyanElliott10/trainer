@@ -1,11 +1,15 @@
 PODS:
   - AMScrollingNavbar (5.2.0)
+  - Charts (3.3.0):
+    - Charts/Core (= 3.3.0)
+  - Charts/Core (3.3.0)
   - FloatingPanel (1.6.1)
   - PanModal (1.2.4)
   - SVProgressHUD (2.2.5)
 
 DEPENDENCIES:
   - AMScrollingNavbar
+  - Charts
   - FloatingPanel
   - PanModal
   - SVProgressHUD
@@ -13,16 +17,18 @@ DEPENDENCIES:
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
     - AMScrollingNavbar
+    - Charts
     - FloatingPanel
     - PanModal
     - SVProgressHUD
 
 SPEC CHECKSUMS:
   AMScrollingNavbar: 9df3652d6757f1a24646d8e90cb458591d8b1a6a
+  Charts: e0dd4cd8f257bccf98407b58183ddca8e8d5b578
   FloatingPanel: 46f000f80eddffd7c27acdb48b813eb1b4ba7d79
   PanModal: 275f6d4d07565ddf4ed16d7be5d9cd275682d80d
   SVProgressHUD: 1428aafac632c1f86f62aa4243ec12008d7a51d6
 
-PODFILE CHECKSUM: 54dbc0a199c80c895645581e3fd01bcd6579af69
+PODFILE CHECKSUM: 0ffddbeb5f51d7765d88216c3a07916976275077
 
-COCOAPODS: 1.7.3
+COCOAPODS: 1.7.4

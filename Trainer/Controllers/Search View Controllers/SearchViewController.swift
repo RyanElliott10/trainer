@@ -8,10 +8,10 @@
 
 import UIKit
 
-class SearchViewController : UIViewController {
+class SearchViewController: UIViewController {
     
     private let cellID = "cellID"
-    private let NUM_PAGES: CGFloat = 3
+    private let NUM_PAGES: CGFloat = 2
     private let HEADER_HEIGHT: CGFloat = 135
     
     private let searchController = UISearchController(searchResultsController: nil)
@@ -71,7 +71,7 @@ class SearchViewController : UIViewController {
         
         viewControllers.append(vc1)
         viewControllers.append(vc2)
-        viewControllers.append(vc3)
+//        viewControllers.append(vc3)
         
         addChild(pageViewController)
         view.addSubview(pageViewController.view)
@@ -83,7 +83,7 @@ class SearchViewController : UIViewController {
     
 }
 
-extension SearchViewController : UIPageViewControllerDataSource, UIPageViewControllerDelegate {
+extension SearchViewController: UIPageViewControllerDataSource, UIPageViewControllerDelegate {
     
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
         var index = indexOfViewController(viewController as! BaseSearchPageViewController)
@@ -96,7 +96,6 @@ extension SearchViewController : UIPageViewControllerDataSource, UIPageViewContr
     
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController? {
         var index = indexOfViewController(viewController as! BaseSearchPageViewController)
-        print(index)
         if index == viewControllers.count - 1 {
             return nil
         }
@@ -108,13 +107,10 @@ extension SearchViewController : UIPageViewControllerDataSource, UIPageViewContr
         if previousViewControllers.count > 0 {
             // We know it's not the first viewController
             if var newIndex = viewControllers.firstIndex(of: previousViewControllers[0] as! BaseSearchPageViewController) {
-                print("direction", direction)
                 newIndex += (direction > 0 ? 1 : -1)
-                print(newIndex)
                 
                 let oldFrame = headerView.highlightBar.frame
                 let strictFrame = (view.frame.width - (24 * 3)) / 3
-                print(strictFrame)
                 let x = strictFrame * CGFloat(newIndex)
                 let newFrame = CGRect(x: x, y: oldFrame.origin.y, width: oldFrame.width, height: oldFrame.height)
                 headerView.highlightBar.frame = newFrame
@@ -139,7 +135,7 @@ extension SearchViewController {
     
 }
 
-extension SearchViewController : UIScrollViewDelegate {
+extension SearchViewController: UIScrollViewDelegate {
     
     // Used to move the highlight bar
     func scrollViewDidScroll(_ scrollView: UIScrollView) {

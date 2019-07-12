@@ -8,7 +8,7 @@
 
 import UIKit
 
-class SearchHeaderCell : UICollectionViewCell {
+class SearchHeaderCell: UICollectionViewCell {
     
     var labelText = "N/a" {
         didSet {

@@ -9,7 +9,7 @@
 import UIKit
 import MapKit
 
-class GymsSearchViewController : BaseSearchPageViewController {
+class GymsSearchViewController: BaseSearchPageViewController {
     
     // MARK: - Init
     
@@ -71,7 +71,7 @@ class GymsSearchViewController : BaseSearchPageViewController {
 
 // MARK: - CollectionView
 
-extension GymsSearchViewController : UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+extension GymsSearchViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         //        return dataSource.count
@@ -91,6 +91,10 @@ extension GymsSearchViewController : UICollectionViewDelegate, UICollectionViewD
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         return UIEdgeInsets(top: 0, left: 12, bottom: 0, right: 12)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        print("didSelectItemAt")
     }
     
 }

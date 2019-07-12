@@ -8,10 +8,10 @@
 
 import UIKit
 
-class SwipeViewController : UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
+class SwipeViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
     
     private let cellID = "cellID"
-    private let NUM_PAGES: CGFloat = 3
+    private let NUM_PAGES: CGFloat = 2
     private let searchController = UISearchController(searchResultsController: nil)
     
     private let collectionView: UICollectionView = {

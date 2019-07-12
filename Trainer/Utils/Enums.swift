@@ -8,7 +8,7 @@
 
 import Foundation
 
-enum SearchTab : Int {
+enum SearchTab: Int {
     case Trainers = 0
     case Gyms = 1
     case Workouts = 2

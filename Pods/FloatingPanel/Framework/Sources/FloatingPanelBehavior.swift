@@ -81,7 +81,8 @@ public extension FloatingPanelBehavior {
         #if swift(>=4.2)
         return UIScrollView.DecelerationRate.normal.rawValue
         #else
-        return UIScrollViewDecelerationRateNormal
+//        return UIScrollView.DecelerationRate.isNormal
+        return 0
         #endif
     }
 

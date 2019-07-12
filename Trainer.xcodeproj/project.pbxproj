@@ -221,9 +221,9 @@
 			children = (
 				60248F2E226CCC6C00D15454 /* SearchViewController.swift */,
 				60F3CF1022CE7864006F6436 /* BaseSearchPageViewController.swift */,
-				60F3CF1222CE788F006F6436 /* GymsSearchViewController.swift */,
 				60F3CF1422CE78CC006F6436 /* SwipeController.swift */,
 				60F3CF1622CE78E7006F6436 /* SwipeViewController.swift */,
+				60F3CF1222CE788F006F6436 /* GymsSearchViewController.swift */,
 				60F3CF1822CE78FD006F6436 /* TrainersSearchViewController.swift */,
 				60F3CF1A22CE7910006F6436 /* WorkoutsSearchViewController.swift */,
 			);
@@ -331,6 +331,7 @@
 				TargetAttributes = {
 					60248F0E226CCAB700D15454 = {
 						CreatedOnToolsVersion = 10.2.1;
+						LastSwiftMigration = 1100;
 					};
 				};
 			};
@@ -586,7 +587,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.ryanelliott.Trainer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -606,7 +607,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.ryanelliott.Trainer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
