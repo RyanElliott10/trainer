@@ -119,8 +119,8 @@ class PostCellView: UICollectionViewCell {
     }
     
     override func preferredLayoutAttributesFitting(_ layoutAttributes: UICollectionViewLayoutAttributes) -> UICollectionViewLayoutAttributes {
-        setNeedsLayout()
-        layoutIfNeeded()
+        //        setNeedsLayout()
+        //        layoutIfNeeded()
         
         var frame = layoutAttributes.frame
         // TODO: Add true self-sizing capabilities

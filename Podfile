@@ -9,5 +9,6 @@ target 'Trainer' do
   pod 'PanModal'
   pod 'FloatingPanel'
   pod 'IQKeyboardManagerSwift'
+  pod 'Charts'
 
 end
