@@ -8,13 +8,14 @@
 
 import UIKit
 
-class SearchHeader : UIView {
+class SearchHeader: UIView {
     
     private let cellID = "cellID"
-    private let CELL_WIDTH: CGFloat = 100
+    private let HEADER_INSET: CGFloat = 24
+    private lazy var CELL_WIDTH: CGFloat = (frame.width - (HEADER_INSET * 2)) / CGFloat(CELL_COUNT)
+    //    private let labels = ["Trainers", "Gyms", "Workouts"]
+    private let labels = ["Trainers", "Gyms"]
     private lazy var CELL_COUNT = labels.count
-    private let labels = ["Trainers", "Gyms", "Workouts"]
-//    var swipeControllerDelegate: SearchViewController?
     
     private let searchBar: UISearchBar = {
         let searchBar = UISearchBar(frame: .zero)
@@ -64,13 +65,15 @@ class SearchHeader : UIView {
     }
     
     private func createGradientLayer() {
+        let startColor = UIColor.rgb(red: 126, green: 164, blue: 245).cgColor
+        let endColor = UIColor.appPrimaryColor.cgColor
         let gradientLayer = CAGradientLayer()
         gradientLayer.frame = bounds
-        gradientLayer.colors = [UIColor.appPrimaryColor.cgColor, UIColor.appSecondaryColor.cgColor]
-        gradientLayer.startPoint = CGPoint(x: -1.0, y: 2.0)
-        gradientLayer.endPoint = CGPoint(x: 2.0, y: 1.0)
-        gradientLayer.locations = [0.0, 1.0]
-        layer.insertSublayer(gradientLayer, at: 0)
+        gradientLayer.colors = [startColor, endColor]
+        gradientLayer.startPoint = CGPoint(x: 0.0, y: 1.0)
+        gradientLayer.endPoint = CGPoint(x: 1.0, y: 1.0)
+        
+        layer.addSublayer(gradientLayer)
     }
     
     private func configureSearchBar() {
@@ -83,12 +86,12 @@ class SearchHeader : UIView {
         addSubview(labelsView)
         labelsView.backgroundColor = .clear
         // TODO: - Add anchors to search bar rather than specifying the height
-        labelsView.anchor(top: nil, leading: safeAreaLayoutGuide.leadingAnchor, bottom: safeAreaLayoutGuide.bottomAnchor, trailing: safeAreaLayoutGuide.trailingAnchor, paddingTop: 0, paddingLeft: 24, paddingBottom: 3, paddingRight: 24, width: 0, height: 50)
+        labelsView.anchor(top: nil, leading: safeAreaLayoutGuide.leadingAnchor, bottom: safeAreaLayoutGuide.bottomAnchor, trailing: safeAreaLayoutGuide.trailingAnchor, paddingTop: 0, paddingLeft: HEADER_INSET, paddingBottom: 3, paddingRight: HEADER_INSET, width: 0, height: 50)
     }
     
     private func configureHighlightBar() {
         addSubview(highlightBar)
-        highlightBar.anchor(top: labelsView.bottomAnchor, leading: safeAreaLayoutGuide.leadingAnchor, bottom: safeAreaLayoutGuide.bottomAnchor, trailing: nil, paddingTop: 0, paddingLeft: 24, paddingBottom: 0, paddingRight: 24, width: 100, height: 0)
+        highlightBar.anchor(top: labelsView.bottomAnchor, leading: safeAreaLayoutGuide.leadingAnchor, bottom: safeAreaLayoutGuide.bottomAnchor, trailing: nil, paddingTop: 0, paddingLeft: HEADER_INSET, paddingBottom: 0, paddingRight: HEADER_INSET, width: 100, height: 0)
     }
     
 }
@@ -98,7 +101,6 @@ extension SearchHeader : UICollectionViewDelegate, UICollectionViewDataSource, U
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellID, for: indexPath) as? SearchHeaderCell {
             cell.labelText = labels[indexPath.row]
-            print(cell.labelText)
             return cell
         }
         return UICollectionViewCell()

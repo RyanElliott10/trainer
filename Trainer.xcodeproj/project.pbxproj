@@ -28,6 +28,8 @@
 		6051DF7522D00115002364E4 /* WelcomeAccountHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6051DF7422D00115002364E4 /* WelcomeAccountHeaderView.swift */; };
 		6051DF7722D001CD002364E4 /* WelcomeAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6051DF7622D001CD002364E4 /* WelcomeAccountViewController.swift */; };
 		6051DF7922D0108A002364E4 /* SelectAvatarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6051DF7822D0108A002364E4 /* SelectAvatarView.swift */; };
+		60A58CA422DABF0D00556651 /* SwipeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60A58CA322DABF0D00556651 /* SwipeController.swift */; };
+		60A58CA622DABF3400556651 /* SwipeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60A58CA522DABF3400556651 /* SwipeViewController.swift */; };
 		60BDD3E922923FEA00128352 /* ExpandablePostCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60BDD3E822923FEA00128352 /* ExpandablePostCell.swift */; };
 		60BDD3EE22925B5600128352 /* PostCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60BDD3ED22925B5600128352 /* PostCellView.swift */; };
 		60BDD3F022925C6600128352 /* HomeScreenPostCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60BDD3EF22925C6600128352 /* HomeScreenPostCellView.swift */; };
@@ -78,6 +80,8 @@
 		6051DF7422D00115002364E4 /* WelcomeAccountHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeAccountHeaderView.swift; sourceTree = "<group>"; };
 		6051DF7622D001CD002364E4 /* WelcomeAccountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeAccountViewController.swift; sourceTree = "<group>"; };
 		6051DF7822D0108A002364E4 /* SelectAvatarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectAvatarView.swift; sourceTree = "<group>"; };
+		60A58CA322DABF0D00556651 /* SwipeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipeController.swift; sourceTree = "<group>"; };
+		60A58CA522DABF3400556651 /* SwipeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipeViewController.swift; sourceTree = "<group>"; };
 		60BDD3E822923FEA00128352 /* ExpandablePostCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpandablePostCell.swift; sourceTree = "<group>"; };
 		60BDD3ED22925B5600128352 /* PostCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostCellView.swift; sourceTree = "<group>"; };
 		60BDD3EF22925C6600128352 /* HomeScreenPostCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeScreenPostCellView.swift; sourceTree = "<group>"; };
@@ -237,6 +241,8 @@
 				60F3CF1222CE788F006F6436 /* GymsSearchViewController.swift */,
 				60F3CF1822CE78FD006F6436 /* TrainersSearchViewController.swift */,
 				60F3CF1A22CE7910006F6436 /* WorkoutsSearchViewController.swift */,
+				60A58CA322DABF0D00556651 /* SwipeController.swift */,
+				60A58CA522DABF3400556651 /* SwipeViewController.swift */,
 			);
 			path = "Search View Controllers";
 			sourceTree = "<group>";
@@ -354,6 +360,7 @@
 				TargetAttributes = {
 					60248F0E226CCAB700D15454 = {
 						CreatedOnToolsVersion = 10.2.1;
+						LastSwiftMigration = 1100;
 					};
 				};
 			};
@@ -450,12 +457,14 @@
 				6051DF6B22CEA411002364E4 /* BaseWelcomeViewController.swift in Sources */,
 				6033D92F2278057800D74FAA /* User.swift in Sources */,
 				60F3CF2A22CE7A3B006F6436 /* SearchHeader.swift in Sources */,
+				60A58CA622DABF3400556651 /* SwipeViewController.swift in Sources */,
 				6033D9312278062D00D74FAA /* Comment.swift in Sources */,
 				60F9A8402298DC73007D34BD /* HomeScreenStoryCellView.swift in Sources */,
 				60248F2B226CCC0F00D15454 /* TabBarController.swift in Sources */,
 				6051DF7722D001CD002364E4 /* WelcomeAccountViewController.swift in Sources */,
 				60CA46A02289108B0082893E /* ButtonWithImage.swift in Sources */,
 				60CA4698228893C50082893E /* DetailedPostViewController.swift in Sources */,
+				60A58CA422DABF0D00556651 /* SwipeController.swift in Sources */,
 				60248F41226D391700D15454 /* Extensions.swift in Sources */,
 				60CA4696228794370082893E /* ScrollableImageView.swift in Sources */,
 				60F3CF2122CE7960006F6436 /* TrainersDataSource.swift in Sources */,
@@ -604,6 +613,7 @@
 			baseConfigurationReference = AEE660003C4A9DB2260E64AF /* Pods-Trainer.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 7C6T4SXM4J;
 				INFOPLIST_FILE = "$(SRCROOT)/Trainer/Supporting Files/Info.plist";
@@ -614,6 +624,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.ryanelliott.Trainer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -624,6 +635,7 @@
 			baseConfigurationReference = DA2034F8074CB63128A822F1 /* Pods-Trainer.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 7C6T4SXM4J;
 				INFOPLIST_FILE = "$(SRCROOT)/Trainer/Supporting Files/Info.plist";
