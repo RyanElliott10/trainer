@@ -21,6 +21,7 @@ class HomeViewController: UIViewController, UIGestureRecognizerDelegate {
     
     private let refreshControl = UIRefreshControl()
     private let cellReuseID = "cellID"
+    private let imageCellReuseID = "imageCellReuseID"
     private let storyReuseID = "storyID"
     private let floatingPanelController = FloatingPanelController()
     private let postBottomSheetController = PostBottomSheetViewController()
@@ -58,13 +59,6 @@ class HomeViewController: UIViewController, UIGestureRecognizerDelegate {
         addBottomSheetView()
     }
     
-    func scrollViewShouldScrollToTop(_ scrollView: UIScrollView) -> Bool {
-        if let navigationController = navigationController as? ScrollingNavigationController {
-            navigationController.showNavbar(animated: true)
-        }
-        return true
-    }
-    
     private func configureStatusBar() {
         let statusBarView = UIView(frame: UIApplication.shared.statusBarFrame)
         statusBarView.backgroundColor = Constants.Global.BACKGROUND_COLOR
@@ -76,8 +70,6 @@ class HomeViewController: UIViewController, UIGestureRecognizerDelegate {
     }
     
     private func configureFloatingPanel() {
-        let surfaceTapGesture = UITapGestureRecognizer(target: self, action: #selector(handleSurface(tapGesture:)))
-        floatingPanelController.surfaceView.addGestureRecognizer(surfaceTapGesture)
         let backdropTapGesture = UITapGestureRecognizer(target: self, action: #selector(handleBackdrop(tapGesture:)))
         floatingPanelController.backdropView.addGestureRecognizer(backdropTapGesture)
         
@@ -119,17 +111,18 @@ class HomeViewController: UIViewController, UIGestureRecognizerDelegate {
     
     private func configureCollectionView() {
         if let flowLayout = collectionView.collectionViewLayout as? UICollectionViewFlowLayout {
-            flowLayout.estimatedItemSize = CGSize(width: view.frame.width - 24, height: 300)
+            flowLayout.itemSize = UICollectionViewFlowLayout.automaticSize
+            flowLayout.estimatedItemSize = CGSize(width: UIScreen.main.bounds.size.width - 24, height: 2000)
         }
         
-        collectionView.register(HomeScreenPostCellView.self, forCellWithReuseIdentifier: cellReuseID)
+        collectionView.register(ModernPostCell.self, forCellWithReuseIdentifier: cellReuseID)
+        collectionView.register(ImageModernPostCell.self, forCellWithReuseIdentifier: imageCellReuseID)
         collectionView.register(HomeScreenStoryCellView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: storyReuseID)
         collectionView.dataSource = self
         collectionView.delegate = self
         
         collectionView.backgroundColor = .clear
         collectionView.alwaysBounceVertical = true
-        
         collectionView.contentInset = UIEdgeInsets(top: 8, left: 12, bottom: 0, right: 12)
         
         collectionView.anchor(top: view.topAnchor, leading: view.safeAreaLayoutGuide.leadingAnchor, bottom: view.bottomAnchor, trailing: view.safeAreaLayoutGuide.trailingAnchor, paddingTop: 0, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 0, height: 0)
@@ -145,7 +138,7 @@ class HomeViewController: UIViewController, UIGestureRecognizerDelegate {
     // MARK: - Selectors
     
     @objc func postOnPress() {
-        presentPostVC()
+        floatingPanelController.move(to: .full, animated: true)
     }
     
     @objc func navigationProfileImageOnPress() {
@@ -169,12 +162,6 @@ class HomeViewController: UIViewController, UIGestureRecognizerDelegate {
     
     @objc private func handleBackdrop(tapGesture gesture: UITapGestureRecognizer) {
         floatingPanelController.move(to: .tip, animated: true)
-    }
-    
-    func presentPostVC() {
-        UIView.animate(withDuration: 0.4, delay: 0.0, usingSpringWithDamping: 0.75, initialSpringVelocity: 0, options: [.allowUserInteraction], animations: {
-            // TODO: - Bring up the floatingPanelView
-        }, completion: nil)
     }
     
     private func getNextFloatingPanelPosition() -> FloatingPanelPosition {
@@ -201,10 +188,9 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDelegate
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellReuseID, for: indexPath) as? HomeScreenPostCellView {
-            let post = Post.generateDummyPosts()[indexPath.row]
-            cell.post = post
+        if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellReuseID, for: indexPath) as? ModernPostCell {
             cell.homeViewDelegate = self
+            cell.post = Post.generateDummyPosts()[indexPath.item]
             
             return cell
         }
@@ -218,7 +204,7 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDelegate
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let detailedPostViewController = DetailedPostViewController()
-        detailedPostViewController.post = Post.generateDummyPosts()[indexPath.row]
+        detailedPostViewController.post = Post.generateDummyPosts()[indexPath.item]
         
         navigationController?.pushViewController(detailedPostViewController, animated: true)
     }
@@ -234,7 +220,7 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDelegate
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         var bottomInsetHeight: CGFloat = 0
         if let height = tabBarController?.tabBar.frame.height {
-            bottomInsetHeight = height + 40
+            bottomInsetHeight = height
         }
         return UIEdgeInsets(top: 12, left: 0, bottom: bottomInsetHeight, right: 0)
     }

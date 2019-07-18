@@ -18,10 +18,14 @@ class Post {
     private var likers = [User]()
     private var comments = [Comment]()
     private var images = [UIImage]()
+    private var title = ""
+    private var date = ""
     
     init(json: [String: Any]) {
-        self.user = json["user"] as? User ?? User(json: ["Unspecified" : 0])
-        self.bodyText = json["bodyText"] as? String ?? ""
+        user = json["user"] as? User ?? User(json: ["Unspecified" : 0])
+        title = json["title"] as? String ?? ""
+        bodyText = json["bodyText"] as? String ?? ""
+        date = json["date"] as? String ?? ""
         if let likers = json["likers"] as? [User] {
             self.likers = likers
         }
@@ -37,54 +41,70 @@ class Post {
         let user = User.generateDummyUser()
         let json1 = [
             "user" : user,
-            "bodyText" : "Hello, this should have 1 image. 1",
+            "title" : "This is a Title",
+            "bodyText" : "0. Hello, this should have 1 image.",
+            "date" : "2m ago",
             "likers" : [user],
             "images" : [UIImage(named: "boxed-water-is-better-1464052-unsplash")]
             ] as JSON
         
         let json2 = [
             "user" : user,
-            "bodyText" : "This cell should have 6 images. I'll be adding more text to this to test the auto-sizing cell size. 2",
+            "title" : "This is a Title",
+            "bodyText" : "1. This cell should have 6 images. I'll be adding more text to this to test the auto-sizing cell size.",
+            "date" : "2m ago",
             "likers" : [user],
             "images" : [UIImage(named: "boxed-water-is-better-1464052-unsplash"), UIImage(named: "edgar-chaparro-669210-unsplash"), UIImage(named: "boxed-water-is-better-1464052-unsplash"), UIImage(named: "boxed-water-is-better-1464052-unsplash"), UIImage(named: "boxed-water-is-better-1464052-unsplash"), UIImage(named: "boxed-water-is-better-1464052-unsplash")]
             ] as JSON
         
         let json3 = [
             "user" : user,
-            "bodyText" : "This cell shouldn't have any images. 3",
+            "title" : "This is a Title",
+            "bodyText" : "2. This cell shouldn't have any images.",
+            "date" : "2m ago",
             "likers" : [user],
             ] as JSON
         
         let json4 = [
             "user" : user,
-            "bodyText" : "This cell shouldn't have any images. 4",
+            "title" : "This is a Title",
+            "bodyText" : "3. This cell shouldn't have any images.",
+            "date" : "2m ago",
             "likers" : [user],
             ] as JSON
         
         let json5 = [
             "user" : user,
-            "bodyText" : "This cell should have exactly 2 images. 5",
+            "title" : "This is a Title",
+            "bodyText" : "4. This cell should have exactly 2 images.",
+            "date" : "2m ago",
             "likers" : [user],
             "images" : [UIImage(named: "boxed-water-is-better-1464052-unsplash"), UIImage(named: "edgar-chaparro-669210-unsplash")]
             ] as JSON
         
         let json6 = [
             "user" : user,
-            "bodyText" : "This cell should have exactly 2 images. 6",
+            "title" : "This is a Title",
+            "bodyText" : "5. This cell should have exactly 2 images.",
+            "date" : "2m ago",
             "likers" : [user],
             "images" : [UIImage(named: "boxed-water-is-better-1464052-unsplash"), UIImage(named: "edgar-chaparro-669210-unsplash")]
             ] as JSON
         
         let json7 = [
             "user" : user,
-            "bodyText" : "This cell should have exactly 2 images. 7",
+            "title" : "This is a Title",
+            "bodyText" : "6. This cell should have exactly 2 images.",
+            "date" : "2m ago",
             "likers" : [user],
             "images" : [UIImage(named: "boxed-water-is-better-1464052-unsplash"), UIImage(named: "edgar-chaparro-669210-unsplash")]
             ] as JSON
         
         let json8 = [
             "user" : user,
-            "bodyText" : "This cell should have exactly 2 images. 8",
+            "title" : "This is a Title",
+            "bodyText" : "7. This cell should have exactly 3 images.",
+            "date" : "2m ago",
             "likers" : [user],
             "images" : [UIImage(named: "boxed-water-is-better-1464052-unsplash"), UIImage(named: "edgar-chaparro-669210-unsplash"), UIImage(named: "boxed-water-is-better-1464052-unsplash")]
             ] as JSON
@@ -93,27 +113,35 @@ class Post {
     }
     
     func getUser() -> User {
-        return self.user ?? User(json: ["Unspecified" : 0])
+        return user ?? User(json: ["Unspecified" : 0])
     }
     
     func getBodyText() -> String {
-        return self.bodyText ?? ""
+        return bodyText ?? ""
     }
     
     func getNumberOfLikes() -> Int {
-        return self.likers.count
+        return likers.count
     }
     
     func getNumberOfComments() -> Int {
-        return self.comments.count
+        return comments.count
     }
     
     func getNumberOfImages() -> Int {
-        return self.images.count;
+        return images.count;
     }
     
     func getImages() -> [UIImage] {
-        return self.images
+        return images
+    }
+    
+    func getTitle() -> String {
+        return title
+    }
+    
+    func getDate() -> String {
+        return date
     }
     
 }

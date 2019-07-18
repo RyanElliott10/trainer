@@ -24,6 +24,15 @@ class PostBottomSheetViewController: UIViewController {
         return label
     }()
     
+    private let xIcon: UIButton = {
+        let button = UIButton(type: .system)
+        button.setImage(#imageLiteral(resourceName: "x"), for: .normal)
+        button.contentMode = .scaleToFill
+        button.tintColor = .black
+        
+        return button
+    }()
+    
     let textView: UITextView = {
         let view = UITextView()
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -39,17 +48,18 @@ class PostBottomSheetViewController: UIViewController {
         super.viewDidLoad()
         
         configureSubViews()
-        configureGestureRecognizers()
-    }
-    
-    private func configureGestureRecognizers() {
-        //        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissTextViewKeyboard))
-        //        view.addGestureRecognizer(tapGesture)
     }
     
     private func configureSubViews() {
+        view.addSubview(xIcon)
+        
         configureCreatePostLabel()
         configureTextView()
+        
+        // X Icon
+        xIcon.anchor(top: nil, leading: nil, bottom: nil, trailing: view.trailingAnchor, paddingTop: 0, paddingLeft: 0, paddingBottom: 0, paddingRight: 16, width: 30, height: 30)
+        xIcon.centerYAnchor.constraint(equalTo: createPostLabel.centerYAnchor).isActive = true
+        xIcon.addTarget(self, action: #selector(dismissSheet), for: .touchUpInside)
     }
     
     private func configureCreatePostLabel() {
@@ -64,6 +74,11 @@ class PostBottomSheetViewController: UIViewController {
     }
     
     // MARK: - Selectors
+    
+    @objc private func dismissSheet() {
+        controllerDelegate?.move(to: .hidden, animated: true)
+        dismissTextViewKeyboard()
+    }
     
     @objc private func dismissTextViewKeyboard() {
         if textView.isFirstResponder {

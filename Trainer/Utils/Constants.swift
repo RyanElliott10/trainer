@@ -10,7 +10,7 @@ import UIKit
 
 struct GlobalConstants {
     
-    static let BACKGROUND_COLOR: UIColor = UIColor.rgb(red: 244, green: 244, blue: 244)
+    static let BACKGROUND_COLOR: UIColor = UIColor.rgb(red: 235, green: 235, blue: 235)
     
 }
 
@@ -42,7 +42,7 @@ struct CellConstants {
     
     static let IMAGES_COLLECTION_VIEW_HEIGHT: CGFloat = 200
     
-    static let PROFILE_IMAGE_VIEW_WIDTH: CGFloat = 45
+    static let PROFILE_IMAGE_VIEW_WIDTH: CGFloat = 35
     
     static let AUTO_SIZING_HEIGHT: CGFloat = 1
     
