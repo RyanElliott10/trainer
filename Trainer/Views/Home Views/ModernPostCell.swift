@@ -8,6 +8,8 @@
 
 import UIKit
 
+// New implementation: No collection view, just imagesView
+
 class ModernPostCell: UICollectionViewCell {
     
     var homeViewDelegate: HomeViewController?
@@ -19,8 +21,6 @@ class ModernPostCell: UICollectionViewCell {
             }
         }
     }
-    
-    private let modernPostCellImageId = "modernPostCellImageId"
     
     private let titleLabel: UILabel = {
         let label = UILabel()
@@ -43,12 +43,10 @@ class ModernPostCell: UICollectionViewCell {
         return label
     }()
     
-    private let imagesCollectionView: UICollectionView = {
-        let layout = UICollectionViewFlowLayout()
-        layout.scrollDirection = .horizontal
-        let collection = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        collection.backgroundColor = .black
-        return collection
+    private let imagesView: ModernPostCellImagesView = {
+        let view = ModernPostCellImagesView()
+        
+        return view
     }()
     
     private let divider: UIView = {
@@ -60,8 +58,6 @@ class ModernPostCell: UICollectionViewCell {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        
-        configureCollectionView()
     }
     
     required init?(coder: NSCoder) {
@@ -91,80 +87,17 @@ class ModernPostCell: UICollectionViewCell {
         bodyLabel.anchor(top: dateLabel.bottomAnchor, leading: titleLabel.leadingAnchor, bottom: nil, trailing: titleLabel.trailingAnchor, paddingTop: 8, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 0, height: 0)
         
         // Images
-        contentView.addSubview(imagesCollectionView)
-        imagesCollectionView.anchor(top: bodyLabel.bottomAnchor, leading: titleLabel.leadingAnchor, bottom: nil, trailing: titleLabel.trailingAnchor, paddingTop: 8, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 0, height: getImagesCollectionViewHeight())
+        imagesView.images = post?.getImages() ?? []
+        contentView.addSubview(imagesView)
+        imagesView.anchor(top: bodyLabel.bottomAnchor, leading: titleLabel.leadingAnchor, bottom: nil, trailing: titleLabel.trailingAnchor, paddingTop: 8, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 0, height: 1)
         
         // Divider
         contentView.addSubview(divider)
-        divider.anchor(top: imagesCollectionView.bottomAnchor, leading: contentView.leadingAnchor, bottom: contentView.bottomAnchor, trailing: contentView.trailingAnchor, paddingTop: 8, paddingLeft: 8, paddingBottom: 8, paddingRight: 8, width: 0, height: 2)
+        divider.anchor(top: imagesView.bottomAnchor, leading: contentView.leadingAnchor, bottom: contentView.bottomAnchor, trailing: contentView.trailingAnchor, paddingTop: 8, paddingLeft: 8, paddingBottom: 8, paddingRight: 8, width: 0, height: 2)
     }
     
     private func loadData(from dataSource: Post) {
         setupViews()
-    }
-    
-    func getImagesCollectionViewHeight() -> CGFloat {
-        var imagesCollectionViewHeight: CGFloat = 0
-        if let numberOfImages = post?.getNumberOfImages() {
-            imagesCollectionViewHeight = numberOfImages > 0 ? Constants.Cell.IMAGES_COLLECTION_VIEW_HEIGHT : 0.0
-        }
-        return imagesCollectionViewHeight
-    }
-    
-}
-
-extension ModernPostCell: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
-    
-    fileprivate func configureCollectionView() {
-        imagesCollectionView.delegate = self
-        imagesCollectionView.dataSource = self
-        
-        imagesCollectionView.register(ScrollableImageView.self, forCellWithReuseIdentifier: modernPostCellImageId)
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return post?.getNumberOfImages() ?? 0
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: modernPostCellImageId, for: indexPath) as? ScrollableImageView {
-            titleLabel.text = String(post?.getNumberOfImages() ?? 0)
-            if let image = post?.getImages()[indexPath.item] {
-                cell.image = image
-            }
-            return cell
-        }
-        return UICollectionViewCell()
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        if let numberOfImages = post?.getNumberOfImages() {
-            let maxHeight = imagesCollectionView.frame.height
-            switch numberOfImages {
-            case 1:
-                let maxWidth = imagesCollectionView.frame.width - 16
-                return CGSize(width: maxWidth, height: maxHeight)
-            case 2:
-                let maxWidth = imagesCollectionView.frame.width - 26
-                return CGSize(width: maxWidth / 2, height: maxHeight)
-            default:
-                let maxWidth = imagesCollectionView.frame.width - 20
-                return CGSize(width: maxWidth * 0.4, height: maxHeight)
-            }
-        } else {
-            return CGSize(width: imagesCollectionView.frame.width, height: imagesCollectionView.frame.height)
-        }
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        return UIEdgeInsets(top: 0, left: 8, bottom: 0, right: 8)
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let imagePreviewViewController = ImagePreviewViewController()
-        imagePreviewViewController.images = post!.getImages()
-        imagePreviewViewController.startingIndexPath = indexPath
-        homeViewDelegate?.push(viewController: imagePreviewViewController)
     }
     
 }
