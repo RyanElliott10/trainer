@@ -13,11 +13,7 @@ extension HomeViewController {
     func configureNavBarItems() {
         configureLeftNavBarItem()
         configureRightNavBarItem()
-        navigationItem.title = "Home"
-        navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
-        navigationController?.navigationBar.shadowImage = UIImage()
-        navigationController?.navigationBar.isTranslucent = true
-        navigationController?.navigationBar.barTintColor = Constants.Global.BACKGROUND_COLOR
+        navigationItem.title = "Timeline"
     }
     
     private func configureLeftNavBarItem() {

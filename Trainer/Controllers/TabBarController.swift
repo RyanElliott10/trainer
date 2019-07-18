@@ -25,7 +25,8 @@ class TabBarController: UITabBarController {
         UITabBar.appearance().layer.borderWidth = 0
         UITabBar.appearance().clipsToBounds = true
         
-        let homeViewController = ScrollingNavigationController(rootViewController: HomeViewController())
+//        let homeViewController = ScrollingNavigationController(rootViewController: HomeViewController())
+        let homeViewController = UINavigationController(rootViewController: HomeViewController())
         homeViewController.tabBarItem.image = #imageLiteral(resourceName: "home")
         
         let searchViewController = SearchViewController()

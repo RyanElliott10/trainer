@@ -22,17 +22,19 @@
 		6033D92D2278052F00D74FAA /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6033D92C2278052F00D74FAA /* Post.swift */; };
 		6033D92F2278057800D74FAA /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6033D92E2278057800D74FAA /* User.swift */; };
 		6033D9312278062D00D74FAA /* Comment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6033D9302278062D00D74FAA /* Comment.swift */; };
+		603D508D22DF65600023E856 /* ModernPostCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 603D508C22DF65600023E856 /* ModernPostCell.swift */; };
+		603D508F22DF658A0023E856 /* ImageModernPostCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 603D508E22DF658A0023E856 /* ImageModernPostCell.swift */; };
 		6051DF6B22CEA411002364E4 /* BaseWelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6051DF6A22CEA411002364E4 /* BaseWelcomeViewController.swift */; };
 		6051DF7122D00012002364E4 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6051DF7022D00012002364E4 /* LoginViewController.swift */; };
 		6051DF7322D0001B002364E4 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6051DF7222D0001B002364E4 /* SignUpViewController.swift */; };
 		6051DF7522D00115002364E4 /* WelcomeAccountHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6051DF7422D00115002364E4 /* WelcomeAccountHeaderView.swift */; };
 		6051DF7722D001CD002364E4 /* WelcomeAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6051DF7622D001CD002364E4 /* WelcomeAccountViewController.swift */; };
 		6051DF7922D0108A002364E4 /* SelectAvatarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6051DF7822D0108A002364E4 /* SelectAvatarView.swift */; };
-		60A58CA422DABF0D00556651 /* SwipeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60A58CA322DABF0D00556651 /* SwipeController.swift */; };
 		60A58CA622DABF3400556651 /* SwipeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60A58CA522DABF3400556651 /* SwipeViewController.swift */; };
 		60BDD3E922923FEA00128352 /* ExpandablePostCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60BDD3E822923FEA00128352 /* ExpandablePostCell.swift */; };
 		60BDD3EE22925B5600128352 /* PostCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60BDD3ED22925B5600128352 /* PostCellView.swift */; };
 		60BDD3F022925C6600128352 /* HomeScreenPostCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60BDD3EF22925C6600128352 /* HomeScreenPostCellView.swift */; };
+		60BF581A22E01FED0080FC90 /* ModernPostCellImagesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60BF581922E01FED0080FC90 /* ModernPostCellImagesView.swift */; };
 		60CA4696228794370082893E /* ScrollableImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60CA4695228794370082893E /* ScrollableImageView.swift */; };
 		60CA4698228893C50082893E /* DetailedPostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60CA4697228893C50082893E /* DetailedPostViewController.swift */; };
 		60CA469C22889BC10082893E /* ImagePreviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60CA469B22889BC10082893E /* ImagePreviewViewController.swift */; };
@@ -74,17 +76,19 @@
 		6033D92C2278052F00D74FAA /* Post.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
 		6033D92E2278057800D74FAA /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		6033D9302278062D00D74FAA /* Comment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Comment.swift; sourceTree = "<group>"; };
+		603D508C22DF65600023E856 /* ModernPostCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModernPostCell.swift; sourceTree = "<group>"; };
+		603D508E22DF658A0023E856 /* ImageModernPostCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageModernPostCell.swift; sourceTree = "<group>"; };
 		6051DF6A22CEA411002364E4 /* BaseWelcomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseWelcomeViewController.swift; sourceTree = "<group>"; };
 		6051DF7022D00012002364E4 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		6051DF7222D0001B002364E4 /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 		6051DF7422D00115002364E4 /* WelcomeAccountHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeAccountHeaderView.swift; sourceTree = "<group>"; };
 		6051DF7622D001CD002364E4 /* WelcomeAccountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeAccountViewController.swift; sourceTree = "<group>"; };
 		6051DF7822D0108A002364E4 /* SelectAvatarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectAvatarView.swift; sourceTree = "<group>"; };
-		60A58CA322DABF0D00556651 /* SwipeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipeController.swift; sourceTree = "<group>"; };
 		60A58CA522DABF3400556651 /* SwipeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipeViewController.swift; sourceTree = "<group>"; };
 		60BDD3E822923FEA00128352 /* ExpandablePostCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpandablePostCell.swift; sourceTree = "<group>"; };
 		60BDD3ED22925B5600128352 /* PostCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostCellView.swift; sourceTree = "<group>"; };
 		60BDD3EF22925C6600128352 /* HomeScreenPostCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeScreenPostCellView.swift; sourceTree = "<group>"; };
+		60BF581922E01FED0080FC90 /* ModernPostCellImagesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModernPostCellImagesView.swift; sourceTree = "<group>"; };
 		60CA4695228794370082893E /* ScrollableImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollableImageView.swift; sourceTree = "<group>"; };
 		60CA4697228893C50082893E /* DetailedPostViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailedPostViewController.swift; sourceTree = "<group>"; };
 		60CA469B22889BC10082893E /* ImagePreviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePreviewViewController.swift; sourceTree = "<group>"; };
@@ -241,7 +245,6 @@
 				60F3CF1222CE788F006F6436 /* GymsSearchViewController.swift */,
 				60F3CF1822CE78FD006F6436 /* TrainersSearchViewController.swift */,
 				60F3CF1A22CE7910006F6436 /* WorkoutsSearchViewController.swift */,
-				60A58CA322DABF0D00556651 /* SwipeController.swift */,
 				60A58CA522DABF3400556651 /* SwipeViewController.swift */,
 			);
 			path = "Search View Controllers";
@@ -282,6 +285,9 @@
 				60BDD3E822923FEA00128352 /* ExpandablePostCell.swift */,
 				60CA4695228794370082893E /* ScrollableImageView.swift */,
 				60F9A8432298FEDB007D34BD /* StoryImageView.swift */,
+				603D508C22DF65600023E856 /* ModernPostCell.swift */,
+				603D508E22DF658A0023E856 /* ImageModernPostCell.swift */,
+				60BF581922E01FED0080FC90 /* ModernPostCellImagesView.swift */,
 			);
 			path = "Home Views";
 			sourceTree = "<group>";
@@ -445,6 +451,7 @@
 				60F3CF3022CE85EE006F6436 /* WelcomeViewController.swift in Sources */,
 				60F3CF1322CE788F006F6436 /* GymsSearchViewController.swift in Sources */,
 				6051DF7322D0001B002364E4 /* SignUpViewController.swift in Sources */,
+				60BF581A22E01FED0080FC90 /* ModernPostCellImagesView.swift in Sources */,
 				60248F2F226CCC6C00D15454 /* SearchViewController.swift in Sources */,
 				60F3CF2322CE796E006F6436 /* WorkoutsDataSource.swift in Sources */,
 				60248F2D226CCC6300D15454 /* HomeViewController.swift in Sources */,
@@ -464,7 +471,7 @@
 				6051DF7722D001CD002364E4 /* WelcomeAccountViewController.swift in Sources */,
 				60CA46A02289108B0082893E /* ButtonWithImage.swift in Sources */,
 				60CA4698228893C50082893E /* DetailedPostViewController.swift in Sources */,
-				60A58CA422DABF0D00556651 /* SwipeController.swift in Sources */,
+				603D508D22DF65600023E856 /* ModernPostCell.swift in Sources */,
 				60248F41226D391700D15454 /* Extensions.swift in Sources */,
 				60CA4696228794370082893E /* ScrollableImageView.swift in Sources */,
 				60F3CF2122CE7960006F6436 /* TrainersDataSource.swift in Sources */,
@@ -473,6 +480,7 @@
 				60248F33226CCC7F00D15454 /* ProfileViewController.swift in Sources */,
 				60F9A8442298FEDB007D34BD /* StoryImageView.swift in Sources */,
 				6009A2182275266B00F5BD72 /* Constants.swift in Sources */,
+				603D508F22DF658A0023E856 /* ImageModernPostCell.swift in Sources */,
 				60F3CF1922CE78FD006F6436 /* TrainersSearchViewController.swift in Sources */,
 				60F9A8422298EC3E007D34BD /* Story.swift in Sources */,
 				60248F13226CCAB700D15454 /* AppDelegate.swift in Sources */,
