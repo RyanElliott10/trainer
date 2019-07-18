@@ -10,8 +10,6 @@ import UIKit
 
 class ScrollableImageView: UICollectionViewCell {
     
-    private var isLayedOut = false
-    
     var image: UIImage = UIImage() {
         didSet {
             loadData(withImage: image)
@@ -19,13 +17,14 @@ class ScrollableImageView: UICollectionViewCell {
     }
     let imageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.translatesAutoresizingMaskIntoConstraints = false
         
         return imageView
     }()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
+        
+        configureViews()
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -45,10 +44,7 @@ class ScrollableImageView: UICollectionViewCell {
     }
     
     private func loadData(withImage image: UIImage) {
-        if !isLayedOut {
-            configureViews()
-        }
-        isLayedOut = true
+        configureViews()
     }
     
 }

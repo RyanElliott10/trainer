@@ -15,6 +15,8 @@ class ModernPostCell: UICollectionViewCell {
     var post: Post? {
         didSet {
             if let post = post {
+                // To save you from hella frustration and wasting 1-2 months of work: you gotta have didSets that reload data when the
+                // cells are set. Otherwise, the cells won't have data. Call reloadData() on the collectionView after
                 loadData(from: post)
             }
         }
@@ -47,7 +49,7 @@ class ModernPostCell: UICollectionViewCell {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
         let collection = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        collection.backgroundColor = .black
+        collection.backgroundColor = .clear
         return collection
     }()
     
@@ -69,9 +71,11 @@ class ModernPostCell: UICollectionViewCell {
     }
     
     private func setupViews() {
-        contentView.backgroundColor = .white
-        contentView.layer.cornerRadius = 8
-        contentView.clipsToBounds = true
+        contentView.anchor(top: topAnchor, leading: leadingAnchor, bottom: bottomAnchor, trailing: trailingAnchor, paddingTop: 0, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 0, height: 0)
+        
+        backgroundColor = .white
+        layer.cornerRadius = 8
+        clipsToBounds = true
         
         contentView.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.width - 24).isActive = true
         
@@ -93,6 +97,7 @@ class ModernPostCell: UICollectionViewCell {
         // Images
         contentView.addSubview(imagesCollectionView)
         imagesCollectionView.anchor(top: bodyLabel.bottomAnchor, leading: titleLabel.leadingAnchor, bottom: nil, trailing: titleLabel.trailingAnchor, paddingTop: 8, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 0, height: getImagesCollectionViewHeight())
+        print("HERE: \(post?.getNumberOfImages() ?? 0) | \(getImagesCollectionViewHeight())")
         
         // Divider
         contentView.addSubview(divider)
@@ -101,6 +106,7 @@ class ModernPostCell: UICollectionViewCell {
     
     private func loadData(from dataSource: Post) {
         setupViews()
+        imagesCollectionView.reloadData()
     }
     
     func getImagesCollectionViewHeight() -> CGFloat {
@@ -128,7 +134,6 @@ extension ModernPostCell: UICollectionViewDataSource, UICollectionViewDelegateFl
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: modernPostCellImageId, for: indexPath) as? ScrollableImageView {
-            titleLabel.text = String(post?.getNumberOfImages() ?? 0)
             if let image = post?.getImages()[indexPath.item] {
                 cell.image = image
             }
