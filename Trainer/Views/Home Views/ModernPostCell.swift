@@ -10,15 +10,12 @@ import UIKit
 
 class ModernPostCell: UICollectionViewCell {
     
+    var isLayedOut = false
     var homeViewDelegate: HomeViewController?
     var user: User?
     var post: Post? {
         didSet {
-            if let post = post {
-                // To save you from hella frustration and wasting 1-2 months of work: you gotta have didSets that reload data when the
-                // cells are set. Otherwise, the cells won't have data. Call reloadData() on the collectionView after
-                loadData(from: post)
-            }
+            loadData()
         }
     }
     
@@ -63,7 +60,7 @@ class ModernPostCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        configureCollectionView()
+        print("RYANLOG")
     }
     
     required init?(coder: NSCoder) {
@@ -71,13 +68,12 @@ class ModernPostCell: UICollectionViewCell {
     }
     
     private func setupViews() {
-        contentView.anchor(top: topAnchor, leading: leadingAnchor, bottom: bottomAnchor, trailing: trailingAnchor, paddingTop: 0, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 0, height: 0)
+        contentView.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.width - 24).isActive = true
+        contentView.translatesAutoresizingMaskIntoConstraints = false
         
         backgroundColor = .white
         layer.cornerRadius = 8
         clipsToBounds = true
-        
-        contentView.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.width - 24).isActive = true
         
         // Title
         titleLabel.text = post?.getTitle()
@@ -96,7 +92,8 @@ class ModernPostCell: UICollectionViewCell {
         
         // Images
         contentView.addSubview(imagesCollectionView)
-        imagesCollectionView.anchor(top: bodyLabel.bottomAnchor, leading: titleLabel.leadingAnchor, bottom: nil, trailing: titleLabel.trailingAnchor, paddingTop: 8, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 0, height: getImagesCollectionViewHeight())
+        imagesCollectionView.anchor(top: bodyLabel.bottomAnchor, leading: titleLabel.leadingAnchor, bottom: nil, trailing: titleLabel.trailingAnchor, paddingTop: 8, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 0, height: 0)
+        imagesCollectionView.heightAnchor.constraint(equalToConstant: getImagesCollectionViewHeight()).isActive = true
         print("HERE: \(post?.getNumberOfImages() ?? 0) | \(getImagesCollectionViewHeight())")
         
         // Divider
@@ -104,9 +101,10 @@ class ModernPostCell: UICollectionViewCell {
         divider.anchor(top: imagesCollectionView.bottomAnchor, leading: contentView.leadingAnchor, bottom: contentView.bottomAnchor, trailing: contentView.trailingAnchor, paddingTop: 8, paddingLeft: 8, paddingBottom: 8, paddingRight: 8, width: 0, height: 2)
     }
     
-    private func loadData(from dataSource: Post) {
+    private func loadData() {
+        imagesCollectionView.collectionViewLayout.invalidateLayout()
+        configureCollectionView()
         setupViews()
-        imagesCollectionView.reloadData()
     }
     
     func getImagesCollectionViewHeight() -> CGFloat {
@@ -115,6 +113,20 @@ class ModernPostCell: UICollectionViewCell {
             imagesCollectionViewHeight = numberOfImages > 0 ? Constants.Cell.IMAGES_COLLECTION_VIEW_HEIGHT : 0.0
         }
         return imagesCollectionViewHeight
+    }
+    
+    override func preferredLayoutAttributesFitting(_ layoutAttributes: UICollectionViewLayoutAttributes) -> UICollectionViewLayoutAttributes {
+        let size = contentView.systemLayoutSizeFitting(layoutAttributes.size)
+        var newFrame = layoutAttributes.frame
+        // note: don't change the width
+        newFrame.size.height = ceil(size.height)
+        layoutAttributes.frame = newFrame
+        
+        print(post?.getBodyText())
+        print(getImagesCollectionViewHeight())
+        print(size)
+        print(newFrame, "\n\n")
+        return layoutAttributes
     }
     
 }

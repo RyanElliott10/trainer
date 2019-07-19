@@ -21,7 +21,6 @@ class HomeViewController: UIViewController, UIGestureRecognizerDelegate {
     
     private let refreshControl = UIRefreshControl()
     private let cellReuseID = "cellID"
-    private let imageCellReuseID = "imageCellReuseID"
     private let storyReuseID = "storyID"
     private let floatingPanelController = FloatingPanelController()
     private let postBottomSheetController = PostBottomSheetViewController()
@@ -111,12 +110,10 @@ class HomeViewController: UIViewController, UIGestureRecognizerDelegate {
     
     private func configureCollectionView() {
         if let flowLayout = collectionView.collectionViewLayout as? UICollectionViewFlowLayout {
-            flowLayout.itemSize = UICollectionViewFlowLayout.automaticSize
-            flowLayout.estimatedItemSize = CGSize(width: UIScreen.main.bounds.size.width - 24, height: 2000)
+            flowLayout.estimatedItemSize = CGSize(width: UIScreen.main.bounds.size.width - 24, height: 1000)
         }
         
         collectionView.register(ModernPostCell.self, forCellWithReuseIdentifier: cellReuseID)
-        collectionView.register(ImageModernPostCell.self, forCellWithReuseIdentifier: imageCellReuseID)
         collectionView.register(HomeScreenStoryCellView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: storyReuseID)
         collectionView.dataSource = self
         collectionView.delegate = self

@@ -14,7 +14,7 @@ typealias JSON = [String : Any]
 class Post {
     
     private var user: User?
-    private var bodyText: String?
+    private var bodyText = ""
     private var likers = [User]()
     private var comments = [Comment]()
     private var images = [UIImage]()
@@ -32,9 +32,7 @@ class Post {
         if let comments = json["comments"] as? [Comment] {
             self.comments = comments
         }
-        if let images = json["images"] as? [UIImage] {
-            self.images = images
-        }
+        images = json["images"] as? [UIImage] ?? []
     }
     
     static func generateDummyPosts() -> [Post] {
@@ -109,7 +107,8 @@ class Post {
             "images" : [UIImage(named: "boxed-water-is-better-1464052-unsplash"), UIImage(named: "edgar-chaparro-669210-unsplash"), UIImage(named: "boxed-water-is-better-1464052-unsplash")]
             ] as JSON
         
-        return [Post(json: json1), Post(json: json2), Post(json: json3), Post(json: json4), Post(json: json5), Post(json: json6), Post(json: json7), Post(json: json8), Post(json: json1), Post(json: json2), Post(json: json3), Post(json: json4), Post(json: json5), Post(json: json6), Post(json: json7), Post(json: json8)]
+//        return [Post(json: json1), Post(json: json2), Post(json: json3), Post(json: json4), Post(json: json5), Post(json: json6), Post(json: json7), Post(json: json8), Post(json: json1), Post(json: json2), Post(json: json3), Post(json: json4), Post(json: json5), Post(json: json6), Post(json: json7), Post(json: json8)]
+        return [Post(json: json1), Post(json: json2), Post(json: json3), Post(json: json4), Post(json: json5), Post(json: json6), Post(json: json7), Post(json: json8), Post(json: json1), Post(json: json2), Post(json: json3), Post(json: json4), Post(json: json5), Post(json: json6), Post(json: json7), Post(json: json8), Post(json: json1), Post(json: json2), Post(json: json3), Post(json: json4), Post(json: json5), Post(json: json6), Post(json: json7), Post(json: json8), Post(json: json1), Post(json: json2), Post(json: json3), Post(json: json4), Post(json: json5), Post(json: json6), Post(json: json7), Post(json: json8), Post(json: json1), Post(json: json2), Post(json: json3), Post(json: json4), Post(json: json5), Post(json: json6), Post(json: json7), Post(json: json8), Post(json: json1), Post(json: json2), Post(json: json3), Post(json: json4), Post(json: json5), Post(json: json6), Post(json: json7), Post(json: json8)]
     }
     
     func getUser() -> User {
@@ -117,7 +116,7 @@ class Post {
     }
     
     func getBodyText() -> String {
-        return bodyText ?? ""
+        return bodyText
     }
     
     func getNumberOfLikes() -> Int {
