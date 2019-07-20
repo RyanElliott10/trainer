@@ -10,11 +10,6 @@ import UIKit
 
 class ScrollableImageView: UICollectionViewCell {
     
-    var image: UIImage = UIImage() {
-        didSet {
-            loadData(withImage: image)
-        }
-    }
     let imageView: UIImageView = {
         let imageView = UIImageView()
         
@@ -32,8 +27,6 @@ class ScrollableImageView: UICollectionViewCell {
     }
     
     private func configureViews() {
-        let imageView = UIImageView(image: image)
-        
         imageView.clipsToBounds = true
         imageView.contentMode = .scaleAspectFill
         
@@ -41,10 +34,6 @@ class ScrollableImageView: UICollectionViewCell {
         
         contentView.addSubview(imageView)
         imageView.anchor(top: contentView.topAnchor, leading: contentView.leadingAnchor, bottom: contentView.bottomAnchor, trailing: contentView.trailingAnchor, paddingTop: 0, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 0, height: 0)
-    }
-    
-    private func loadData(withImage image: UIImage) {
-        configureViews()
     }
     
 }

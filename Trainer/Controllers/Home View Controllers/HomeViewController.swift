@@ -110,7 +110,7 @@ class HomeViewController: UIViewController, UIGestureRecognizerDelegate {
     
     private func configureCollectionView() {
         if let flowLayout = collectionView.collectionViewLayout as? UICollectionViewFlowLayout {
-            flowLayout.estimatedItemSize = CGSize(width: UIScreen.main.bounds.size.width - 24, height: 1000)
+            flowLayout.estimatedItemSize = CGSize(width: UIScreen.main.bounds.size.width - 24, height: 2000)
         }
         
         collectionView.register(ModernPostCell.self, forCellWithReuseIdentifier: cellReuseID)
@@ -181,18 +181,23 @@ class HomeViewController: UIViewController, UIGestureRecognizerDelegate {
 extension HomeViewController: UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+//        return 1
         return Post.generateDummyPosts().count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellReuseID, for: indexPath) as? ModernPostCell {
-            cell.homeViewDelegate = self
-            cell.post = Post.generateDummyPosts()[indexPath.item]
-            
-            return cell
-        }
+        let post = Post.generateDummyPosts()[indexPath.item]
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellReuseID, for: indexPath) as! ModernPostCell
+        cell.homeViewDelegate = self
+        cell.titleLabel.text = post.getTitle()
+        cell.dateLabel.text = post.getDate()
+        cell.bodyLabel.text = post.getBodyText()
+        cell.imagesDataSource = post.getImages()
         
-        return UICollectionViewCell()
+        cell.imagesCollectionView.collectionViewLayout.invalidateLayout()
+        cell.imagesCollectionView.reloadData()
+        
+        return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {

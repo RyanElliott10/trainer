@@ -99,7 +99,7 @@ extension HomeScreenPostCellView: UICollectionViewDelegateFlowLayout, UICollecti
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: imageCellID, for: indexPath) as? ScrollableImageView {
             if let image = post?.getImages()[indexPath.row] {
-                cell.image = image
+//                cell.image = image
             }
             return cell
         }
