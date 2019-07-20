@@ -186,6 +186,7 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDelegate
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        print("CELL FOR ITEM AT")
         let post = Post.generateDummyPosts()[indexPath.item]
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellReuseID, for: indexPath) as! ModernPostCell
         cell.homeViewDelegate = self
@@ -245,6 +246,11 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDelegate
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
         return CGSize(width: 1, height: 275)
     }
+    
+//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+//        print("SIZE FOR ITEM AT")
+//        return CGSize(width: 200, height: 200)
+//    }
     
 }
 

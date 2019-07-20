@@ -60,11 +60,10 @@ class ModernPostCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        print("init")
+        print("init", frame)
     }
     
     private func loadData() {
-        print("load data")
         configureCollectionView()
         setupViews()
         
@@ -102,6 +101,8 @@ class ModernPostCell: UICollectionViewCell {
         // Divider
         contentView.addSubview(divider)
         divider.anchor(top: imagesCollectionView.bottomAnchor, leading: contentView.leadingAnchor, bottom: contentView.bottomAnchor, trailing: contentView.trailingAnchor, paddingTop: 8, paddingLeft: 8, paddingBottom: 8, paddingRight: 8, width: 0, height: 2)
+        
+        print(getImagesCollectionViewHeight())
     }
     
     func getImagesCollectionViewHeight() -> CGFloat {
@@ -111,6 +112,9 @@ class ModernPostCell: UICollectionViewCell {
     }
     
     override func preferredLayoutAttributesFitting(_ layoutAttributes: UICollectionViewLayoutAttributes) -> UICollectionViewLayoutAttributes {
+        setNeedsLayout()
+        layoutIfNeeded()
+        
         let size = contentView.systemLayoutSizeFitting(layoutAttributes.size)
         var newFrame = layoutAttributes.frame
         newFrame.size.height = ceil(size.height)

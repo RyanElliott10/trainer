@@ -100,9 +100,6 @@ class HomeScreenStoryCellView: UICollectionViewCell {
     }
     
     private func configureCollectionView() {
-        if let flowLayout = collectionView.collectionViewLayout as? UICollectionViewFlowLayout {
-            flowLayout.estimatedItemSize = CGSize(width: contentView.frame.width, height: 1)
-        }
         collectionView.dataSource = self
         collectionView.delegate = self
         
