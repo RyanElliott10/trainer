@@ -1,14 +1,14 @@
 //
-//  ModernPostCell.swift
+//  ModernPostImagesCell.swift
 //  Trainer
 //
-//  Created by Ryan Elliott on 7/17/19.
+//  Created by Ryan Elliott on 7/19/19.
 //  Copyright © 2019 Ryan Elliott. All rights reserved.
 //
 
 import UIKit
 
-class ModernPostCell: UICollectionViewCell {
+class ModernPostImagesCell: UICollectionViewCell {
     
     private var dividerTopAnchor: NSLayoutYAxisAnchor?
     var homeViewDelegate: HomeViewController?
@@ -98,19 +98,15 @@ class ModernPostCell: UICollectionViewCell {
         
         // Divider
         contentView.addSubview(divider)
-        divider.anchor(top: dividerTopAnchor, leading: contentView.leadingAnchor, bottom: contentView.bottomAnchor, trailing: contentView.trailingAnchor, paddingTop: 8, paddingLeft: 8, paddingBottom: 8, paddingRight: 8, width: 0, height: 2)
+        divider.anchor(top: imagesView?.bottomAnchor, leading: contentView.leadingAnchor, bottom: contentView.bottomAnchor, trailing: contentView.trailingAnchor, paddingTop: 8, paddingLeft: 8, paddingBottom: 8, paddingRight: 8, width: 0, height: 2)
     }
     
     private func setupImages() {
-        guard let images = post?.getImages(), images.count > 0 else {
-            dividerTopAnchor = bodyLabel.bottomAnchor
-            return
-        }
-        
-        imagesView = ModernPostImageCell(withImages: images)
+        imagesView = ModernPostImageCell(withImages: post!.getImages())
         contentView.addSubview(imagesView!)
         imagesView?.anchor(top: bodyLabel.bottomAnchor, leading: titleLabel.leadingAnchor, bottom: nil, trailing: titleLabel.trailingAnchor, paddingTop: 4, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 0, height: 200)
         dividerTopAnchor = imagesView?.bottomAnchor
+        
         imagesView?.backgroundColor = .black
     }
     

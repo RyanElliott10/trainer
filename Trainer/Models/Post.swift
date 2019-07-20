@@ -68,18 +68,19 @@ class Post {
         let json4 = [
             "user" : user,
             "title" : "This is a Title",
-            "bodyText" : "3. This cell shouldn't have any images.",
+            "bodyText" : "3. This cell should have exactly 2 images.",
             "date" : "2m ago",
             "likers" : [user],
+            "images" : [UIImage(named: "boxed-water-is-better-1464052-unsplash"), UIImage(named: "edgar-chaparro-669210-unsplash")]
             ] as JSON
         
         let json5 = [
             "user" : user,
             "title" : "This is a Title",
-            "bodyText" : "4. This cell should have exactly 2 images.",
+            "bodyText" : "4. This cell should have exactly 4 images.",
             "date" : "2m ago",
             "likers" : [user],
-            "images" : [UIImage(named: "boxed-water-is-better-1464052-unsplash"), UIImage(named: "edgar-chaparro-669210-unsplash")]
+            "images" : [UIImage(named: "boxed-water-is-better-1464052-unsplash"), UIImage(named: "edgar-chaparro-669210-unsplash"), UIImage(named: "boxed-water-is-better-1464052-unsplash"), UIImage(named: "edgar-chaparro-669210-unsplash")]
             ] as JSON
         
         let json6 = [
@@ -94,10 +95,9 @@ class Post {
         let json7 = [
             "user" : user,
             "title" : "This is a Title",
-            "bodyText" : "6. This cell should have exactly 2 images.",
+            "bodyText" : "6. This cell shouldn't have any images.",
             "date" : "2m ago",
             "likers" : [user],
-            "images" : [UIImage(named: "boxed-water-is-better-1464052-unsplash"), UIImage(named: "edgar-chaparro-669210-unsplash")]
             ] as JSON
         
         let json8 = [

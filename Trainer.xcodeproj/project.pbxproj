@@ -30,6 +30,8 @@
 		6051DF7522D00115002364E4 /* WelcomeAccountHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6051DF7422D00115002364E4 /* WelcomeAccountHeaderView.swift */; };
 		6051DF7722D001CD002364E4 /* WelcomeAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6051DF7622D001CD002364E4 /* WelcomeAccountViewController.swift */; };
 		6051DF7922D0108A002364E4 /* SelectAvatarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6051DF7822D0108A002364E4 /* SelectAvatarView.swift */; };
+		6098880822E2CF9800F32F60 /* ModernPostImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6098880722E2CF9800F32F60 /* ModernPostImageView.swift */; };
+		6098880A22E2D63C00F32F60 /* ModernPostImagesCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6098880922E2D63C00F32F60 /* ModernPostImagesCell.swift */; };
 		60A58CA622DABF3400556651 /* SwipeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60A58CA522DABF3400556651 /* SwipeViewController.swift */; };
 		60BDD3E922923FEA00128352 /* ExpandablePostCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60BDD3E822923FEA00128352 /* ExpandablePostCell.swift */; };
 		60BDD3EE22925B5600128352 /* PostCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60BDD3ED22925B5600128352 /* PostCellView.swift */; };
@@ -83,6 +85,8 @@
 		6051DF7422D00115002364E4 /* WelcomeAccountHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeAccountHeaderView.swift; sourceTree = "<group>"; };
 		6051DF7622D001CD002364E4 /* WelcomeAccountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeAccountViewController.swift; sourceTree = "<group>"; };
 		6051DF7822D0108A002364E4 /* SelectAvatarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectAvatarView.swift; sourceTree = "<group>"; };
+		6098880722E2CF9800F32F60 /* ModernPostImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModernPostImageView.swift; sourceTree = "<group>"; };
+		6098880922E2D63C00F32F60 /* ModernPostImagesCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModernPostImagesCell.swift; sourceTree = "<group>"; };
 		60A58CA522DABF3400556651 /* SwipeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipeViewController.swift; sourceTree = "<group>"; };
 		60BDD3E822923FEA00128352 /* ExpandablePostCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpandablePostCell.swift; sourceTree = "<group>"; };
 		60BDD3ED22925B5600128352 /* PostCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostCellView.swift; sourceTree = "<group>"; };
@@ -285,6 +289,8 @@
 				60F9A8432298FEDB007D34BD /* StoryImageView.swift */,
 				603D508C22DF65600023E856 /* ModernPostCell.swift */,
 				603D508E22DF658A0023E856 /* ImageModernPostCell.swift */,
+				6098880722E2CF9800F32F60 /* ModernPostImageView.swift */,
+				6098880922E2D63C00F32F60 /* ModernPostImagesCell.swift */,
 			);
 			path = "Home Views";
 			sourceTree = "<group>";
@@ -456,10 +462,12 @@
 				60BDD3EE22925B5600128352 /* PostCellView.swift in Sources */,
 				60248F1B226CCAB700D15454 /* Trainer.xcdatamodeld in Sources */,
 				60248F31226CCC7600D15454 /* ProgressViewController.swift in Sources */,
+				6098880822E2CF9800F32F60 /* ModernPostImageView.swift in Sources */,
 				60BDD3E922923FEA00128352 /* ExpandablePostCell.swift in Sources */,
 				6051DF6B22CEA411002364E4 /* BaseWelcomeViewController.swift in Sources */,
 				6033D92F2278057800D74FAA /* User.swift in Sources */,
 				60F3CF2A22CE7A3B006F6436 /* SearchHeader.swift in Sources */,
+				6098880A22E2D63C00F32F60 /* ModernPostImagesCell.swift in Sources */,
 				60A58CA622DABF3400556651 /* SwipeViewController.swift in Sources */,
 				6033D9312278062D00D74FAA /* Comment.swift in Sources */,
 				60F9A8402298DC73007D34BD /* HomeScreenStoryCellView.swift in Sources */,
