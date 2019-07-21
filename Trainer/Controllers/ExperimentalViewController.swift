@@ -6,20 +6,53 @@
 //  Copyright © 2019 Ryan Elliott. All rights reserved.
 //
 
-/**
- *  BIG FIND: https://stackoverflow.com/questions/44187881/uicollectionview-full-width-cells-allow-autolayout-dynamic-height
- */
-
 import UIKit
 
 class ExperimentalViewController: UIViewController {
     
     private let cellReuseId = "cellReuseId"
-    fileprivate var data = [
+    fileprivate var data = [(String, [UIImage])]()
+    fileprivate var strings = [
         "This is a short string.",
         "This is a substantially longer string than the previous, but not crazy long.",
         "This is a stupid long string that will actually test the self-sizing ability of the cell. There is no better way to do this -- that I can think of right now -- so this is how we'll have to go about this. We shall see what this longer string actually produces.",
-        "This is a shorter string. We're testing the self-sizing ability of cells."
+        "This is a shorter string. We're testing the self-sizing ability of cells.",
+        "This is a short string.",
+        "This is a substantially longer string than the previous, but not crazy long.",
+        "This is a stupid long string that will actually test the self-sizing ability of the cell. There is no better way to do this -- that I can think of right now -- so this is how we'll have to go about this. We shall see what this longer string actually produces.",
+        "This is a shorter string. We're testing the self-sizing ability of cells.",
+        "This is a short string.",
+        "This is a substantially longer string than the previous, but not crazy long.",
+        "This is a stupid long string that will actually test the self-sizing ability of the cell. There is no better way to do this -- that I can think of right now -- so this is how we'll have to go about this. We shall see what this longer string actually produces.",
+        "This is a shorter string. We're testing the self-sizing ability of cells.",
+        "This is a short string.",
+        "This is a substantially longer string than the previous, but not crazy long.",
+        "This is a stupid long string that will actually test the self-sizing ability of the cell. There is no better way to do this -- that I can think of right now -- so this is how we'll have to go about this. We shall see what this longer string actually produces.",
+        "This is a shorter string. We're testing the self-sizing ability of cells.",
+        "This is a short string.",
+        "This is a substantially longer string than the previous, but not crazy long.",
+        "This is a stupid long string that will actually test the self-sizing ability of the cell. There is no better way to do this -- that I can think of right now -- so this is how we'll have to go about this. We shall see what this longer string actually produces.",
+        "This is a shorter string. We're testing the self-sizing ability of cells.",
+        "This is a short string.",
+        "This is a substantially longer string than the previous, but not crazy long.",
+        "This is a stupid long string that will actually test the self-sizing ability of the cell. There is no better way to do this -- that I can think of right now -- so this is how we'll have to go about this. We shall see what this longer string actually produces.",
+        "This is a shorter string. We're testing the self-sizing ability of cells.",
+        "This is a short string.",
+        "This is a substantially longer string than the previous, but not crazy long.",
+        "This is a stupid long string that will actually test the self-sizing ability of the cell. There is no better way to do this -- that I can think of right now -- so this is how we'll have to go about this. We shall see what this longer string actually produces.",
+        "This is a shorter string. We're testing the self-sizing ability of cells.",
+        "This is a short string.",
+        "This is a substantially longer string than the previous, but not crazy long.",
+        "This is a stupid long string that will actually test the self-sizing ability of the cell. There is no better way to do this -- that I can think of right now -- so this is how we'll have to go about this. We shall see what this longer string actually produces.",
+        "This is a shorter string. We're testing the self-sizing ability of cells.",
+        "This is a short string.",
+        "This is a substantially longer string than the previous, but not crazy long.",
+        "This is a stupid long string that will actually test the self-sizing ability of the cell. There is no better way to do this -- that I can think of right now -- so this is how we'll have to go about this. We shall see what this longer string actually produces.",
+        "This is a shorter string. We're testing the self-sizing ability of cells.",
+        "This is a short string.",
+        "This is a substantially longer string than the previous, but not crazy long.",
+        "This is a stupid long string that will actually test the self-sizing ability of the cell. There is no better way to do this -- that I can think of right now -- so this is how we'll have to go about this. We shall see what this longer string actually produces.",
+        "This is a shorter string. We're testing the self-sizing ability of cells.",
     ]
     
     private let collectionView: UICollectionView = {
@@ -36,14 +69,28 @@ class ExperimentalViewController: UIViewController {
         super.viewDidLoad()
         
         view.backgroundColor = .white
+        
+        setupDummyData()
+        
         setupCollectionView()
     }
     
+    private func setupDummyData() {
+        for (i, str) in strings.enumerated() {
+            var images = [UIImage]()
+            if i % 2 == 0 {
+                images = [UIImage(named: "boxed-water-is-better-1464052-unsplash")!, UIImage(named: "boxed-water-is-better-1464052-unsplash")!, UIImage(named: "boxed-water-is-better-1464052-unsplash")!]
+            }
+            data.append((str, images))
+        }
+    }
+    
     private func setupCollectionView() {
+        // BIG FIND: https://stackoverflow.com/questions/44187881/uicollectionview-full-width-cells-allow-autolayout-dynamic-height
         if #available(iOS 13.0, *) {
             let size = NSCollectionLayoutSize(
                 widthDimension: NSCollectionLayoutDimension.fractionalWidth(1),
-                heightDimension: NSCollectionLayoutDimension.estimated(44)
+                heightDimension: NSCollectionLayoutDimension.estimated(440)
             )
             
             let item = NSCollectionLayoutItem(layoutSize: size)
@@ -79,10 +126,8 @@ extension ExperimentalViewController: UICollectionViewDataSource, UICollectionVi
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellReuseId, for: indexPath) as! ExperimentalCell
+        cell.index = indexPath
         cell.backgroundColor = .yellow
-        if indexPath.item == 1 {
-            cell.imageView.image = UIImage(named: "boxed-water-is-better-1464052-unsplash")
-        }
         cell.setupViews(withDatasource: data[indexPath.item])
         
         return cell

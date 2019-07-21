@@ -85,7 +85,6 @@ class HomeViewController: UIViewController, UIGestureRecognizerDelegate {
     
     func configureViews() {
         view.backgroundColor = Constants.Global.BACKGROUND_COLOR
-        view.addSubview(collectionView)
         
         configureNavBar()
         configureTabBar()
@@ -109,8 +108,26 @@ class HomeViewController: UIViewController, UIGestureRecognizerDelegate {
     }
     
     private func configureCollectionView() {
-        if let flowLayout = collectionView.collectionViewLayout as? UICollectionViewFlowLayout {
-            flowLayout.estimatedItemSize = CGSize(width: UIScreen.main.bounds.size.width - 24, height: 2000)
+        // BIG FIND: https://stackoverflow.com/questions/44187881/uicollectionview-full-width-cells-allow-autolayout-dynamic-height
+        if #available(iOS 13.0, *) {
+            let size = NSCollectionLayoutSize(
+                widthDimension: NSCollectionLayoutDimension.fractionalWidth(1),
+                heightDimension: NSCollectionLayoutDimension.estimated(440)
+            )
+            
+            let item = NSCollectionLayoutItem(layoutSize: size)
+            
+            let group = NSCollectionLayoutGroup.horizontal(layoutSize: size, subitems: [item])
+            
+            let section = NSCollectionLayoutSection(group: group)
+            section.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 8, bottom: 0, trailing: 8)
+            section.interGroupSpacing = 5
+            
+            let layout = UICollectionViewCompositionalLayout(section: section)
+            collectionView.collectionViewLayout = layout
+        } else {
+            let layout = ExperimentalFlowLayout()
+            collectionView.collectionViewLayout = layout
         }
         
         collectionView.register(ModernPostCell.self, forCellWithReuseIdentifier: cellReuseID)
@@ -122,6 +139,7 @@ class HomeViewController: UIViewController, UIGestureRecognizerDelegate {
         collectionView.alwaysBounceVertical = true
         collectionView.contentInset = UIEdgeInsets(top: 8, left: 12, bottom: 0, right: 12)
         
+        view.addSubview(collectionView)
         collectionView.anchor(top: view.topAnchor, leading: view.safeAreaLayoutGuide.leadingAnchor, bottom: view.bottomAnchor, trailing: view.safeAreaLayoutGuide.trailingAnchor, paddingTop: 0, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 0, height: 0)
         
         configureRefreshControl()
