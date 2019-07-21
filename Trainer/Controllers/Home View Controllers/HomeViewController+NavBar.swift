@@ -10,7 +10,7 @@ import UIKit
 
 extension HomeViewController {
     
-    func configureNavBarItems() {
+    func setupNavBarItems() {
         configureLeftNavBarItem()
         configureRightNavBarItem()
         navigationItem.title = "Timeline"

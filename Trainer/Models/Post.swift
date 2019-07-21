@@ -86,7 +86,7 @@ class Post {
             "bodyText" : "5. This cell should have exactly 2 images.",
             "date" : "2m ago",
             "likers" : [user],
-            "images" : [UIImage(named: "boxed-water-is-better-1464052-unsplash"), UIImage(named: "edgar-chaparro-669210-unsplash")]
+            "images" : [UIImage(named: "edgar-chaparro-669210-unsplash"), UIImage(named: "edgar-chaparro-669210-unsplash")]
             ] as JSON
         
         let json7 = [
@@ -95,7 +95,7 @@ class Post {
             "bodyText" : "6. This cell should have exactly 2 images.",
             "date" : "2m ago",
             "likers" : [user],
-            "images" : [UIImage(named: "boxed-water-is-better-1464052-unsplash"), UIImage(named: "edgar-chaparro-669210-unsplash")]
+            "images" : [UIImage(named: "edgar-chaparro-669210-unsplash"), UIImage(named: "edgar-chaparro-669210-unsplash")]
             ] as JSON
         
         let json8 = [

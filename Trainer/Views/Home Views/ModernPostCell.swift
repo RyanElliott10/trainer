@@ -10,11 +10,7 @@ import UIKit
 
 class ModernPostCell: UICollectionViewCell {
     
-    var imagesDataSource = [UIImage]() {
-        didSet {
-            loadData()
-        }
-    }
+    var imagesDataSource = [UIImage]()
     var homeViewDelegate: HomeViewController?
     var user: User?
     var post: Post?
@@ -59,21 +55,35 @@ class ModernPostCell: UICollectionViewCell {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        
-        print("init")
-    }
-    
-    private func loadData() {
-        print("load data")
-        configureCollectionView()
-        setupViews()
-        
-        setNeedsLayout()
-        layoutIfNeeded()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        
+        imagesDataSource = []
+        imagesCollectionView.delegate = nil
+        imagesCollectionView.dataSource = nil
+        titleLabel.text = nil
+        bodyLabel.text = nil
+    }
+    
+    func parseData(fromDatasource datasource: Post, withDelegate delegate: HomeViewController) {
+        homeViewDelegate = delegate
+        titleLabel.text = datasource.getTitle()
+        dateLabel.text = datasource.getDate()
+        bodyLabel.text = datasource.getBodyText()
+        imagesDataSource = datasource.getImages()
+        
+        loadData()
+    }
+    
+    private func loadData() {
+        setupViews()
+        setupCollectionView()
     }
     
     private func setupViews() {
@@ -96,12 +106,16 @@ class ModernPostCell: UICollectionViewCell {
         bodyLabel.anchor(top: dateLabel.bottomAnchor, leading: titleLabel.leadingAnchor, bottom: nil, trailing: titleLabel.trailingAnchor, paddingTop: 8, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 0, height: 0)
         
         // Images
-        contentView.addSubview(imagesCollectionView)
-        imagesCollectionView.anchor(top: bodyLabel.bottomAnchor, leading: titleLabel.leadingAnchor, bottom: nil, trailing: titleLabel.trailingAnchor, paddingTop: 8, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 0, height: getImagesCollectionViewHeight())
+        var topAnchor = bodyLabel.bottomAnchor
+        if imagesDataSource.count > 0 {
+            contentView.addSubview(imagesCollectionView)
+            imagesCollectionView.anchor(top: bodyLabel.bottomAnchor, leading: titleLabel.leadingAnchor, bottom: nil, trailing: titleLabel.trailingAnchor, paddingTop: 8, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 0, height: getImagesCollectionViewHeight())
+            topAnchor = imagesCollectionView.bottomAnchor
+        }
         
         // Divider
         contentView.addSubview(divider)
-        divider.anchor(top: imagesCollectionView.bottomAnchor, leading: contentView.leadingAnchor, bottom: contentView.bottomAnchor, trailing: contentView.trailingAnchor, paddingTop: 8, paddingLeft: 8, paddingBottom: 8, paddingRight: 8, width: 0, height: 2)
+        divider.anchor(top: topAnchor, leading: contentView.leadingAnchor, bottom: contentView.bottomAnchor, trailing: contentView.trailingAnchor, paddingTop: 8, paddingLeft: 8, paddingBottom: 8, paddingRight: 8, width: 0, height: 2)
     }
     
     func getImagesCollectionViewHeight() -> CGFloat {
@@ -110,12 +124,12 @@ class ModernPostCell: UICollectionViewCell {
         return imagesCollectionViewHeight
     }
     
+    // MARK: - Used for self-sizing on <= iOS 12
+    
     override func preferredLayoutAttributesFitting(_ layoutAttributes: UICollectionViewLayoutAttributes) -> UICollectionViewLayoutAttributes {
-        let size = contentView.systemLayoutSizeFitting(layoutAttributes.size)
-        var newFrame = layoutAttributes.frame
-        newFrame.size.height = ceil(size.height)
-        layoutAttributes.frame = newFrame
-        
+        layoutIfNeeded()
+        let layoutAttributes = super.preferredLayoutAttributesFitting(layoutAttributes)
+        layoutAttributes.bounds.size = systemLayoutSizeFitting(UIView.layoutFittingCompressedSize, withHorizontalFittingPriority: .required, verticalFittingPriority: .defaultLow)
         return layoutAttributes
     }
     
@@ -123,7 +137,7 @@ class ModernPostCell: UICollectionViewCell {
 
 extension ModernPostCell: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
-    fileprivate func configureCollectionView() {
+    fileprivate func setupCollectionView() {
         imagesCollectionView.delegate = self
         imagesCollectionView.dataSource = self
         imagesCollectionView.register(ScrollableImageView.self, forCellWithReuseIdentifier: modernPostCellImageId)
@@ -162,7 +176,7 @@ extension ModernPostCell: UICollectionViewDataSource, UICollectionViewDelegateFl
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let imagePreviewViewController = ImagePreviewViewController()
-        imagePreviewViewController.images = post!.getImages()
+        imagePreviewViewController.images = imagesDataSource
         imagePreviewViewController.startingIndexPath = indexPath
         homeViewDelegate?.push(viewController: imagePreviewViewController)
     }

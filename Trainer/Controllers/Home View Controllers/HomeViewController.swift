@@ -19,9 +19,10 @@ class HomeViewController: UIViewController, UIGestureRecognizerDelegate {
     
     // MARK: - Properties
     
-    private let refreshControl = UIRefreshControl()
     private let cellReuseID = "cellID"
+    private let imageCellReuseId = "imageCellReuseId"
     private let storyReuseID = "storyID"
+    private let refreshControl = UIRefreshControl()
     private let floatingPanelController = FloatingPanelController()
     private let postBottomSheetController = PostBottomSheetViewController()
     
@@ -53,22 +54,24 @@ class HomeViewController: UIViewController, UIGestureRecognizerDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        configureViews()
-        configureStatusBar()
+        setupViews()
+        setupStatusBar()
         addBottomSheetView()
     }
     
-    private func configureStatusBar() {
+    // MARK: - Configuration
+    
+    private func setupStatusBar() {
         let statusBarView = UIView(frame: UIApplication.shared.statusBarFrame)
         statusBarView.backgroundColor = Constants.Global.BACKGROUND_COLOR
         view.addSubview(statusBarView)
     }
     
     private func addBottomSheetView() {
-        configureFloatingPanel()
+        setupFloatingPanel()
     }
     
-    private func configureFloatingPanel() {
+    private func setupFloatingPanel() {
         let backdropTapGesture = UITapGestureRecognizer(target: self, action: #selector(handleBackdrop(tapGesture:)))
         floatingPanelController.backdropView.addGestureRecognizer(backdropTapGesture)
         
@@ -81,55 +84,84 @@ class HomeViewController: UIViewController, UIGestureRecognizerDelegate {
         floatingPanelController.addPanel(toParent: self)
     }
     
-    // MARK: - Configuration
-    
-    func configureViews() {
+    func setupViews() {
         view.backgroundColor = Constants.Global.BACKGROUND_COLOR
         view.addSubview(collectionView)
         
-        configureNavBar()
-        configureTabBar()
-        configureCollectionView()
-        configureWhiteStatusBar()
+        setupNavBar()
+        setupTabBar()
+        setupCollectionView()
+        setupWhiteStatusBar()
     }
     
-    private func configureNavBar() {
-        configureNavBarItems()
+    private func setupNavBar() {
+        setupNavBarItems()
     }
     
-    private func configureTabBar() {
+    private func setupTabBar() {
         tabBarController?.delegate = self
     }
     
-    private func configureWhiteStatusBar() {
+    private func setupWhiteStatusBar() {
         let statusBarView = UIView(frame: UIApplication.shared.statusBarFrame)
         let statusBarColor = UIColor.white
         statusBarView.backgroundColor = statusBarColor
         view.addSubview(statusBarView)
     }
     
-    private func configureCollectionView() {
-        if let flowLayout = collectionView.collectionViewLayout as? UICollectionViewFlowLayout {
-            flowLayout.estimatedItemSize = CGSize(width: UIScreen.main.bounds.size.width - 24, height: 2000)
+    private func setupCollectionView() {
+        // BIG FIND: https://stackoverflow.com/questions/44187881/uicollectionview-full-width-cells-allow-autolayout-dynamic-height
+        if #available(iOS 13.0, *) {
+            let size = NSCollectionLayoutSize(
+                widthDimension: NSCollectionLayoutDimension.fractionalWidth(1),
+                heightDimension: NSCollectionLayoutDimension.estimated(440)
+            )
+            
+            let item = NSCollectionLayoutItem(layoutSize: size)
+            let group = NSCollectionLayoutGroup.horizontal(layoutSize: size, subitems: [item])
+            let section = NSCollectionLayoutSection(group: group)
+            
+            section.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 12, bottom: 0, trailing: 12)
+            section.interGroupSpacing = 12
+            
+            let layout = UICollectionViewCompositionalLayout(section: section)
+            collectionView.collectionViewLayout = layout
+        } else {
+            let layout = CustomFlowLayout()
+            collectionView.collectionViewLayout = layout
+            collectionView.contentInset = UIEdgeInsets(top: 8, left: 12, bottom: 0, right: 12)
         }
         
         collectionView.register(ModernPostCell.self, forCellWithReuseIdentifier: cellReuseID)
+        collectionView.register(ModernPostCell.self, forCellWithReuseIdentifier: imageCellReuseId)
         collectionView.register(HomeScreenStoryCellView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: storyReuseID)
         collectionView.dataSource = self
         collectionView.delegate = self
         
         collectionView.backgroundColor = .clear
         collectionView.alwaysBounceVertical = true
-        collectionView.contentInset = UIEdgeInsets(top: 8, left: 12, bottom: 0, right: 12)
         
         collectionView.anchor(top: view.topAnchor, leading: view.safeAreaLayoutGuide.leadingAnchor, bottom: view.bottomAnchor, trailing: view.safeAreaLayoutGuide.trailingAnchor, paddingTop: 0, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 0, height: 0)
         
-        configureRefreshControl()
+        setupRefreshControl()
     }
     
-    private func configureRefreshControl() {
+    private func setupRefreshControl() {
         collectionView.refreshControl = refreshControl
         collectionView.refreshControl?.addTarget(self, action: #selector(refreshControlSelectorTest), for: .valueChanged)
+    }
+    
+    private func getNextFloatingPanelPosition() -> FloatingPanelPosition {
+        if let position = FloatingPanelPosition(rawValue: floatingPanelController.position.rawValue - 1) {
+            return position
+        }
+        return .full
+    }
+    
+    private func showKeyboardIfNeeded(forPosition position: FloatingPanelPosition) {
+        if position == .full {
+            postBottomSheetController.textView.becomeFirstResponder()
+        }
     }
     
     // MARK: - Selectors
@@ -161,41 +193,21 @@ class HomeViewController: UIViewController, UIGestureRecognizerDelegate {
         floatingPanelController.move(to: .tip, animated: true)
     }
     
-    private func getNextFloatingPanelPosition() -> FloatingPanelPosition {
-        if let position = FloatingPanelPosition(rawValue: floatingPanelController.position.rawValue - 1) {
-            return position
-        }
-        return .full
-    }
-    
-    private func showKeyboardIfNeeded(forPosition position: FloatingPanelPosition) {
-        if position == .full {
-            postBottomSheetController.textView.becomeFirstResponder()
-        }
-    }
-    
 }
 
-// MARK: - CollectionView
+// MARK: - CollectionView Delegates
 
 extension HomeViewController: UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-//        return 1
         return Post.generateDummyPosts().count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let post = Post.generateDummyPosts()[indexPath.item]
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellReuseID, for: indexPath) as! ModernPostCell
-        cell.homeViewDelegate = self
-        cell.titleLabel.text = post.getTitle()
-        cell.dateLabel.text = post.getDate()
-        cell.bodyLabel.text = post.getBodyText()
-        cell.imagesDataSource = post.getImages()
-        
-        cell.imagesCollectionView.collectionViewLayout.invalidateLayout()
-        cell.imagesCollectionView.reloadData()
+        let reuseId = post.getNumberOfImages() > 0 ? imageCellReuseId : cellReuseID
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseId, for: indexPath) as! ModernPostCell
+        cell.parseData(fromDatasource: post, withDelegate: self)
         
         return cell
     }
@@ -248,6 +260,8 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDelegate
     
 }
 
+// MARK: - UITabBarControllerDelegate
+
 extension HomeViewController: UITabBarControllerDelegate {
     
     // TODO: - Only scroll to top if current VC is HomeViewController
@@ -273,6 +287,8 @@ extension HomeViewController: UITabBarControllerDelegate {
     
 }
 
+// MARK: - HomeViewControllerDelegate
+
 extension HomeViewController: HomeViewControllerDelegate {
     
     func push(viewController controller: UIViewController) {
@@ -291,6 +307,23 @@ extension HomeViewController: HomeViewControllerDelegate {
 
 extension HomeViewController: FloatingPanelControllerDelegate {
     
+    private class HomeScreenFloatingPanelLayout: FloatingPanelLayout {
+        
+        var initialPosition: FloatingPanelPosition {
+            return .tip
+        }
+        
+        func insetFor(position: FloatingPanelPosition) -> CGFloat? {
+            switch position {
+            case .full: return 16.0  // A top inset from safe area
+            case .half: return 216.0 // A bottom inset from the safe area
+            case .tip: return 44.0   // A bottom inset from the safe area
+            default: return nil      // Or `case .hidden: return nil`
+            }
+        }
+        
+    }
+    
     func floatingPanel(_ vc: FloatingPanelController, layoutFor newCollection: UITraitCollection) -> FloatingPanelLayout? {
         return HomeScreenFloatingPanelLayout()
     }
@@ -298,23 +331,6 @@ extension HomeViewController: FloatingPanelControllerDelegate {
     func floatingPanelDidChangePosition(_ vc: FloatingPanelController) {
         if vc.position == .half {
             postBottomSheetController.textView.resignFirstResponder()
-        }
-    }
-    
-}
-
-class HomeScreenFloatingPanelLayout: FloatingPanelLayout {
-    
-    var initialPosition: FloatingPanelPosition {
-        return .tip
-    }
-    
-    func insetFor(position: FloatingPanelPosition) -> CGFloat? {
-        switch position {
-        case .full: return 16.0  // A top inset from safe area
-        case .half: return 216.0 // A bottom inset from the safe area
-        case .tip: return 44.0   // A bottom inset from the safe area
-        default: return nil      // Or `case .hidden: return nil`
         }
     }
     
