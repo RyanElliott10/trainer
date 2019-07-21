@@ -15,8 +15,7 @@ class ExperimentalFlowLayout: UICollectionViewFlowLayout {
         self.minimumInteritemSpacing = 10
         self.minimumLineSpacing = 10
         self.sectionInset = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
-//        estimatedItemSize = UICollectionViewFlowLayout.automaticSize
-        estimatedItemSize = CGSize(width: 1, height: 400)
+        estimatedItemSize = UICollectionViewFlowLayout.automaticSize
     }
     
     required init?(coder aDecoder: NSCoder) {

@@ -11,6 +11,7 @@ import UIKit
 class ExperimentalViewController: UIViewController {
     
     private let cellReuseId = "cellReuseId"
+    private let imageCellReuseId = "imageCellReuseId"
     fileprivate var data = [(String, [UIImage])]()
     fileprivate var strings = [
         "This is a short string.",
@@ -71,7 +72,6 @@ class ExperimentalViewController: UIViewController {
         view.backgroundColor = .white
         
         setupDummyData()
-        
         setupCollectionView()
     }
     
@@ -111,6 +111,7 @@ class ExperimentalViewController: UIViewController {
         collectionView.delegate = self
         collectionView.dataSource = self
         collectionView.register(ExperimentalCell.self, forCellWithReuseIdentifier: cellReuseId)
+        collectionView.register(ExperimentalCell.self, forCellWithReuseIdentifier: imageCellReuseId)
         
         view.addSubview(collectionView)
         collectionView.anchor(top: view.topAnchor, leading: view.leadingAnchor, bottom: view.bottomAnchor, trailing: view.trailingAnchor, paddingTop: 0, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 0, height: 0)
@@ -124,12 +125,14 @@ extension ExperimentalViewController: UICollectionViewDataSource, UICollectionVi
         return data.count
     }
     
+    /// See: https://stackoverflow.com/questions/57135977/how-to-fix-images-disappearing-from-uicollectionviewcell-on-scroll/57136811#57136811
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellReuseId, for: indexPath) as! ExperimentalCell
+        // Must use two cellIds to ensure the cells are reused properly. My best guess is this has to do with the self-sizing
+        let reuseId = data[indexPath.item].1.count > 0 ? imageCellReuseId : cellReuseId
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseId, for: indexPath) as! ExperimentalCell
         cell.index = indexPath
         cell.backgroundColor = .yellow
         cell.setupViews(withDatasource: data[indexPath.item])
-        
         return cell
     }
     

@@ -48,7 +48,7 @@ class ExperimentalCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        print("RYANLOG \(index?.row) INIT")
+        setupCollectionView()
     }
     
     required init?(coder: NSCoder) {
@@ -65,14 +65,13 @@ class ExperimentalCell: UICollectionViewCell {
         titleLabel.text = nil
         label.text = nil
         
-        setupViews(withDatasource: nil)
+        setupCollectionView()
+        collectionView.removeFromSuperview()
     }
     
-    func setupViews(withDatasource datasource: (String, [UIImage])?) {
-        if datasource != nil {
-            parseDatasource(datasource!)
-        }
-        
+    func setupViews(withDatasource datasource: (String, [UIImage])) {
+        parseDatasource(datasource)
+            
         contentView.addSubview(titleLabel)
         titleLabel.anchor(top: contentView.topAnchor, leading: contentView.leadingAnchor, bottom: nil, trailing: contentView.trailingAnchor, paddingTop: 0, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 0, height: 0)
         
@@ -82,13 +81,14 @@ class ExperimentalCell: UICollectionViewCell {
             label.text = String(images.count)
             label.anchor(top: titleLabel.bottomAnchor, leading: contentView.leadingAnchor, bottom: nil, trailing: contentView.trailingAnchor, paddingTop: 0, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 0, height: 0)
             
-            imageView.image = images[0]
-            contentView.addSubview(imageView)
-            imageView.anchor(top: label.bottomAnchor, leading: contentView.leadingAnchor, bottom: contentView.bottomAnchor, trailing: contentView.trailingAnchor, paddingTop: 0, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 0, height: 100)
-            
-//            setupCollectionView()
-//            contentView.addSubview(collectionView)
-//            collectionView.anchor(top: label.bottomAnchor, leading: contentView.leadingAnchor, bottom: contentView.bottomAnchor, trailing: contentView.trailingAnchor, paddingTop: 0, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 0, height: 200)
+//            imageView.image = images[0]
+//            contentView.addSubview(imageView)
+//            imageView.anchor(top: label.bottomAnchor, leading: contentView.leadingAnchor, bottom: contentView.bottomAnchor, trailing: contentView.trailingAnchor, paddingTop: 0, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 0, height: 100)
+        
+        let height: CGFloat = images.count > 0 ? 200 : 0
+        print("RYANLOG height:", height)
+            contentView.addSubview(collectionView)
+            collectionView.anchor(top: label.bottomAnchor, leading: contentView.leadingAnchor, bottom: contentView.bottomAnchor, trailing: contentView.trailingAnchor, paddingTop: 0, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 0, height: height)
         } else {
             titleLabel.text = "No Images"
             label.anchor(top: titleLabel.bottomAnchor, leading: contentView.leadingAnchor, bottom: contentView.bottomAnchor, trailing: contentView.trailingAnchor, paddingTop: 0, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 0, height: 0)
@@ -99,15 +99,11 @@ class ExperimentalCell: UICollectionViewCell {
     private func parseDatasource(_ datasource: (String, [UIImage])) {
         label.text = datasource.0
         images = datasource.1
-        
-        print("RYANLOG \(index?.row) Images:", images.count)
     }
     
     // MARK: - Used for self-sizing on <= iOS 12
     
     override func preferredLayoutAttributesFitting(_ layoutAttributes: UICollectionViewLayoutAttributes) -> UICollectionViewLayoutAttributes {
-//        print("RYANLOG \(index.row) PREFERRED")
-        
         layoutIfNeeded()
         let layoutAttributes = super.preferredLayoutAttributesFitting(layoutAttributes)
         layoutAttributes.bounds.size = systemLayoutSizeFitting(UIView.layoutFittingCompressedSize, withHorizontalFittingPriority: .required, verticalFittingPriority: .defaultLow)
@@ -125,6 +121,7 @@ extension ExperimentalCell: UICollectionViewDataSource, UICollectionViewDelegate
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        print("RYANLOG images.count:", images.count)
         return images.count
     }
     
@@ -137,6 +134,5 @@ extension ExperimentalCell: UICollectionViewDataSource, UICollectionViewDelegate
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: 200, height: 200)
     }
-    
     
 }

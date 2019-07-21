@@ -15,10 +15,10 @@ class TrainersSearchViewController: BaseSearchPageViewController {
         collectionView.delegate = self
         collectionView.dataSource = self
         collectionView.register(SearchTrainerCell.self, forCellWithReuseIdentifier: cellId)
-        wireUpFilterButton()
+        setupFilterButton()
     }
     
-    private func wireUpFilterButton() {
+    private func setupFilterButton() {
         super.filterButton.addTarget(self, action: #selector(filterOnPress), for: .touchUpInside)
     }
     
