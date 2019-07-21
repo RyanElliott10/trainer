@@ -31,7 +31,7 @@ class DetailedPostViewController: UIViewController {
         layout.scrollDirection = .vertical
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.translatesAutoresizingMaskIntoConstraints = false
-        collectionView.backgroundColor = Constants.Global.BACKGROUND_COLOR
+        collectionView.backgroundColor = .appBackground
         collectionView.alwaysBounceVertical = true
         
         collectionView.register(PostCellView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: postHeaderCellReuseId)

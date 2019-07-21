@@ -18,7 +18,7 @@ class SwipeViewController: UIViewController, UICollectionViewDataSource, UIColle
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        collectionView.backgroundColor = Constants.Global.BACKGROUND_COLOR
+        collectionView.backgroundColor = .appBackground
         collectionView.isPagingEnabled = true
         collectionView.showsHorizontalScrollIndicator = false
         return collectionView

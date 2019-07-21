@@ -10,11 +10,15 @@ import UIKit
 
 struct GlobalConstants {
     
-    static let BACKGROUND_COLOR: UIColor = UIColor.rgb(red: 235, green: 235, blue: 235)
-    
 }
 
 struct HomeScreenConstants {
+    
+    static let TIP_PADDING: CGFloat = 44
+    
+    static let HALF_PADDING: CGFloat = 216
+    
+    static let FULL_PADDING: CGFloat = 16
     
     static let POST_CONTAINER_HEIGHT: CGFloat = 50
     

@@ -48,7 +48,7 @@ class ModernPostCell: UICollectionViewCell {
     
     private let divider: UIView = {
         let view = UIView()
-        view.backgroundColor = UIColor.rgb(red: 235, green: 235, blue: 235)
+        view.backgroundColor = .appBackground
         view.layer.cornerRadius = 2
         return view
     }()
@@ -164,7 +164,7 @@ extension ModernPostCell: UICollectionViewDataSource, UICollectionViewDelegateFl
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let maxHeight = imagesCollectionView.frame.height
+        let maxHeight = imagesCollectionView.frame.height - 20
         let count = imagesDataSource.count
         switch count {
         case 1:
@@ -180,7 +180,7 @@ extension ModernPostCell: UICollectionViewDataSource, UICollectionViewDelegateFl
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        return UIEdgeInsets(top: 0, left: 8, bottom: 0, right: 8)
+        return UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 8)
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {

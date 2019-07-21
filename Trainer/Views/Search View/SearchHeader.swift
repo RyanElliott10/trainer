@@ -66,7 +66,7 @@ class SearchHeader: UIView {
     
     private func createGradientLayer() {
         let startColor = UIColor.rgb(red: 126, green: 164, blue: 245).cgColor
-        let endColor = UIColor.appPrimaryColor.cgColor
+        let endColor = UIColor.appPrimary.cgColor
         let gradientLayer = CAGradientLayer()
         gradientLayer.frame = bounds
         gradientLayer.colors = [startColor, endColor]

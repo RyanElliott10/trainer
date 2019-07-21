@@ -8,7 +8,7 @@
 
 import UIKit
 
-class Comment {
+struct Comment {
     
     private var user: User?
     private var body: String?

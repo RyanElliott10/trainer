@@ -63,7 +63,7 @@ class HomeViewController: UIViewController, UIGestureRecognizerDelegate {
     
     private func setupStatusBar() {
         let statusBarView = UIView(frame: UIApplication.shared.statusBarFrame)
-        statusBarView.backgroundColor = Constants.Global.BACKGROUND_COLOR
+        statusBarView.backgroundColor = .appBackground
         view.addSubview(statusBarView)
     }
     
@@ -85,7 +85,7 @@ class HomeViewController: UIViewController, UIGestureRecognizerDelegate {
     }
     
     func setupViews() {
-        view.backgroundColor = Constants.Global.BACKGROUND_COLOR
+        view.backgroundColor = .appBackground
         view.addSubview(collectionView)
         
         setupNavBar()
@@ -121,14 +121,14 @@ class HomeViewController: UIViewController, UIGestureRecognizerDelegate {
             let group = NSCollectionLayoutGroup.horizontal(layoutSize: size, subitems: [item])
             let section = NSCollectionLayoutSection(group: group)
             
-            section.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 12, bottom: 0, trailing: 12)
+            section.contentInsets = NSDirectionalEdgeInsets(top: 8, leading: 12, bottom: Constants.HomeScreen.TIP_PADDING + 8, trailing: 12)
             section.interGroupSpacing = 12
             
             let layout = UICollectionViewCompositionalLayout(section: section)
             collectionView.collectionViewLayout = layout
         } else {
             collectionView.collectionViewLayout = CustomFlowLayout()
-            collectionView.contentInset = UIEdgeInsets(top: 8, left: 12, bottom: 0, right: 12)
+            collectionView.contentInset = UIEdgeInsets(top: 8, left: 12, bottom: Constants.HomeScreen.TIP_PADDING + 8, right: 12)
         }
         
         collectionView.register(ModernPostCell.self, forCellWithReuseIdentifier: cellReuseID)
@@ -223,7 +223,7 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDelegate
     }
     
     func collectionView(_ collectionView: UICollectionView, didHighlightItemAt indexPath: IndexPath) {
-        collectionView.cellForItem(at: indexPath)?.backgroundColor = UIColor.rgb(red: 235, green: 235, blue: 235)
+        collectionView.cellForItem(at: indexPath)?.backgroundColor = .appBackground
     }
     
     func collectionView(_ collectionView: UICollectionView, didUnhighlightItemAt indexPath: IndexPath) {
@@ -243,13 +243,10 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDelegate
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         switch kind {
         case UICollectionView.elementKindSectionHeader:
-            if let cell = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: storyReuseID, for: indexPath) as? HomeScreenStoryCellView {
-                cell.stories = Story.generateDummyStoryData()
-                return cell
-            }
-            return UICollectionReusableView()
-        default:
-            return UICollectionReusableView()
+            let cell = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: storyReuseID, for: indexPath) as! HomeScreenStoryCellView
+            cell.stories = Story.generateDummyStoryData()
+            return cell
+        default: return UICollectionReusableView()
         }
     }
     
@@ -314,10 +311,10 @@ extension HomeViewController: FloatingPanelControllerDelegate {
         
         func insetFor(position: FloatingPanelPosition) -> CGFloat? {
             switch position {
-            case .full: return 16.0  // A top inset from safe area
-            case .half: return 216.0 // A bottom inset from the safe area
-            case .tip: return 44.0   // A bottom inset from the safe area
-            default: return nil      // Or `case .hidden: return nil`
+            case .tip: return Constants.HomeScreen.TIP_PADDING   // A bottom inset from the safe area
+            case .half: return Constants.HomeScreen.HALF_PADDING // A bottom inset from the safe area
+            case .full: return Constants.HomeScreen.FULL_PADDING // A top inset from safe area
+            default: return nil             // Or `case .hidden: return nil`
             }
         }
         

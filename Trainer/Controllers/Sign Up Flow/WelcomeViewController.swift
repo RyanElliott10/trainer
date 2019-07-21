@@ -14,7 +14,7 @@ class WelcomeViewController: UIViewController {
     
     private let appIcon: UIImageView = {
         let imageView = UIImageView()
-        imageView.backgroundColor = .appPrimaryColor
+        imageView.backgroundColor = .appPrimary
         imageView.layer.cornerRadius = 8
         return imageView
     }()
@@ -23,7 +23,7 @@ class WelcomeViewController: UIViewController {
         let label = UILabel()
         label.text = "Welcome to Trainer"
         label.font = UIFont.boldSystemFont(ofSize: 50)
-        label.textColor = .appPrimaryColor
+        label.textColor = .appPrimary
         label.numberOfLines = 2
         return label
     }()

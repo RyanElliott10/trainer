@@ -57,7 +57,7 @@ class WelcomeAccountHeaderView: UIView {
     private func configurePositionGradient() {
         let gradientLayer = CAGradientLayer()
         gradientLayer.frame = positionBar.bounds
-        gradientLayer.colors = [UIColor.appPrimaryColor.cgColor, UIColor.appSecondaryColor.cgColor]
+        gradientLayer.colors = [UIColor.appPrimary.cgColor, UIColor.appSecondary.cgColor]
         gradientLayer.startPoint = CGPoint(x: 0.0, y: 1.0)
         gradientLayer.endPoint = CGPoint(x: 1.0, y: 1.0)
         gradientLayer.locations = [0.0, 1.0]
@@ -74,7 +74,7 @@ class WelcomeAccountHeaderView: UIView {
     
     private func configureAppIcon() {
         addSubview(appIcon)
-        appIcon.backgroundColor = .appPrimaryColor
+        appIcon.backgroundColor = .appPrimary
         // This is needed. You should probably figure out how to not need it lol
         appIcon.anchor(top: nil, leading: nil, bottom: nil, trailing: nil, paddingTop: 0, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 0, height: 0)
         appIcon.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true

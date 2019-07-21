@@ -113,9 +113,11 @@ extension UIColor {
         return UIColor(red: red / 255, green: green / 255, blue: blue / 255, alpha: 1)
     }
     
-    static let appPrimaryColor = UIColor.rgb(red: 65, green: 125, blue: 255)
+    static let appPrimary = UIColor.rgb(red: 65, green: 125, blue: 255)
     
-    static let appSecondaryColor = UIColor.rgb(red: 110, green: 200, blue: 180)
+    static let appSecondary = UIColor.rgb(red: 110, green: 200, blue: 180)
+    
+    static let appBackground = UIColor.rgb(red: 235, green: 235, blue: 235)
     
 }
 

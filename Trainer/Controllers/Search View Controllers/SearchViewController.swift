@@ -51,7 +51,7 @@ class SearchViewController: UIViewController {
     }
     
     private func configureSubViews() {
-        view.backgroundColor = Constants.Global.BACKGROUND_COLOR
+        view.backgroundColor = .appBackground
         configureHeader()
         configurePageViewController()
     }

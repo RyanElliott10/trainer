@@ -17,7 +17,7 @@ class BaseWelcomeViewController: UIViewController {
         button.setTitle("Continue", for: .normal)
         button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 18)
         button.tintColor = .white
-        button.backgroundColor = .appPrimaryColor
+        button.backgroundColor = .appPrimary
         button.layer.cornerRadius = 8
         button.clipsToBounds = true
         return button
@@ -49,7 +49,7 @@ class BaseWelcomeViewController: UIViewController {
     private func createGradientLayer() {
         let gradientLayer = CAGradientLayer()
         gradientLayer.frame = continueButton.bounds
-        gradientLayer.colors = [UIColor.appPrimaryColor.cgColor, UIColor.appSecondaryColor.cgColor]
+        gradientLayer.colors = [UIColor.appPrimary.cgColor, UIColor.appSecondary.cgColor]
         gradientLayer.startPoint = CGPoint(x: 0.0, y: 1.0)
         gradientLayer.endPoint = CGPoint(x: 1.0, y: 1.0)
         gradientLayer.locations = [0.0, 1.0]

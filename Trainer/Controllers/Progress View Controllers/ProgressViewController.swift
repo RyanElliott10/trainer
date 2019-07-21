@@ -67,7 +67,7 @@ class ProgressViewController: UIViewController {
         
         let set1 = LineChartDataSet(entries: values, label: "Dataset 1")
         
-        let gradientColors = [UIColor.appPrimaryColor.cgColor, UIColor.appSecondaryColor.cgColor] as CFArray // Colors of the gradient
+        let gradientColors = [UIColor.appPrimary.cgColor, UIColor.appSecondary.cgColor] as CFArray // Colors of the gradient
         let colorLocations:[CGFloat] = [1.0, 0.0] // Positioning of the gradient
         let gradient = CGGradient.init(colorsSpace: CGColorSpaceCreateDeviceRGB(), colors: gradientColors, locations: colorLocations) // Gradient Object
         set1.fill = Fill.fillWithLinearGradient(gradient!, angle: 90.0) // Set the Gradient
