@@ -10,35 +10,35 @@ import UIKit
 
 class ModernPostCell: UICollectionViewCell {
     
-    var imagesDataSource = [UIImage]()
-    var homeViewDelegate: HomeViewController?
-    var user: User?
-    var post: Post?
+    private var imagesDataSource = [UIImage]()
+    private var homeViewDelegate: HomeViewController?
+    private var user: User?
+    private var post: Post?
     
     private let modernPostCellImageId = "modernPostCellImageId"
     
-    let titleLabel: UILabel = {
+    private let titleLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.boldSystemFont(ofSize: 20)
         label.numberOfLines = 1
         return label
     }()
     
-    let dateLabel: UILabel = {
+    private let dateLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.italicSystemFont(ofSize: UIFont.systemFontSize)
         label.numberOfLines = 1
         return label
     }()
     
-    let bodyLabel: UILabel = {
+    private let bodyLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: UIFont.systemFontSize)
         label.numberOfLines = 0
         return label
     }()
     
-    let imagesCollectionView: UICollectionView = {
+    private let imagesCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
         let collection = UICollectionView(frame: .zero, collectionViewLayout: layout)
@@ -64,6 +64,11 @@ class ModernPostCell: UICollectionViewCell {
     override func prepareForReuse() {
         super.prepareForReuse()
         
+        // Reset data since this cell will be used for another one
+        resetData()
+    }
+    
+    private func resetData() {
         imagesDataSource = []
         imagesCollectionView.delegate = nil
         imagesCollectionView.dataSource = nil
@@ -72,25 +77,29 @@ class ModernPostCell: UICollectionViewCell {
     }
     
     func parseData(fromDatasource datasource: Post, withDelegate delegate: HomeViewController) {
-        homeViewDelegate = delegate
-        titleLabel.text = datasource.getTitle()
+        post = datasource
+        user = datasource.getUser()
+        titleLabel.text = user?.getName()
         dateLabel.text = datasource.getDate()
         bodyLabel.text = datasource.getBodyText()
         imagesDataSource = datasource.getImages()
+        homeViewDelegate = delegate
         
         loadData()
     }
     
     private func loadData() {
-        setupViews()
+        anchorViews()
         setupCollectionView()
     }
     
-    private func setupViews() {
+    private func anchorViews() {
         contentView.anchor(top: topAnchor, leading: leadingAnchor, bottom: bottomAnchor, trailing: trailingAnchor, paddingTop: 0, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: UIScreen.main.bounds.width - 24, height: 0)
         
         backgroundColor = .white
         layer.cornerRadius = 8
+        layer.shouldRasterize = true
+        layer.rasterizationScale = 3
         clipsToBounds = true
         
         // Title

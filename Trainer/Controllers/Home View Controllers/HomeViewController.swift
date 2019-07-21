@@ -127,8 +127,7 @@ class HomeViewController: UIViewController, UIGestureRecognizerDelegate {
             let layout = UICollectionViewCompositionalLayout(section: section)
             collectionView.collectionViewLayout = layout
         } else {
-            let layout = CustomFlowLayout()
-            collectionView.collectionViewLayout = layout
+            collectionView.collectionViewLayout = CustomFlowLayout()
             collectionView.contentInset = UIEdgeInsets(top: 8, left: 12, bottom: 0, right: 12)
         }
         

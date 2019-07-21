@@ -100,9 +100,6 @@ class PostCellView: UICollectionViewCell {
         self.user = dataSource.getUser()
         
         configureViews()
-        
-        setNeedsLayout()
-        layoutIfNeeded()
     }
     
     // MARK: - Selectors
@@ -119,9 +116,6 @@ class PostCellView: UICollectionViewCell {
     }
     
     override func preferredLayoutAttributesFitting(_ layoutAttributes: UICollectionViewLayoutAttributes) -> UICollectionViewLayoutAttributes {
-        setNeedsLayout()
-        layoutIfNeeded()
-        
         var frame = layoutAttributes.frame
         // TODO: Add true self-sizing capabilities
         calculateFrameSize(fromFrame: &frame)

@@ -12,9 +12,9 @@ class CustomFlowLayout: UICollectionViewFlowLayout {
     override init() {
         super.init()
         
-        self.minimumInteritemSpacing = 10
-        self.minimumLineSpacing = 10
-        self.sectionInset = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
+        minimumInteritemSpacing = 10
+        minimumLineSpacing = 10
+        sectionInset = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
         estimatedItemSize = UICollectionViewFlowLayout.automaticSize
     }
     
@@ -28,17 +28,17 @@ class CustomFlowLayout: UICollectionViewFlowLayout {
         layoutAttributes.bounds.size.width = collectionView.safeAreaLayoutGuide.layoutFrame.width - sectionInset.left - sectionInset.right
         return layoutAttributes
     }
-    
+
     override func layoutAttributesForElements(in rect: CGRect) -> [UICollectionViewLayoutAttributes]? {
         guard let superLayoutAttributes = super.layoutAttributesForElements(in: rect) else { return nil }
         guard scrollDirection == .vertical else { return superLayoutAttributes }
-        
+
         let computedAttributes = superLayoutAttributes.compactMap { layoutAttribute in
             return layoutAttribute.representedElementCategory == .cell ? layoutAttributesForItem(at: layoutAttribute.indexPath) : layoutAttribute
         }
         return computedAttributes
     }
-    
+
     override func shouldInvalidateLayout(forBoundsChange newBounds: CGRect) -> Bool {
         return true
     }
