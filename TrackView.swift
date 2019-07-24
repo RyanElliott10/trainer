@@ -25,14 +25,20 @@ class TrackView: UIView {
     
     open var bodyType: TrackViewType = .excerpt
     
-    open var gradients: [UIColor] = [.white, .white]
+    open var gradients: [CGColor] = [UIColor.black.cgColor] {
+        didSet {
+            configureGradientView()
+        }
+    }
+    
+    private var gradientLayer: CAGradientLayer?
     
     // MARK: - UI
     
     private let titleLabel: UILabel = {
         let label = UILabel()
         label.textColor = .white
-        label.font = UIFont.systemFont(ofSize: 14, weight: UIFont.Weight.heavy)
+        label.font = UIFont.systemFont(ofSize: 18, weight: UIFont.Weight.heavy)
         label.sizeToFit()
         
         return label
@@ -56,7 +62,7 @@ class TrackView: UIView {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textColor = .white
-        label.font = UIFont.systemFont(ofSize: UIFont.systemFontSize, weight: UIFont.Weight.semibold)
+        label.font = UIFont.systemFont(ofSize: 18, weight: UIFont.Weight.semibold)
         label.sizeToFit()
         
         return label
@@ -76,10 +82,18 @@ class TrackView: UIView {
         
         translatesAutoresizingMaskIntoConstraints = false
         setupViews()
+        configureGradientView()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        
+        gradientLayer?.frame = bounds
+        print(bounds)
     }
     
     // MARK: - View Setup
@@ -103,7 +117,6 @@ class TrackView: UIView {
     }
     
     private func setupBodyView() {
-        print(bodyType)
         switch bodyType {
         case .counter: setupCounter()
         case .excerpt: setupExcerpt()
@@ -122,13 +135,13 @@ class TrackView: UIView {
 
         stackView.axis = .horizontal
         stackView.alignment = .firstBaseline
-
-        stackView.backgroundColor = .white
+        stackView.distribution = .fill
+        stackView.spacing = 4
 
         addSubview(stackView)
         stackView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            stackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 4),
+            stackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 8),
             stackView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -4),
             stackView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 0),
             stackView.bottomAnchor.constraint(equalTo: bottomAnchor)
@@ -137,6 +150,19 @@ class TrackView: UIView {
     
     private func setupExcerpt() {
         print("setupExcerpt")
+    }
+    
+    private func configureGradientView() {
+        backgroundColor = .clear
+        gradientLayer = CAGradientLayer()
+        gradientLayer?.frame = bounds
+        gradientLayer?.colors = gradients
+        gradientLayer?.startPoint = CGPoint(x: 0.0, y: 0.0)
+        gradientLayer?.endPoint = CGPoint(x: 0.0, y: 1.0)
+        gradientLayer?.locations = [0.0, 1.0]
+        layer.insertSublayer(gradientLayer!, at: 0)
+        
+        print("FRIGGITY FRAGGITY FUCK")
     }
     
 }

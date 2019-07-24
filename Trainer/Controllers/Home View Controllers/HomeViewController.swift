@@ -130,7 +130,12 @@ class HomeViewController: UIViewController, UIGestureRecognizerDelegate {
             let layout = UICollectionViewCompositionalLayout(section: section)
             collectionView.collectionViewLayout = layout
         } else {
-            collectionView.collectionViewLayout = CustomFlowLayout()
+//            collectionView.collectionViewLayout = CustomFlowLayout()
+            
+            // TODO: - Allow for use of CustomFlowLayout on <= iOS 12
+            let layout = collectionView.collectionViewLayout as! UICollectionViewFlowLayout
+            layout.estimatedItemSize = CGSize(width: UIScreen.main.bounds.width - 24, height: 440)
+            collectionView.collectionViewLayout = layout
             collectionView.contentInset = UIEdgeInsets(top: 8, left: 12, bottom: Constants.HomeScreen.TIP_PADDING + 8, right: 12)
         }
         

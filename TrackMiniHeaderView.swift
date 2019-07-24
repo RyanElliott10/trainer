@@ -14,6 +14,7 @@ class TrackMiniHeaderView: UIView {
         let view = TrackView(withTitle: "Streak", type: .counter)
         view.translatesAutoresizingMaskIntoConstraints = false
         view.bodyType = .counter
+        view.gradients = [UIColor.red.cgColor, UIColor.orange.cgColor]
         
         return view
     }()
@@ -38,7 +39,6 @@ class TrackMiniHeaderView: UIView {
     
     private func setupViews() {
         addSubview(workoutStreakView)
-        workoutStreakView.backgroundColor = .blue
         
         NSLayoutConstraint.activate([
             workoutStreakView.topAnchor.constraint(equalTo: topAnchor),
