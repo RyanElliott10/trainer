@@ -65,14 +65,23 @@ class BaseWelcomeViewController: UIViewController {
     private func configureContinueButton() {
         view.addSubview(continueButton)
         continueButton.addTarget(self, action: #selector(continuePress), for: .touchUpInside)
-        continueButton.anchor(top: nil, leading: view.safeAreaLayoutGuide.leadingAnchor, bottom: view.safeAreaLayoutGuide.bottomAnchor, trailing: view.safeAreaLayoutGuide.trailingAnchor, paddingTop: 0, paddingLeft: 50, paddingBottom: 32, paddingRight: 50, width: 0, height: 50)
+        
+        continueButton.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            continueButton.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 50),
+            continueButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -32),
+            continueButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -50),
+            continueButton.heightAnchor.constraint(equalToConstant: 42)
+        ])
     }
     
     private func configurePageViewController() {
+        let vc0 = ExperimentalSignInWithApple()
         let vc1 = WelcomeViewController()
         let vc2 = WelcomeViewController()
         let vc3 = WelcomeAccountViewController()
         vc3.baseWelcomeDelegate = self
+        viewControllers.append(vc0)
         viewControllers.append(vc1)
         viewControllers.append(vc2)
         viewControllers.append(vc3)
@@ -146,7 +155,7 @@ extension BaseWelcomeViewController : UIPageViewControllerDataSource, UIPageView
     
     func presentationCount(for pageViewController: UIPageViewController) -> Int {
         setupPageControl()
-        return 3
+        return viewControllers.count
     }
 
     func presentationIndex(for pageViewController: UIPageViewController) -> Int {

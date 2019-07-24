@@ -11,6 +11,10 @@ import Charts
 
 class ProgressViewController: UIViewController {
     
+    private let miniHeaderView: TrackMiniHeaderView = {
+        return TrackMiniHeaderView()
+    }()
+    
     private let chartView: LineChartView = {
         let chartView = LineChartView()
         chartView.drawGridBackgroundEnabled = false
@@ -38,6 +42,22 @@ class ProgressViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+//        setupChartView()
+        setupMiniHeaderView()
+    }
+    
+    private func setupMiniHeaderView() {
+        view.addSubview(miniHeaderView)
+        miniHeaderView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            miniHeaderView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 10),
+            miniHeaderView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 10),
+            miniHeaderView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -10),
+            miniHeaderView.heightAnchor.constraint(equalToConstant: 65)
+        ])
+    }
+    
+    private func setupChartView() {
         view.backgroundColor = .white
         navigationItem.title = "Your Journey"
         

@@ -17,9 +17,11 @@ class ModernPostCell: UICollectionViewCell {
     
     private let modernPostCellImageId = "modernPostCellImageId"
     
+    private var profileImageView = BorderedImageView()
+    
     private let titleLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.boldSystemFont(ofSize: 20)
+        label.font = UIFont.boldSystemFont(ofSize: 18)
         label.numberOfLines = 1
         return label
     }()
@@ -28,6 +30,8 @@ class ModernPostCell: UICollectionViewCell {
         let label = UILabel()
         label.font = UIFont.italicSystemFont(ofSize: UIFont.systemFontSize)
         label.numberOfLines = 1
+        label.textAlignment = .right
+        
         return label
     }()
     
@@ -35,6 +39,7 @@ class ModernPostCell: UICollectionViewCell {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: UIFont.systemFontSize)
         label.numberOfLines = 0
+        
         return label
     }()
     
@@ -43,6 +48,7 @@ class ModernPostCell: UICollectionViewCell {
         layout.scrollDirection = .horizontal
         let collection = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collection.backgroundColor = .clear
+        
         return collection
     }()
     
@@ -50,6 +56,7 @@ class ModernPostCell: UICollectionViewCell {
         let view = UIView()
         view.backgroundColor = .appBackground
         view.layer.cornerRadius = 2
+        
         return view
     }()
     
@@ -84,6 +91,7 @@ class ModernPostCell: UICollectionViewCell {
         bodyLabel.text = datasource.getBodyText()
         imagesDataSource = datasource.getImages()
         homeViewDelegate = delegate
+        profileImageView = BorderedImageView(withImage: UIImage(named: "zac_perna")!, diameter: 30)
         
         loadData()
     }
@@ -94,37 +102,43 @@ class ModernPostCell: UICollectionViewCell {
     }
     
     private func anchorViews() {
-        contentView.anchor(top: topAnchor, leading: leadingAnchor, bottom: bottomAnchor, trailing: trailingAnchor, paddingTop: 0, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: UIScreen.main.bounds.width - 24, height: 0)
-        
         backgroundColor = .white
         layer.cornerRadius = 8
         layer.shouldRasterize = true
         layer.rasterizationScale = 3
         clipsToBounds = true
         
+        // Profile Image
+        contentView.addSubview(profileImageView)
+        profileImageView.anchor(top: contentView.topAnchor, leading: contentView.leadingAnchor, bottom: nil, trailing: nil, paddingTop: 8, paddingLeft: 8, paddingBottom: 0, paddingRight: 0, width: 30, height: 30)
+        
         // Title
         contentView.addSubview(titleLabel)
-        titleLabel.anchor(top: contentView.topAnchor, leading: contentView.leadingAnchor, bottom: nil, trailing: contentView.trailingAnchor, paddingTop: 8, paddingLeft: 8, paddingBottom: 0, paddingRight: 0, width: 0, height: 0)
+        titleLabel.anchor(top: nil, leading: profileImageView.trailingAnchor, bottom: nil, trailing: nil, paddingTop: 8, paddingLeft: 8, paddingBottom: 0, paddingRight: 0, width: contentView.frame.width * (2 / 3), height: 0)
+        titleLabel.centerYAnchor.constraint(equalTo: profileImageView.centerYAnchor).isActive = true
         
         // Time
         contentView.addSubview(dateLabel)
-        dateLabel.anchor(top: titleLabel.bottomAnchor, leading: titleLabel.leadingAnchor, bottom: nil, trailing: titleLabel.trailingAnchor, paddingTop: 4, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 0, height: 20)
+        dateLabel.anchor(top: nil, leading: nil, bottom: nil, trailing: contentView.trailingAnchor, paddingTop: 0, paddingLeft: 0, paddingBottom: 0, paddingRight: 8, width: contentView.frame.width * (1 / 3), height: 0)
+        dateLabel.centerYAnchor.constraint(equalTo: profileImageView.centerYAnchor).isActive = true
         
         // Body
         contentView.addSubview(bodyLabel)
-        bodyLabel.anchor(top: dateLabel.bottomAnchor, leading: titleLabel.leadingAnchor, bottom: nil, trailing: titleLabel.trailingAnchor, paddingTop: 8, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 0, height: 0)
+        bodyLabel.anchor(top: titleLabel.bottomAnchor, leading: profileImageView.leadingAnchor, bottom: nil, trailing: contentView.trailingAnchor, paddingTop: 8, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 0, height: 0)
         
         // Images
         var topAnchor = bodyLabel.bottomAnchor
+        var paddingTop: CGFloat = 8
         if imagesDataSource.count > 0 {
             contentView.addSubview(imagesCollectionView)
-            imagesCollectionView.anchor(top: bodyLabel.bottomAnchor, leading: titleLabel.leadingAnchor, bottom: nil, trailing: titleLabel.trailingAnchor, paddingTop: 8, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 0, height: getImagesCollectionViewHeight())
+            imagesCollectionView.anchor(top: bodyLabel.bottomAnchor, leading: contentView.leadingAnchor, bottom: nil, trailing: contentView.trailingAnchor, paddingTop: 6, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 0, height: getImagesCollectionViewHeight())
             topAnchor = imagesCollectionView.bottomAnchor
+            paddingTop = 0
         }
         
         // Divider
         contentView.addSubview(divider)
-        divider.anchor(top: topAnchor, leading: contentView.leadingAnchor, bottom: contentView.bottomAnchor, trailing: contentView.trailingAnchor, paddingTop: 8, paddingLeft: 8, paddingBottom: 8, paddingRight: 8, width: 0, height: 2)
+        divider.anchor(top: topAnchor, leading: contentView.leadingAnchor, bottom: contentView.bottomAnchor, trailing: contentView.trailingAnchor, paddingTop: paddingTop, paddingLeft: 8, paddingBottom: 8, paddingRight: 8, width: 0, height: 2)
     }
     
     func getImagesCollectionViewHeight() -> CGFloat {
@@ -180,7 +194,7 @@ extension ModernPostCell: UICollectionViewDataSource, UICollectionViewDelegateFl
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        return UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 8)
+        return UIEdgeInsets(top: 10, left: 8, bottom: 10, right: 8)
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {

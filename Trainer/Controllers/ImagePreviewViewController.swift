@@ -57,7 +57,7 @@ class ImagePreviewViewController: UIViewController {
     }
     
     override func viewDidLayoutSubviews() {
-        imagesCollectionView.scrollToItem(at: startingIndexPath, at: .centeredHorizontally, animated: true)
+        imagesCollectionView.scrollToItem(at: startingIndexPath, at: .centeredHorizontally, animated: false)
         pageControl.currentPage = startingIndexPath.row
     }
     

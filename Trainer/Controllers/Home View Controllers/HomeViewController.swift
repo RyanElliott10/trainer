@@ -62,6 +62,7 @@ class HomeViewController: UIViewController, UIGestureRecognizerDelegate {
     // MARK: - Configuration
     
     private func setupStatusBar() {
+        navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 18, weight: UIFont.Weight.heavy)]
         let statusBarView = UIView(frame: UIApplication.shared.statusBarFrame)
         statusBarView.backgroundColor = .appBackground
         view.addSubview(statusBarView)
@@ -85,6 +86,8 @@ class HomeViewController: UIViewController, UIGestureRecognizerDelegate {
     }
     
     func setupViews() {
+//        present(BaseWelcomeViewController(), animated: true, completion: nil)
+        
         view.backgroundColor = .appBackground
         view.addSubview(collectionView)
         

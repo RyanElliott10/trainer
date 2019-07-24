@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import IQKeyboardManagerSwift
 
 class WelcomeViewController: UIViewController {
     
@@ -33,6 +34,8 @@ class WelcomeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         configureSubViews()
+        
+        IQKeyboardManager.shared.enable = true
     }
     
     private func configureSubViews() {
