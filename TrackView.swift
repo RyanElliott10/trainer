@@ -113,33 +113,26 @@ class TrackView: UIView {
     private func setupCounter() {
         addSubview(counterNumber)
         counterNumber.text = "13"
-        NSLayoutConstraint.activate([
-            counterNumber.leadingAnchor.constraint(equalTo: titleLabel.leadingAnchor),
-            counterNumber.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: -8),
-            counterNumber.bottomAnchor.constraint(equalTo: bottomAnchor)
-        ])
         
         addSubview(counterLabel)
         counterLabel.text = "Workouts"
+        
+        
+        let stackView = UIStackView(arrangedSubviews: [counterNumber, counterLabel])
+
+        stackView.axis = .horizontal
+        stackView.alignment = .firstBaseline
+
+        stackView.backgroundColor = .white
+
+        addSubview(stackView)
+        stackView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            counterLabel.leadingAnchor.constraint(equalTo: counterNumber.trailingAnchor, constant: 6),
-            counterLabel.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -6)
+            stackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 4),
+            stackView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -4),
+            stackView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 0),
+            stackView.bottomAnchor.constraint(equalTo: bottomAnchor)
         ])
-        
-        
-//        let stackView = UIStackView(arrangedSubviews: [counterNumber, counterLabel])
-//        stackView.axis = .horizontal
-//        stackView.alignment = .lastBaseline
-//
-//        stackView.backgroundColor = .white
-//
-//        addSubview(stackView)
-//        NSLayoutConstraint.activate([
-//            stackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 4),
-//            stackView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -4),
-//            stackView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 0),
-//            stackView.bottomAnchor.constraint(equalTo: bottomAnchor)
-//        ])
     }
     
     private func setupExcerpt() {
