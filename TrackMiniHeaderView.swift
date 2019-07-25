@@ -29,7 +29,7 @@ class TrackMiniHeaderView: UIView {
         
         let view = TrackView(withTitle: "Top Goal", type: .excerpt)
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.bodyType = .counter
+        view.bodyType = .excerpt
         view.gradients = [topColor.cgColor, bottomColor.cgColor]
         
         return view
@@ -51,7 +51,7 @@ class TrackMiniHeaderView: UIView {
         
         let view = TrackView(withTitle: "Weight", type: .excerpt)
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.bodyType = .counter
+        view.bodyType = .chart
         view.gradients = [topColor.cgColor, bottomColor.cgColor]
         
         return view
