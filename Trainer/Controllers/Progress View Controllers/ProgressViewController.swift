@@ -30,7 +30,7 @@ class ProgressViewController: UIViewController {
             miniHeaderView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 10),
             miniHeaderView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 10),
             miniHeaderView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -10),
-            miniHeaderView.heightAnchor.constraint(equalToConstant: 65)
+            miniHeaderView.heightAnchor.constraint(equalToConstant: 70)
         ])
     }
     

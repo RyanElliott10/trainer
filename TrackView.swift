@@ -11,6 +11,7 @@ import UIKit
 public enum TrackViewType {
     case counter
     case excerpt
+    case chart
 }
 
 class TrackView: UIView {
@@ -38,8 +39,9 @@ class TrackView: UIView {
     private let titleLabel: UILabel = {
         let label = UILabel()
         label.textColor = .white
-        label.font = UIFont.systemFont(ofSize: 14, weight: UIFont.Weight.heavy)
+        label.font = UIFont.systemFont(ofSize: 16, weight: UIFont.Weight.heavy)
         label.sizeToFit()
+        label.numberOfLines = 1
         
         return label
     }()
@@ -54,16 +56,18 @@ class TrackView: UIView {
         label.textColor = .white
         label.font = UIFont.systemFont(ofSize: 26, weight: UIFont.Weight.bold)
         label.sizeToFit()
+        label.numberOfLines = 1
         
         return label
     }()
     
-    private let counterLabel: UILabel = {
+    private let bodyLable: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textColor = .white
-        label.font = UIFont.systemFont(ofSize: 16, weight: UIFont.Weight.semibold)
+        label.font = UIFont.systemFont(ofSize: 14, weight: UIFont.Weight.semibold)
         label.sizeToFit()
+        label.numberOfLines = 2
         
         return label
     }()
@@ -72,6 +76,8 @@ class TrackView: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
+        
+        // TODO: - Center all the labels in the middle of the view, no matter its height
     }
     
     convenience init(withTitle title: String, type: TrackViewType) {
@@ -107,7 +113,7 @@ class TrackView: UIView {
         
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            titleLabel.topAnchor.constraint(equalTo: topAnchor, constant: 4),
+            titleLabel.topAnchor.constraint(equalTo: topAnchor),
             titleLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 8),
             titleLabel.heightAnchor.constraint(equalToConstant: 30)
         ])
@@ -119,6 +125,7 @@ class TrackView: UIView {
         switch bodyType {
         case .counter: setupCounter()
         case .excerpt: setupExcerpt()
+        case .chart: break
         }
     }
     
@@ -131,18 +138,25 @@ class TrackView: UIView {
             counterNumber.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: -8)
         ])
         
-        addSubview(counterLabel)
-        counterLabel.text = "Workouts"
+        addSubview(bodyLable)
+        bodyLable.text = "Workouts"
         
         NSLayoutConstraint.activate([
-            counterLabel.leadingAnchor.constraint(equalTo: counterNumber.trailingAnchor, constant: 0),
-            counterLabel.bottomAnchor.constraint(equalTo: counterNumber.bottomAnchor, constant: -4),
-            counterLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -8)
+            bodyLable.leadingAnchor.constraint(equalTo: counterNumber.trailingAnchor, constant: 4),
+            bodyLable.bottomAnchor.constraint(equalTo: counterNumber.bottomAnchor, constant: -4),
+            bodyLable.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -8)
         ])
     }
     
     private func setupExcerpt() {
-        print("setupExcerpt")
+        addSubview(bodyLable)
+        bodyLable.text = "To lose weight and get shredded for summer"
+        
+        NSLayoutConstraint.activate([
+            bodyLable.leadingAnchor.constraint(equalTo: titleLabel.leadingAnchor),
+            bodyLable.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: -4),
+            bodyLable.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -8)
+        ])
     }
     
     private func configureGradientView() {
