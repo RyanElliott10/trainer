@@ -62,7 +62,7 @@ class HomeViewController: UIViewController, UIGestureRecognizerDelegate {
     // MARK: - Configuration
     
     private func setupStatusBar() {
-        navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 18, weight: UIFont.Weight.heavy)]
+        navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 18, weight: UIFont.Weight.bold)]
         let statusBarView = UIView(frame: UIApplication.shared.statusBarFrame)
         statusBarView.backgroundColor = .appBackground
         view.addSubview(statusBarView)

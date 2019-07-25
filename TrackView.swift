@@ -38,7 +38,7 @@ class TrackView: UIView {
     private let titleLabel: UILabel = {
         let label = UILabel()
         label.textColor = .white
-        label.font = UIFont.systemFont(ofSize: 18, weight: UIFont.Weight.heavy)
+        label.font = UIFont.systemFont(ofSize: 14, weight: UIFont.Weight.heavy)
         label.sizeToFit()
         
         return label
@@ -52,7 +52,7 @@ class TrackView: UIView {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textColor = .white
-        label.font = UIFont.systemFont(ofSize: 30, weight: UIFont.Weight.bold)
+        label.font = UIFont.systemFont(ofSize: 26, weight: UIFont.Weight.bold)
         label.sizeToFit()
         
         return label
@@ -62,7 +62,7 @@ class TrackView: UIView {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textColor = .white
-        label.font = UIFont.systemFont(ofSize: 18, weight: UIFont.Weight.semibold)
+        label.font = UIFont.systemFont(ofSize: 16, weight: UIFont.Weight.semibold)
         label.sizeToFit()
         
         return label
@@ -93,7 +93,6 @@ class TrackView: UIView {
         super.layoutSubviews()
         
         gradientLayer?.frame = bounds
-        print(bounds)
     }
     
     // MARK: - View Setup
@@ -108,7 +107,7 @@ class TrackView: UIView {
         
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            titleLabel.topAnchor.constraint(equalTo: topAnchor, constant: 6),
+            titleLabel.topAnchor.constraint(equalTo: topAnchor, constant: 4),
             titleLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 8),
             titleLabel.heightAnchor.constraint(equalToConstant: 30)
         ])
@@ -127,24 +126,18 @@ class TrackView: UIView {
         addSubview(counterNumber)
         counterNumber.text = "13"
         
+        NSLayoutConstraint.activate([
+            counterNumber.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 8),
+            counterNumber.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: -8)
+        ])
+        
         addSubview(counterLabel)
         counterLabel.text = "Workouts"
         
-        
-        let stackView = UIStackView(arrangedSubviews: [counterNumber, counterLabel])
-
-        stackView.axis = .horizontal
-        stackView.alignment = .firstBaseline
-        stackView.distribution = .fill
-        stackView.spacing = 4
-
-        addSubview(stackView)
-        stackView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            stackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 8),
-            stackView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -4),
-            stackView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 0),
-            stackView.bottomAnchor.constraint(equalTo: bottomAnchor)
+            counterLabel.leadingAnchor.constraint(equalTo: counterNumber.trailingAnchor, constant: 0),
+            counterLabel.bottomAnchor.constraint(equalTo: counterNumber.bottomAnchor, constant: -4),
+            counterLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -8)
         ])
     }
     
@@ -153,16 +146,24 @@ class TrackView: UIView {
     }
     
     private func configureGradientView() {
-        backgroundColor = .clear
         gradientLayer = CAGradientLayer()
         gradientLayer?.frame = bounds
         gradientLayer?.colors = gradients
         gradientLayer?.startPoint = CGPoint(x: 0.0, y: 0.0)
-        gradientLayer?.endPoint = CGPoint(x: 0.0, y: 1.0)
-        gradientLayer?.locations = [0.0, 1.0]
+        gradientLayer?.endPoint = CGPoint(x: 0.0, y: 0.1)
+        gradientLayer?.locations = [0.0, 0.1]
         layer.insertSublayer(gradientLayer!, at: 0)
+    }
+    
+    func addMainView(_ view: UIView) {
+        addSubview(view)
         
-        print("FRIGGITY FRAGGITY FUCK")
+        NSLayoutConstraint.activate([
+            view.topAnchor.constraint(equalTo: titleLabel.bottomAnchor),
+            view.leadingAnchor.constraint(equalTo: titleLabel.leadingAnchor),
+            view.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -8),
+            view.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -8)
+        ])
     }
     
 }
