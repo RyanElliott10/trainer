@@ -17,7 +17,6 @@ class TrackMiniHeaderView: UICollectionViewCell {
         
         let view = TrackView(withTitle: "Streak", type: .counter)
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.bodyType = .counter
         view.gradients = [topColor.cgColor, bottomColor.cgColor]
         
         return view
@@ -29,7 +28,6 @@ class TrackMiniHeaderView: UICollectionViewCell {
         
         let view = TrackView(withTitle: "Top Goal", type: .excerpt)
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.bodyType = .excerpt
         view.gradients = [topColor.cgColor, bottomColor.cgColor]
         
         return view
@@ -59,9 +57,8 @@ class TrackMiniHeaderView: UICollectionViewCell {
         let topColor = UIColor.rgb(red: 0, green: 130, blue: 101)
         let bottomColor = UIColor.rgb(red: 62, green: 202, blue: 0)
         
-        let view = TrackView(withTitle: "Weight", type: .excerpt)
+        let view = TrackView(withTitle: "Weight", type: .chart)
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.bodyType = .chart
         view.gradients = [topColor.cgColor, bottomColor.cgColor]
         
         return view

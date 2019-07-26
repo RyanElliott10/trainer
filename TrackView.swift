@@ -24,7 +24,7 @@ class TrackView: UIView {
         }
     }
     
-    open var bodyType: TrackViewType = .excerpt
+    open var bodyType: TrackViewType = .chart
     
     open var gradients: [CGColor] = [UIColor.black.cgColor] {
         didSet {
@@ -38,6 +38,7 @@ class TrackView: UIView {
     
     private let titleLabel: UILabel = {
         let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
         label.textColor = .white
         label.font = UIFont.systemFont(ofSize: 16, weight: UIFont.Weight.heavy)
         label.sizeToFit()
@@ -61,12 +62,12 @@ class TrackView: UIView {
         return label
     }()
     
-    private let bodyLable: UILabel = {
+    private let bodyLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textColor = .white
         label.font = UIFont.systemFont(ofSize: 14, weight: UIFont.Weight.semibold)
-        label.sizeToFit()
+//        label.sizeToFit()
         label.numberOfLines = 2
         
         return label
@@ -104,18 +105,17 @@ class TrackView: UIView {
     // MARK: - View Setup
     
     private func setupViews() {
+        print(bodyType)
         layer.cornerRadius = 8
         clipsToBounds = true
         
         addSubview(titleLabel)
-        titleLabel.sizeToFit()
         titleLabel.text = title
         
-        titleLabel.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             titleLabel.topAnchor.constraint(equalTo: topAnchor),
             titleLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 8),
-            titleLabel.heightAnchor.constraint(equalToConstant: 30)
+            titleLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -8)
         ])
         
         setupBodyView()
@@ -135,27 +135,28 @@ class TrackView: UIView {
         
         NSLayoutConstraint.activate([
             counterNumber.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 8),
-            counterNumber.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: -8)
+            counterNumber.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 4)
         ])
         
-        addSubview(bodyLable)
-        bodyLable.text = "Workouts"
+        addSubview(bodyLabel)
+        bodyLabel.text = "Workouts"
         
         NSLayoutConstraint.activate([
-            bodyLable.leadingAnchor.constraint(equalTo: counterNumber.trailingAnchor, constant: 4),
-            bodyLable.bottomAnchor.constraint(equalTo: counterNumber.bottomAnchor, constant: -4),
-            bodyLable.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -8)
+            bodyLabel.leadingAnchor.constraint(equalTo: counterNumber.trailingAnchor, constant: 4),
+            bodyLabel.bottomAnchor.constraint(equalTo: counterNumber.bottomAnchor, constant: -4),
+            bodyLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -8)
         ])
     }
     
     private func setupExcerpt() {
-        addSubview(bodyLable)
-        bodyLable.text = "To lose weight and get shredded for summer"
+        titleLabel.backgroundColor = .red
+        addSubview(bodyLabel)
+        bodyLabel.text = "To lose weight and get shredded for the summer 💪."
         
         NSLayoutConstraint.activate([
-            bodyLable.leadingAnchor.constraint(equalTo: titleLabel.leadingAnchor),
-            bodyLable.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: -4),
-            bodyLable.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -8)
+            bodyLabel.leadingAnchor.constraint(equalTo: titleLabel.leadingAnchor),
+            bodyLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor),
+            bodyLabel.trailingAnchor.constraint(equalTo: titleLabel.trailingAnchor)
         ])
     }
     
