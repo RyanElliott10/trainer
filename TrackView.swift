@@ -10,8 +10,8 @@ import UIKit
 
 public enum TrackViewType {
     case counter
-    case excerpt
     case chart
+    case excerpt
 }
 
 class TrackView: UIView {
@@ -124,8 +124,8 @@ class TrackView: UIView {
     private func setupBodyView() {
         switch bodyType {
         case .counter: setupCounter()
-        case .excerpt: setupExcerpt()
         case .chart: break
+        case .excerpt: setupExcerpt()
         }
     }
     

@@ -9,7 +9,7 @@
 import UIKit
 import Charts
 
-class TrackMiniHeaderView: UIView {
+class TrackMiniHeaderView: UICollectionViewCell {
     
     private let workoutStreakView: TrackView = {
         let topColor = UIColor.rgb(red: 240, green: 130, blue: 101)
@@ -75,6 +75,8 @@ class TrackMiniHeaderView: UIView {
         return chartView
     }()
     
+    // MARK: - Init
+    
     override init(frame: CGRect) {
         // TODO: - Add support for an arrow below the progress section that, on tap, will expand that section and display further charts
         
@@ -90,34 +92,34 @@ class TrackMiniHeaderView: UIView {
     }
     
     private func setupViews() {
-        addSubview(workoutStreakView)
+        contentView.addSubview(workoutStreakView)
         NSLayoutConstraint.activate([
-            workoutStreakView.topAnchor.constraint(equalTo: topAnchor),
-            workoutStreakView.leadingAnchor.constraint(equalTo: leadingAnchor),
-            workoutStreakView.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 2/5),
+            workoutStreakView.topAnchor.constraint(equalTo: contentView.topAnchor),
+            workoutStreakView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            workoutStreakView.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 2/5),
             workoutStreakView.heightAnchor.constraint(equalToConstant: 60)
         ])
         
-        addSubview(goalView)
+        contentView.addSubview(goalView)
         NSLayoutConstraint.activate([
-            goalView.topAnchor.constraint(equalTo: topAnchor),
-            goalView.trailingAnchor.constraint(equalTo: trailingAnchor),
+            goalView.topAnchor.constraint(equalTo: contentView.topAnchor),
+            goalView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
             goalView.leadingAnchor.constraint(equalTo: workoutStreakView.trailingAnchor, constant: 6),
             goalView.heightAnchor.constraint(equalToConstant: 60)
         ])
         
-        addSubview(progressLabel)
+        contentView.addSubview(progressLabel)
         NSLayoutConstraint.activate([
             progressLabel.topAnchor.constraint(equalTo: workoutStreakView.bottomAnchor, constant: 8),
-            progressLabel.trailingAnchor.constraint(equalTo: trailingAnchor),
-            progressLabel.leadingAnchor.constraint(equalTo: leadingAnchor)
+            progressLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            progressLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor)
         ])
         
-        addSubview(chartContainer)
+        contentView.addSubview(chartContainer)
         NSLayoutConstraint.activate([
             chartContainer.topAnchor.constraint(equalTo: progressLabel.bottomAnchor, constant: 8),
-            chartContainer.trailingAnchor.constraint(equalTo: trailingAnchor),
-            chartContainer.leadingAnchor.constraint(equalTo: leadingAnchor),
+            chartContainer.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            chartContainer.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             chartContainer.heightAnchor.constraint(equalToConstant: 200)
         ])
     }
