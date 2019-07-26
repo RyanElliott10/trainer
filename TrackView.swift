@@ -105,7 +105,6 @@ class TrackView: UIView {
     // MARK: - View Setup
     
     private func setupViews() {
-        print(bodyType)
         layer.cornerRadius = 8
         clipsToBounds = true
         
@@ -113,7 +112,7 @@ class TrackView: UIView {
         titleLabel.text = title
         
         NSLayoutConstraint.activate([
-            titleLabel.topAnchor.constraint(equalTo: topAnchor),
+            titleLabel.topAnchor.constraint(equalTo: topAnchor, constant: 4),
             titleLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 8),
             titleLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -8)
         ])
@@ -149,7 +148,6 @@ class TrackView: UIView {
     }
     
     private func setupExcerpt() {
-        titleLabel.backgroundColor = .red
         addSubview(bodyLabel)
         bodyLabel.text = "To lose weight and get shredded for the summer 💪."
         
