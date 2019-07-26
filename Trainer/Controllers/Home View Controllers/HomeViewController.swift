@@ -115,6 +115,7 @@ class HomeViewController: UIViewController, UIGestureRecognizerDelegate {
     private func setupCollectionView() {
         // BIG FIND: https://stackoverflow.com/questions/44187881/uicollectionview-full-width-cells-allow-autolayout-dynamic-height
         if #available(iOS 13.0, *) {
+            // TODO: - Figure out how to add Supplementary Views
             let size = NSCollectionLayoutSize(
                 widthDimension: NSCollectionLayoutDimension.fractionalWidth(1),
                 heightDimension: NSCollectionLayoutDimension.estimated(440)

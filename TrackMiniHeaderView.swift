@@ -45,6 +45,16 @@ class TrackMiniHeaderView: UICollectionViewCell {
         return label
     }()
     
+    private let workoutLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.textColor = .black
+        label.font = UIFont.systemFont(ofSize: 26, weight: UIFont.Weight.bold)
+        label.text = "Upcoming Workouts"
+        
+        return label
+    }()
+    
     private let chartContainer: TrackView = {
         let topColor = UIColor.rgb(red: 0, green: 130, blue: 101)
         let bottomColor = UIColor.rgb(red: 62, green: 202, blue: 0)
@@ -121,6 +131,13 @@ class TrackMiniHeaderView: UICollectionViewCell {
             chartContainer.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
             chartContainer.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             chartContainer.heightAnchor.constraint(equalToConstant: 200)
+        ])
+        
+        contentView.addSubview(workoutLabel)
+        NSLayoutConstraint.activate([
+            workoutLabel.topAnchor.constraint(equalTo: chartContainer.bottomAnchor, constant: 8),
+            workoutLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            workoutLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor)
         ])
     }
     

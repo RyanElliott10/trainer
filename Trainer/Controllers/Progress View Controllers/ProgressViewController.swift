@@ -38,6 +38,7 @@ class ProgressViewController: UIViewController {
         
         collectionView.register(WorkoutCell.self, forCellWithReuseIdentifier: workoutCellReuseId)
         collectionView.register(TrackMiniHeaderView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: headerCellReuseId)
+        collectionView.contentInset = UIEdgeInsets(top: 6, left: 8, bottom: Constants.HomeScreen.TIP_PADDING + 8, right: 8)
 //        setupCollectionViewLayout()
         
         view.addSubview(collectionView)
@@ -55,6 +56,7 @@ extension ProgressViewController: UICollectionViewDelegateFlowLayout {
     
     fileprivate func setupCollectionViewLayout() {
         if #available(iOS 13.0, *) {
+            // TODO: - Figure out how to add Supplementary Views
             let size = NSCollectionLayoutSize(
                 widthDimension: NSCollectionLayoutDimension.fractionalWidth(1),
                 heightDimension: NSCollectionLayoutDimension.estimated(440)
@@ -71,7 +73,6 @@ extension ProgressViewController: UICollectionViewDelegateFlowLayout {
             collectionView.collectionViewLayout = layout
         } else {
 //            collectionView.collectionViewLayout = CustomFlowLayout()
-            
             // TODO: - Allow for use of CustomFlowLayout on <= iOS 12
             let layout = collectionView.collectionViewLayout as! UICollectionViewFlowLayout
             layout.estimatedItemSize = CGSize(width: UIScreen.main.bounds.width - 24, height: 440)
