@@ -24,9 +24,18 @@ class WorkoutCell: UICollectionViewCell {
         }
     }
     
-    private var gradientLayer: CAGradientLayer?
+    private var checkBottomAnchor: NSLayoutYAxisAnchor?
     
     // MARK: - UI
+    
+    private let editButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.setImage(#imageLiteral(resourceName: "edit-underscore").withRenderingMode(.alwaysTemplate), for: .normal)
+        button.tintColor = .white
+        
+        return button
+    }()
     
     private let titleLabel: UILabel = {
         let label = UILabel()
@@ -64,13 +73,13 @@ class WorkoutCell: UICollectionViewCell {
     }
     
     private func configureGradientView() {
-        gradientLayer = CAGradientLayer()
-        gradientLayer?.frame = bounds
-        gradientLayer?.colors = gradients
-        gradientLayer?.startPoint = CGPoint(x: 0, y: 0)
-        gradientLayer?.endPoint = CGPoint(x: 0, y: 1)
-        gradientLayer?.locations = [0, 1]
-        layer.insertSublayer(gradientLayer!, at: 0)
+        let gradientLayer = CAGradientLayer()
+        gradientLayer.frame = bounds
+        gradientLayer.colors = gradients
+        gradientLayer.startPoint = CGPoint(x: 0, y: 0)
+        gradientLayer.endPoint = CGPoint(x: 0, y: 1)
+        gradientLayer.locations = [0, 1]
+        layer.insertSublayer(gradientLayer, at: 0)
     }
     
     private func setupViews() {
@@ -79,6 +88,14 @@ class WorkoutCell: UICollectionViewCell {
         layer.shouldRasterize = true
         layer.rasterizationScale = 3
         clipsToBounds = true
+        
+        contentView.addSubview(editButton)
+        NSLayoutConstraint.activate([
+            editButton.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 8),
+            editButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -8),
+            editButton.heightAnchor.constraint(equalToConstant: 30)
+        ])
+        editButton.addTarget(self, action: #selector(onEditWorkout), for: .touchUpInside)
         
         let titleString = "\(data.dayOfWeek) - \(data.title)".capitalized
         titleLabel.text = titleString
@@ -89,14 +106,52 @@ class WorkoutCell: UICollectionViewCell {
             titleLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -8)
         ])
         
+        checkBottomAnchor = addWorkouts()
+        
         let withTrainer = "With \(data.trainer)"
         withTrainerLabel.text = withTrainer
         contentView.addSubview(withTrainerLabel)
         NSLayoutConstraint.activate([
-            withTrainerLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -8),
+            withTrainerLabel.topAnchor.constraint(equalTo: checkBottomAnchor!, constant: 6),
             withTrainerLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 8),
             withTrainerLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -8)
         ])
+    }
+    
+    private func addWorkouts() -> NSLayoutYAxisAnchor {
+        // for workout in workouts { ... }
+        
+        let workouts = ["WOTK", "WORK"]
+        var prevWorkoutView: UIView = titleLabel
+        
+        for _ in workouts {
+            let checkMarkView = WorkoutCheckView(withDatsource: (false, "4x10 Squats"))
+            checkMarkView.translatesAutoresizingMaskIntoConstraints = false
+            contentView.addSubview(checkMarkView)
+            NSLayoutConstraint.activate([
+                checkMarkView.topAnchor.constraint(equalTo: prevWorkoutView.bottomAnchor, constant: 0),
+                checkMarkView.leadingAnchor.constraint(equalTo: prevWorkoutView.leadingAnchor),
+                checkMarkView.trailingAnchor.constraint(equalTo: prevWorkoutView.trailingAnchor),
+                checkMarkView.heightAnchor.constraint(equalToConstant: 30)
+            ])
+            prevWorkoutView = checkMarkView
+        }
+        
+        return prevWorkoutView.bottomAnchor
+    }
+    
+    // MARK: - Selectors
+    
+    @objc private func onEditWorkout() {
+        // Lol this is broken
+        print("onEditWorkout")
+        return
+        contentView.translatesAutoresizingMaskIntoConstraints = false
+        contentView.heightAnchor.constraint(equalToConstant: 400).isActive = true
+        UIView.animate(withDuration: 0.5) {
+            self.setNeedsLayout()
+            self.layoutIfNeeded()
+        }
     }
     
 }

@@ -140,7 +140,7 @@ extension ProgressViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         if indexPath.section == 1 {
-            return CGSize(width: UIScreen.main.bounds.width - 16, height: 100)
+            return CGSize(width: UIScreen.main.bounds.width - 16, height: 150)
         } else {
             let bounds = UIScreen.main.bounds.width - 16
             switch progressDatasource[indexPath.row].type {

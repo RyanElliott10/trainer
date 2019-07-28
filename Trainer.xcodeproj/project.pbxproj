@@ -33,6 +33,7 @@
 		605946E022EC1E210099C796 /* ProgressMiniHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 605946DF22EC1E210099C796 /* ProgressMiniHeaderView.swift */; };
 		605946E222ECB7AD0099C796 /* ProgressHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 605946E122ECB7AD0099C796 /* ProgressHeaderView.swift */; };
 		605946E422ED1D8B0099C796 /* ProgressDatasource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 605946E322ED1D8B0099C796 /* ProgressDatasource.swift */; };
+		605946E622ED2A7B0099C796 /* WorkoutCheckView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 605946E522ED2A7A0099C796 /* WorkoutCheckView.swift */; };
 		6087759422E5086F00FB1892 /* CustomFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6087759322E5086F00FB1892 /* CustomFlowLayout.swift */; };
 		608A36BA22E5549D0099D87C /* BorderedImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 608A36B922E5549D0099D87C /* BorderedImageView.swift */; };
 		608A36BD22E6C1670099D87C /* ExperimentalSignInWithApple.swift in Sources */ = {isa = PBXBuildFile; fileRef = 608A36BC22E6C1670099D87C /* ExperimentalSignInWithApple.swift */; };
@@ -94,6 +95,7 @@
 		605946DF22EC1E210099C796 /* ProgressMiniHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressMiniHeaderView.swift; sourceTree = "<group>"; };
 		605946E122ECB7AD0099C796 /* ProgressHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressHeaderView.swift; sourceTree = "<group>"; };
 		605946E322ED1D8B0099C796 /* ProgressDatasource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressDatasource.swift; sourceTree = "<group>"; };
+		605946E522ED2A7A0099C796 /* WorkoutCheckView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutCheckView.swift; sourceTree = "<group>"; };
 		6087759322E5086F00FB1892 /* CustomFlowLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomFlowLayout.swift; sourceTree = "<group>"; };
 		608A36B922E5549D0099D87C /* BorderedImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BorderedImageView.swift; sourceTree = "<group>"; };
 		608A36BB22E6C0B60099D87C /* Trainer.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Trainer.entitlements; sourceTree = "<group>"; };
@@ -334,6 +336,7 @@
 				605946DD22EAB0180099C796 /* WorkoutCell.swift */,
 				605946DF22EC1E210099C796 /* ProgressMiniHeaderView.swift */,
 				605946E122ECB7AD0099C796 /* ProgressHeaderView.swift */,
+				605946E522ED2A7A0099C796 /* WorkoutCheckView.swift */,
 			);
 			name = "Progress Views";
 			path = ../..;
@@ -539,6 +542,7 @@
 				608A36BD22E6C1670099D87C /* ExperimentalSignInWithApple.swift in Sources */,
 				60F3CF2E22CE7A65006F6436 /* SearchTrainerCell.swift in Sources */,
 				60F3CF1D22CE792D006F6436 /* GymDataSource.swift in Sources */,
+				605946E622ED2A7B0099C796 /* WorkoutCheckView.swift in Sources */,
 				605946E222ECB7AD0099C796 /* ProgressHeaderView.swift in Sources */,
 				60248F35226D110D00D15454 /* HomeViewController+NavBar.swift in Sources */,
 			);
