@@ -30,6 +30,9 @@
 		6051DF7722D001CD002364E4 /* WelcomeAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6051DF7622D001CD002364E4 /* WelcomeAccountViewController.swift */; };
 		6051DF7922D0108A002364E4 /* SelectAvatarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6051DF7822D0108A002364E4 /* SelectAvatarView.swift */; };
 		605946DE22EAB0180099C796 /* WorkoutCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 605946DD22EAB0180099C796 /* WorkoutCell.swift */; };
+		605946E022EC1E210099C796 /* ProgressMiniHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 605946DF22EC1E210099C796 /* ProgressMiniHeaderView.swift */; };
+		605946E222ECB7AD0099C796 /* ProgressHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 605946E122ECB7AD0099C796 /* ProgressHeaderView.swift */; };
+		605946E422ED1D8B0099C796 /* ProgressDatasource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 605946E322ED1D8B0099C796 /* ProgressDatasource.swift */; };
 		6087759422E5086F00FB1892 /* CustomFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6087759322E5086F00FB1892 /* CustomFlowLayout.swift */; };
 		608A36BA22E5549D0099D87C /* BorderedImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 608A36B922E5549D0099D87C /* BorderedImageView.swift */; };
 		608A36BD22E6C1670099D87C /* ExperimentalSignInWithApple.swift in Sources */ = {isa = PBXBuildFile; fileRef = 608A36BC22E6C1670099D87C /* ExperimentalSignInWithApple.swift */; };
@@ -42,8 +45,8 @@
 		60CA469C22889BC10082893E /* ImagePreviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60CA469B22889BC10082893E /* ImagePreviewViewController.swift */; };
 		60CA46A02289108B0082893E /* ButtonWithImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60CA469F2289108B0082893E /* ButtonWithImage.swift */; };
 		60CFC81F22CC22590077C71A /* PostBottomSheetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60CFC81E22CC22590077C71A /* PostBottomSheetViewController.swift */; };
-		60F10CF422E808FC004B8241 /* TrackMiniHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60F10CF322E808FC004B8241 /* TrackMiniHeaderView.swift */; };
-		60F10CF622E80928004B8241 /* TrackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60F10CF522E80928004B8241 /* TrackView.swift */; };
+		60F10CF422E808FC004B8241 /* ProgressMiniHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60F10CF322E808FC004B8241 /* ProgressMiniHeaderView.swift */; };
+		60F10CF622E80928004B8241 /* ProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60F10CF522E80928004B8241 /* ProgressView.swift */; };
 		60F3CF1122CE7864006F6436 /* BaseSearchPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60F3CF1022CE7864006F6436 /* BaseSearchPageViewController.swift */; };
 		60F3CF1322CE788F006F6436 /* GymsSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60F3CF1222CE788F006F6436 /* GymsSearchViewController.swift */; };
 		60F3CF1922CE78FD006F6436 /* TrainersSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60F3CF1822CE78FD006F6436 /* TrainersSearchViewController.swift */; };
@@ -88,6 +91,9 @@
 		6051DF7622D001CD002364E4 /* WelcomeAccountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeAccountViewController.swift; sourceTree = "<group>"; };
 		6051DF7822D0108A002364E4 /* SelectAvatarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectAvatarView.swift; sourceTree = "<group>"; };
 		605946DD22EAB0180099C796 /* WorkoutCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutCell.swift; sourceTree = "<group>"; };
+		605946DF22EC1E210099C796 /* ProgressMiniHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressMiniHeaderView.swift; sourceTree = "<group>"; };
+		605946E122ECB7AD0099C796 /* ProgressHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressHeaderView.swift; sourceTree = "<group>"; };
+		605946E322ED1D8B0099C796 /* ProgressDatasource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressDatasource.swift; sourceTree = "<group>"; };
 		6087759322E5086F00FB1892 /* CustomFlowLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomFlowLayout.swift; sourceTree = "<group>"; };
 		608A36B922E5549D0099D87C /* BorderedImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BorderedImageView.swift; sourceTree = "<group>"; };
 		608A36BB22E6C0B60099D87C /* Trainer.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Trainer.entitlements; sourceTree = "<group>"; };
@@ -101,8 +107,8 @@
 		60CA469B22889BC10082893E /* ImagePreviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePreviewViewController.swift; sourceTree = "<group>"; };
 		60CA469F2289108B0082893E /* ButtonWithImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonWithImage.swift; sourceTree = "<group>"; };
 		60CFC81E22CC22590077C71A /* PostBottomSheetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostBottomSheetViewController.swift; sourceTree = "<group>"; };
-		60F10CF322E808FC004B8241 /* TrackMiniHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackMiniHeaderView.swift; sourceTree = "<group>"; };
-		60F10CF522E80928004B8241 /* TrackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackView.swift; sourceTree = "<group>"; };
+		60F10CF322E808FC004B8241 /* ProgressMiniHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressMiniHeaderView.swift; sourceTree = "<group>"; };
+		60F10CF522E80928004B8241 /* ProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressView.swift; sourceTree = "<group>"; };
 		60F3CF1022CE7864006F6436 /* BaseSearchPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseSearchPageViewController.swift; sourceTree = "<group>"; };
 		60F3CF1222CE788F006F6436 /* GymsSearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GymsSearchViewController.swift; sourceTree = "<group>"; };
 		60F3CF1822CE78FD006F6436 /* TrainersSearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrainersSearchViewController.swift; sourceTree = "<group>"; };
@@ -206,7 +212,7 @@
 			isa = PBXGroup;
 			children = (
 				60CA4694228793F30082893E /* Home Views */,
-				60F10CF222E808B8004B8241 /* Journey Views */,
+				60F10CF222E808B8004B8241 /* Progress Views */,
 				60F3CF2622CE7A13006F6436 /* Search Views */,
 				608A36B822E5138A0099D87C /* Welcome Flow Views */,
 				608A36B922E5549D0099D87C /* BorderedImageView.swift */,
@@ -225,6 +231,7 @@
 				60F3CF1E22CE794F006F6436 /* SearchDataSource.swift */,
 				60F3CF2022CE7960006F6436 /* TrainersDataSource.swift */,
 				60F3CF2222CE796E006F6436 /* WorkoutDatasource.swift */,
+				605946E322ED1D8B0099C796 /* ProgressDatasource.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -319,14 +326,16 @@
 			path = "Custom UI";
 			sourceTree = "<group>";
 		};
-		60F10CF222E808B8004B8241 /* Journey Views */ = {
+		60F10CF222E808B8004B8241 /* Progress Views */ = {
 			isa = PBXGroup;
 			children = (
-				60F10CF322E808FC004B8241 /* TrackMiniHeaderView.swift */,
-				60F10CF522E80928004B8241 /* TrackView.swift */,
+				60F10CF322E808FC004B8241 /* ProgressMiniHeaderView.swift */,
+				60F10CF522E80928004B8241 /* ProgressView.swift */,
 				605946DD22EAB0180099C796 /* WorkoutCell.swift */,
+				605946DF22EC1E210099C796 /* ProgressMiniHeaderView.swift */,
+				605946E122ECB7AD0099C796 /* ProgressHeaderView.swift */,
 			);
-			name = "Journey Views";
+			name = "Progress Views";
 			path = ../..;
 			sourceTree = "<group>";
 		};
@@ -482,9 +491,10 @@
 				60F3CF3022CE85EE006F6436 /* WelcomeViewController.swift in Sources */,
 				60F3CF1322CE788F006F6436 /* GymsSearchViewController.swift in Sources */,
 				6051DF7322D0001B002364E4 /* SignUpViewController.swift in Sources */,
+				605946E422ED1D8B0099C796 /* ProgressDatasource.swift in Sources */,
 				60248F2F226CCC6C00D15454 /* SearchViewController.swift in Sources */,
 				60F3CF2322CE796E006F6436 /* WorkoutDatasource.swift in Sources */,
-				60F10CF622E80928004B8241 /* TrackView.swift in Sources */,
+				60F10CF622E80928004B8241 /* ProgressView.swift in Sources */,
 				60248F2D226CCC6300D15454 /* HomeViewController.swift in Sources */,
 				60F3CF1122CE7864006F6436 /* BaseSearchPageViewController.swift in Sources */,
 				60F3CF1F22CE794F006F6436 /* SearchDataSource.swift in Sources */,
@@ -497,6 +507,7 @@
 				60F3CF2A22CE7A3B006F6436 /* SearchHeader.swift in Sources */,
 				60A58CA622DABF3400556651 /* SwipeViewController.swift in Sources */,
 				6033D9312278062D00D74FAA /* Comment.swift in Sources */,
+				605946E022EC1E210099C796 /* ProgressMiniHeaderView.swift in Sources */,
 				60F9A8402298DC73007D34BD /* HomeScreenStoryCellView.swift in Sources */,
 				60248F2B226CCC0F00D15454 /* TabBarController.swift in Sources */,
 				6051DF7722D001CD002364E4 /* WelcomeAccountViewController.swift in Sources */,
@@ -521,13 +532,14 @@
 				608A36BA22E5549D0099D87C /* BorderedImageView.swift in Sources */,
 				60CFC81F22CC22590077C71A /* PostBottomSheetViewController.swift in Sources */,
 				60F3CF2C22CE7A4C006F6436 /* SearchHeaderCell.swift in Sources */,
-				60F10CF422E808FC004B8241 /* TrackMiniHeaderView.swift in Sources */,
+				60F10CF422E808FC004B8241 /* ProgressMiniHeaderView.swift in Sources */,
 				6051DF7522D00115002364E4 /* WelcomeAccountHeaderView.swift in Sources */,
 				6051DF7922D0108A002364E4 /* SelectAvatarView.swift in Sources */,
 				60CA469C22889BC10082893E /* ImagePreviewViewController.swift in Sources */,
 				608A36BD22E6C1670099D87C /* ExperimentalSignInWithApple.swift in Sources */,
 				60F3CF2E22CE7A65006F6436 /* SearchTrainerCell.swift in Sources */,
 				60F3CF1D22CE792D006F6436 /* GymDataSource.swift in Sources */,
+				605946E222ECB7AD0099C796 /* ProgressHeaderView.swift in Sources */,
 				60248F35226D110D00D15454 /* HomeViewController+NavBar.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

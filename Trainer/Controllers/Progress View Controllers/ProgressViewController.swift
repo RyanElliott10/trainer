@@ -10,11 +10,16 @@ import UIKit
 
 class ProgressViewController: UIViewController {
     
+    // DELETE THIS
+    private let progressDatasource = ProgressDatasource.generateDummyData()
+    
     private let workoutCellReuseId = "WorkoutCellReuseId"
+    private let progressCellReuseId = "ProgressCellReuseId"
     private let headerCellReuseId = "HeaderCellReuseId"
     
     private let collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
+        layout.sectionHeadersPinToVisibleBounds = true
         layout.sectionInset = UIEdgeInsets(top: 6, left: 8, bottom: 0, right: 8)
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.translatesAutoresizingMaskIntoConstraints = false
@@ -26,7 +31,7 @@ class ProgressViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        navigationItem.title = "Your Journey"
+        navigationItem.title = "Your Progress"
         navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 18, weight: UIFont.Weight.bold)]
         
         setupCollectionView()
@@ -37,8 +42,8 @@ class ProgressViewController: UIViewController {
         collectionView.dataSource = self
         
         collectionView.register(WorkoutCell.self, forCellWithReuseIdentifier: workoutCellReuseId)
-        collectionView.register(TrackMiniHeaderView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: headerCellReuseId)
-        collectionView.contentInset = UIEdgeInsets(top: 6, left: 8, bottom: Constants.HomeScreen.TIP_PADDING + 8, right: 8)
+        collectionView.register(ProgressView.self, forCellWithReuseIdentifier: progressCellReuseId)
+        collectionView.register(ProgressHeaderView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: headerCellReuseId)
 //        setupCollectionViewLayout()
         
         view.addSubview(collectionView)
@@ -85,37 +90,69 @@ extension ProgressViewController: UICollectionViewDelegateFlowLayout {
 
 extension ProgressViewController: UICollectionViewDataSource {
     
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        return 2
+    }
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 50
+        switch section {
+        case 0: return progressDatasource.count
+        case 1: return 50
+        default: return 0
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let topColor = UIColor.rgb(red: 240, green: 130, blue: 101)
-        let bottomColor = UIColor.rgb(red: 244, green: 104, blue: 62)
-        let data = WorkoutDatasource(title: "Legs", dayOfWeek: .monday, workouts: [], trainer: "Zac Perna")
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: workoutCellReuseId, for: indexPath) as! WorkoutCell
-        cell.datasource = data
-        cell.gradients = [topColor.cgColor, bottomColor.cgColor]
+        switch indexPath.section {
+        case 0:
+            let topColor = UIColor.rgb(red: 101, green: 170, blue: 240)
+            let bottomColor = UIColor.rgb(red: 62, green: 202, blue: 244)
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: progressCellReuseId, for: indexPath) as! ProgressView
+            cell.gradients = [topColor.cgColor, bottomColor.cgColor]
+            cell.datasource = progressDatasource[indexPath.row]
+            #warning("Directly call setup views to avoid recursive overflow. The datasource has a mutating func, and setting a didSet on the datasource will endlessly call itself. Listen to me.")
+            cell.setupViews()
+            
+            return cell
+        case 1:
+            let topColor = UIColor.rgb(red: 244, green: 104, blue: 62)
+            let bottomColor = UIColor.rgb(red: 240, green: 133, blue: 101)
+            let data = WorkoutDatasource(title: "Legs", dayOfWeek: .monday, workouts: [], trainer: "Zac Perna")
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: workoutCellReuseId, for: indexPath) as! WorkoutCell
+            cell.datasource = data
+            cell.gradients = [topColor.cgColor, bottomColor.cgColor]
         
-        return cell
+            return cell
+        default: return UICollectionViewCell()
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-        let header = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: headerCellReuseId, for: indexPath) as! TrackMiniHeaderView
+        let header = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: headerCellReuseId, for: indexPath) as! ProgressHeaderView
+        header.title = indexPath.section == 0 ? "Progress" : "Workouts"
+        
         return header
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        return UIEdgeInsets(top: 6, left: 8, bottom: 0, right: 8)
+        return UIEdgeInsets(top:10, left: 8, bottom: 10, right: 8)
     }
     
-    // Delete in favor of self sizing
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: UIScreen.main.bounds.width - 16, height: 100)
+        if indexPath.section == 1 {
+            return CGSize(width: UIScreen.main.bounds.width - 16, height: 100)
+        } else {
+            let bounds = UIScreen.main.bounds.width - 16
+            switch progressDatasource[indexPath.row].type {
+            case .counter: return CGSize(width: (bounds - 10) * (2 / 5), height: 60)
+            case .excerpt: return CGSize(width: (bounds - 10) * (3 / 5), height: 60)
+            case .chart: return CGSize(width: bounds, height: 200)
+            }
+        }
     }
-    
+
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
-        return CGSize(width: UIScreen.main.bounds.width - 16, height: 350)
+        return CGSize(width: UIScreen.main.bounds.width - 16, height: 40)
     }
     
 }

@@ -18,11 +18,10 @@ class BorderedImageView: UIView {
         }
     }
     
-    private let innerImageView: UIImageView = {
+    private let imageView: UIImageView = {
         let imageView = UIImageView()
+        imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.clipsToBounds = true
-        imageView.layer.shouldRasterize = true
-        imageView.layer.rasterizationScale = 100
         
         return imageView
     }()
@@ -32,10 +31,15 @@ class BorderedImageView: UIView {
     }
     
     convenience init(withImage image: UIImage, diameter: CGFloat) {
-        self.init()
+        self.init(frame: .zero)
         
-        innerImageView.image = image
-        self.diameter = diameter
+        imageView.image = image
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        
+        diameter = frame.width
         setupViews()
     }
     
@@ -44,13 +48,38 @@ class BorderedImageView: UIView {
     }
     
     func setupViews() {
-        innerImageView.layer.cornerRadius = radius
+        let shapeLayer = CAShapeLayer()
         
-        circleLayer = CAShapeLayer()
-        circleLayer.path = UIBezierPath(roundedRect: CGRect(x: frame.origin.x, y: frame.origin.y, width: diameter, height: diameter), cornerRadius: radius).cgPath
-        circleLayer.position = CGPoint(x: frame.midX - radius, y: frame.midY - radius)
-        circleLayer.fillColor = UIColor.blue.cgColor
-        layer.addSublayer(circleLayer)
+        shapeLayer.frame = CGRect(x: 0, y: 0, width: diameter, height: diameter)
+        shapeLayer.lineWidth = 1
+        shapeLayer.fillColor = nil
+        shapeLayer.strokeColor = UIColor.lightGray.cgColor
+        shapeLayer.shouldRasterize = true
+        shapeLayer.rasterizationScale = 10
+        
+        let arcCenter = shapeLayer.position
+        let startAngle = CGFloat(0.0)
+        let endAngle = CGFloat(2.0 * .pi)
+        let clockwise = true
+        
+        let circlePath = UIBezierPath(arcCenter: arcCenter,
+                                      radius: radius,
+                                      startAngle: startAngle,
+                                      endAngle: endAngle,
+                                      clockwise: clockwise)
+        
+        shapeLayer.path = circlePath.cgPath
+        layer.addSublayer(shapeLayer)
+
+        imageView.layer.cornerRadius = radius - 1
+        addSubview(imageView)
+
+        NSLayoutConstraint.activate([
+            imageView.topAnchor.constraint(equalTo: topAnchor, constant: 2),
+            imageView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -2),
+            imageView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 2),
+            imageView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -2)
+        ])
     }
     
 }

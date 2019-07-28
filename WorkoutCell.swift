@@ -57,13 +57,19 @@ class WorkoutCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    override func prepareForReuse() {
+        for view in contentView.subviews {
+            view.removeFromSuperview()
+        }
+    }
+    
     private func configureGradientView() {
         gradientLayer = CAGradientLayer()
         gradientLayer?.frame = bounds
         gradientLayer?.colors = gradients
-        gradientLayer?.startPoint = CGPoint(x: 0.0, y: 0.0)
-        gradientLayer?.endPoint = CGPoint(x: 0.0, y: 0.1)
-        gradientLayer?.locations = [0.0, 0.1]
+        gradientLayer?.startPoint = CGPoint(x: 0, y: 0)
+        gradientLayer?.endPoint = CGPoint(x: 0, y: 1)
+        gradientLayer?.locations = [0, 1]
         layer.insertSublayer(gradientLayer!, at: 0)
     }
     

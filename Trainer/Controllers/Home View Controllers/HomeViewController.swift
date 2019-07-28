@@ -125,7 +125,7 @@ class HomeViewController: UIViewController, UIGestureRecognizerDelegate {
             let group = NSCollectionLayoutGroup.horizontal(layoutSize: size, subitems: [item])
             let section = NSCollectionLayoutSection(group: group)
             
-            section.contentInsets = NSDirectionalEdgeInsets(top: 8, leading: 12, bottom: Constants.HomeScreen.TIP_PADDING + 8, trailing: 12)
+            section.contentInsets = NSDirectionalEdgeInsets(top: 8, leading: 12, bottom: 8, trailing: 12)
             section.interGroupSpacing = 12
             
             let layout = UICollectionViewCompositionalLayout(section: section)
@@ -137,7 +137,7 @@ class HomeViewController: UIViewController, UIGestureRecognizerDelegate {
             let layout = collectionView.collectionViewLayout as! UICollectionViewFlowLayout
             layout.estimatedItemSize = CGSize(width: UIScreen.main.bounds.width - 24, height: 440)
             collectionView.collectionViewLayout = layout
-            collectionView.contentInset = UIEdgeInsets(top: 8, left: 12, bottom: Constants.HomeScreen.TIP_PADDING + 8, right: 12)
+            collectionView.contentInset = UIEdgeInsets(top: 8, left: 12, bottom: 8, right: 12)
         }
         
         collectionView.register(ModernPostCell.self, forCellWithReuseIdentifier: cellReuseID)
@@ -149,7 +149,7 @@ class HomeViewController: UIViewController, UIGestureRecognizerDelegate {
         collectionView.backgroundColor = .clear
         collectionView.alwaysBounceVertical = true
         
-        collectionView.anchor(top: view.topAnchor, leading: view.safeAreaLayoutGuide.leadingAnchor, bottom: view.bottomAnchor, trailing: view.safeAreaLayoutGuide.trailingAnchor, paddingTop: 0, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 0, height: 0)
+        collectionView.anchor(top: view.topAnchor, leading: view.safeAreaLayoutGuide.leadingAnchor, bottom: view.bottomAnchor, trailing: view.safeAreaLayoutGuide.trailingAnchor, paddingTop: 0, paddingLeft: 0, paddingBottom: Constants.HomeScreen.TIP_PADDING, paddingRight: 0, width: 0, height: 0)
         
         setupRefreshControl()
     }

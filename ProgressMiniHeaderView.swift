@@ -1,5 +1,5 @@
 //
-//  TrackMiniHeaderView.swift
+//  ProgressMiniHeaderView.swift
 //  Trainer
 //
 //  Created by Ryan Elliott on 7/23/19.
@@ -11,22 +11,22 @@ import Charts
 
 class ProgressMiniHeaderView: UICollectionViewCell {
     
-    private let workoutStreakView: TrackView = {
+    private let workoutStreakView: ProgressView = {
         let topColor = UIColor.rgb(red: 240, green: 130, blue: 101)
         let bottomColor = UIColor.rgb(red: 244, green: 104, blue: 62)
         
-        let view = TrackView(withTitle: "Streak", type: .counter)
+        let view = ProgressView(withTitle: "Streak", type: .counter)
         view.translatesAutoresizingMaskIntoConstraints = false
         view.gradients = [topColor.cgColor, bottomColor.cgColor]
         
         return view
     }()
     
-    private let goalView: TrackView = {
+    private let goalView: ProgressView = {
         let topColor = UIColor.rgb(red: 240, green: 130, blue: 101)
         let bottomColor = UIColor.rgb(red: 62, green: 202, blue: 244)
         
-        let view = TrackView(withTitle: "Top Goal", type: .excerpt)
+        let view = ProgressView(withTitle: "Top Goal", type: .excerpt)
         view.translatesAutoresizingMaskIntoConstraints = false
         view.gradients = [topColor.cgColor, bottomColor.cgColor]
         
@@ -53,11 +53,11 @@ class ProgressMiniHeaderView: UICollectionViewCell {
         return label
     }()
     
-    private let chartContainer: TrackView = {
+    private let chartContainer: ProgressView = {
         let topColor = UIColor.rgb(red: 0, green: 130, blue: 101)
         let bottomColor = UIColor.rgb(red: 62, green: 202, blue: 0)
         
-        let view = TrackView(withTitle: "Weight", type: .chart)
+        let view = ProgressView(withTitle: "Weight", type: .chart)
         view.translatesAutoresizingMaskIntoConstraints = false
         view.gradients = [topColor.cgColor, bottomColor.cgColor]
         

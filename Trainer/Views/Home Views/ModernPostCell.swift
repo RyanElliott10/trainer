@@ -17,7 +17,7 @@ class ModernPostCell: UICollectionViewCell {
     
     private let modernPostCellImageId = "modernPostCellImageId"
     
-    private var profileImageView = BorderedImageView()
+    private var profileImageView: BorderedImageView?
     
     private let titleLabel: UILabel = {
         let label = UILabel()
@@ -37,7 +37,7 @@ class ModernPostCell: UICollectionViewCell {
     
     private let bodyLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: UIFont.systemFontSize)
+        label.font = UIFont.systemFont(ofSize: UIFont.systemFontSize, weight: .light)
         label.numberOfLines = 0
         
         return label
@@ -73,6 +73,9 @@ class ModernPostCell: UICollectionViewCell {
         
         // Reset data since this cell will be used for another one
         resetData()
+        for view in contentView.subviews {
+            view.removeFromSuperview()
+        }
     }
     
     private func resetData() {
@@ -109,22 +112,22 @@ class ModernPostCell: UICollectionViewCell {
         clipsToBounds = true
         
         // Profile Image
-        contentView.addSubview(profileImageView)
-        profileImageView.anchor(top: contentView.topAnchor, leading: contentView.leadingAnchor, bottom: nil, trailing: nil, paddingTop: 8, paddingLeft: 8, paddingBottom: 0, paddingRight: 0, width: 30, height: 30)
+        contentView.addSubview(profileImageView!)
+        profileImageView!.anchor(top: contentView.topAnchor, leading: contentView.leadingAnchor, bottom: nil, trailing: nil, paddingTop: 8, paddingLeft: 8, paddingBottom: 0, paddingRight: 0, width: 40, height: 40)
         
         // Title
         contentView.addSubview(titleLabel)
-        titleLabel.anchor(top: nil, leading: profileImageView.trailingAnchor, bottom: nil, trailing: nil, paddingTop: 8, paddingLeft: 8, paddingBottom: 0, paddingRight: 0, width: contentView.frame.width * (2 / 3), height: 0)
-        titleLabel.centerYAnchor.constraint(equalTo: profileImageView.centerYAnchor).isActive = true
+        titleLabel.anchor(top: nil, leading: profileImageView!.trailingAnchor, bottom: nil, trailing: nil, paddingTop: 0, paddingLeft: 8, paddingBottom: 0, paddingRight: 0, width: contentView.frame.width * (2 / 3), height: 0)
+        titleLabel.centerYAnchor.constraint(equalTo: profileImageView!.centerYAnchor).isActive = true
         
         // Time
         contentView.addSubview(dateLabel)
         dateLabel.anchor(top: nil, leading: nil, bottom: nil, trailing: contentView.trailingAnchor, paddingTop: 0, paddingLeft: 0, paddingBottom: 0, paddingRight: 8, width: contentView.frame.width * (1 / 3), height: 0)
-        dateLabel.centerYAnchor.constraint(equalTo: profileImageView.centerYAnchor).isActive = true
+        dateLabel.centerYAnchor.constraint(equalTo: profileImageView!.centerYAnchor).isActive = true
         
         // Body
         contentView.addSubview(bodyLabel)
-        bodyLabel.anchor(top: titleLabel.bottomAnchor, leading: profileImageView.leadingAnchor, bottom: nil, trailing: contentView.trailingAnchor, paddingTop: 8, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 0, height: 0)
+        bodyLabel.anchor(top: profileImageView!.bottomAnchor, leading: profileImageView?.leadingAnchor, bottom: nil, trailing: contentView.trailingAnchor, paddingTop: 6, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 0, height: 0)
         
         // Images
         var topAnchor = bodyLabel.bottomAnchor

@@ -1,5 +1,5 @@
 //
-//  TrackView.swift
+//  ProgressView.swift
 //  Trainer
 //
 //  Created by Ryan Elliott on 7/23/19.
@@ -7,14 +7,15 @@
 //
 
 import UIKit
+import Charts
 
-public enum TrackViewType {
+public enum ProgressViewType {
     case counter
     case chart
     case excerpt
 }
 
-class TrackView: UIView {
+class ProgressView: UICollectionViewCell {
     
     // MARK: - Properties
     
@@ -24,11 +25,19 @@ class TrackView: UIView {
         }
     }
     
-    open var bodyType: TrackViewType = .chart
+    open var bodyType: ProgressViewType = .chart
     
     open var gradients: [CGColor] = [UIColor.black.cgColor] {
         didSet {
             configureGradientView()
+        }
+    }
+    
+    open var datasource: ProgressDatasource? {
+        didSet {
+            guard let data = datasource else { return }
+            title = data.title
+            bodyType = data.type
         }
     }
     
@@ -67,10 +76,28 @@ class TrackView: UIView {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textColor = .white
         label.font = UIFont.systemFont(ofSize: 14, weight: UIFont.Weight.semibold)
-//        label.sizeToFit()
+        label.sizeToFit()
         label.numberOfLines = 2
         
         return label
+    }()
+    
+    private let chartView: LineChartView = {
+        let chartView = LineChartView()
+        chartView.translatesAutoresizingMaskIntoConstraints = false
+        chartView.drawGridBackgroundEnabled = false
+        chartView.xAxis.drawGridLinesEnabled = false
+        chartView.rightAxis.enabled = false
+        chartView.legend.enabled = false
+        chartView.leftAxis.drawGridLinesEnabled = false
+        chartView.xAxis.labelPosition = XAxis.LabelPosition.bottom
+        chartView.extraTopOffset = 5
+        chartView.leftAxis.axisMinimum = 0
+        chartView.leftAxis.axisMaximum = 35
+        chartView.xAxis.labelTextColor = .white
+        chartView.leftAxis.labelTextColor = .white
+        
+        return chartView
     }()
     
     // MARK: - Init
@@ -81,15 +108,8 @@ class TrackView: UIView {
         // TODO: - Center all the labels in the middle of the view, no matter its height
     }
     
-    convenience init(withTitle title: String, type: TrackViewType) {
+    convenience init(withTitle title: String, type: ProgressViewType) {
         self.init(frame: .zero)
-        
-        self.title = title
-        self.bodyType = type
-        
-        translatesAutoresizingMaskIntoConstraints = false
-        setupViews()
-        configureGradientView()
     }
     
     required init?(coder: NSCoder) {
@@ -102,19 +122,25 @@ class TrackView: UIView {
         gradientLayer?.frame = bounds
     }
     
+    override func prepareForReuse() {
+        for view in contentView.subviews {
+            view.removeFromSuperview()
+        }
+    }
+    
     // MARK: - View Setup
     
-    private func setupViews() {
+    func setupViews() {
         layer.cornerRadius = 8
         clipsToBounds = true
         
-        addSubview(titleLabel)
+        contentView.addSubview(titleLabel)
         titleLabel.text = title
         
         NSLayoutConstraint.activate([
-            titleLabel.topAnchor.constraint(equalTo: topAnchor, constant: 4),
-            titleLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 8),
-            titleLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -8)
+            titleLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 4),
+            titleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 8),
+            titleLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -8)
         ])
         
         setupBodyView()
@@ -123,33 +149,33 @@ class TrackView: UIView {
     private func setupBodyView() {
         switch bodyType {
         case .counter: setupCounter()
-        case .chart: break
+        case .chart: setupChart()
         case .excerpt: setupExcerpt()
         }
     }
     
     private func setupCounter() {
-        addSubview(counterNumber)
+        contentView.addSubview(counterNumber)
         counterNumber.text = "13"
         
         NSLayoutConstraint.activate([
-            counterNumber.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 8),
+            counterNumber.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 8),
             counterNumber.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 4)
         ])
         
-        addSubview(bodyLabel)
+        contentView.addSubview(bodyLabel)
         bodyLabel.text = "Workouts"
         
         NSLayoutConstraint.activate([
             bodyLabel.leadingAnchor.constraint(equalTo: counterNumber.trailingAnchor, constant: 4),
             bodyLabel.bottomAnchor.constraint(equalTo: counterNumber.bottomAnchor, constant: -4),
-            bodyLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -8)
+            bodyLabel.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.width * (2 / 5))
         ])
     }
     
     private func setupExcerpt() {
-        addSubview(bodyLabel)
-        bodyLabel.text = "To lose weight and get shredded for the summer 💪."
+        contentView.addSubview(bodyLabel)
+        bodyLabel.text = "Lose weight, get shredded for summer  💪"
         
         NSLayoutConstraint.activate([
             bodyLabel.leadingAnchor.constraint(equalTo: titleLabel.leadingAnchor),
@@ -162,21 +188,35 @@ class TrackView: UIView {
         gradientLayer = CAGradientLayer()
         gradientLayer?.frame = bounds
         gradientLayer?.colors = gradients
-        gradientLayer?.startPoint = CGPoint(x: 0.0, y: 0.0)
-        gradientLayer?.endPoint = CGPoint(x: 0.0, y: 0.1)
-        gradientLayer?.locations = [0.0, 0.1]
+        gradientLayer?.startPoint = CGPoint(x: 0, y: 0)
+        gradientLayer?.endPoint = CGPoint(x: 0, y: 1)
+        gradientLayer?.locations = [0, 1]
         layer.insertSublayer(gradientLayer!, at: 0)
     }
     
     func addMainView(_ view: UIView) {
-        addSubview(view)
+        contentView.addSubview(view)
         
         NSLayoutConstraint.activate([
             view.topAnchor.constraint(equalTo: titleLabel.bottomAnchor),
             view.leadingAnchor.constraint(equalTo: titleLabel.leadingAnchor),
-            view.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -8),
-            view.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -8)
+            view.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -8),
+            view.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -8)
         ])
+    }
+    
+    private func setupChart() {
+        chartView.data = datasource?.setupChartValues()
+        
+        for set in chartView.data!.dataSets as! [LineChartDataSet] {
+            set.mode = (set.mode == .cubicBezier) ? .linear : .cubicBezier
+            set.drawCirclesEnabled = false
+            set.drawFilledEnabled = !set.drawFilledEnabled
+        }
+        chartView.animate(xAxisDuration: 0.5, yAxisDuration: 0.5)
+        chartView.setNeedsDisplay()
+        
+        addMainView(chartView)
     }
     
 }
