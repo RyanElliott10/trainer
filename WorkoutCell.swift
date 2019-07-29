@@ -106,7 +106,7 @@ class WorkoutCell: UICollectionViewCell {
             titleLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -8)
         ])
         
-        checkBottomAnchor = addWorkouts()
+        checkBottomAnchor = anchorWorkouts()
         
         let withTrainer = "With \(data.trainer)"
         withTrainerLabel.text = withTrainer
@@ -118,14 +118,14 @@ class WorkoutCell: UICollectionViewCell {
         ])
     }
     
-    private func addWorkouts() -> NSLayoutYAxisAnchor {
+    private func anchorWorkouts() -> NSLayoutYAxisAnchor {
         // for workout in workouts { ... }
         
-        let workouts = ["WOTK", "WORK"]
         var prevWorkoutView: UIView = titleLabel
         
-        for _ in workouts {
-            let checkMarkView = WorkoutCheckView(withDatsource: (false, "4x10 Squats"))
+        for var workout in datasource?.workouts ?? [] {
+            let checkMarkView = WorkoutCheckView(withDatsource: &workout)
+            checkMarkView.delegate = self
             checkMarkView.translatesAutoresizingMaskIntoConstraints = false
             contentView.addSubview(checkMarkView)
             NSLayoutConstraint.activate([
@@ -138,6 +138,10 @@ class WorkoutCell: UICollectionViewCell {
         }
         
         return prevWorkoutView.bottomAnchor
+    }
+    
+    func onWorkoutTap(isCompleted: Bool) {
+        datasource?.isCompleted = isCompleted
     }
     
     // MARK: - Selectors

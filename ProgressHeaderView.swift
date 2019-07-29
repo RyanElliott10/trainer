@@ -29,10 +29,20 @@ class ProgressHeaderView: UICollectionViewCell {
         return label
     }()
     
-    private let visibilityImage: ButtonWithImage = {
-        let button = ButtonWithImage()
+    private let earlierPostsButton: UIButton = {
+        let button = UIButton(type: .system)
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.setImage(#imageLiteral(resourceName: "eye-off"), for: .normal)
+        button.setImage(#imageLiteral(resourceName: "clock").withRenderingMode(.alwaysTemplate), for: .normal)
+        button.tintColor = .black
+        
+        return button
+    }()
+    
+    private let visibilityImage: UIButton = {
+        let button = UIButton(type: .system)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.setImage(#imageLiteral(resourceName: "eye-off").withRenderingMode(.alwaysTemplate), for: .normal)
+        button.tintColor = .black
         
         return button
     }()
@@ -44,6 +54,14 @@ class ProgressHeaderView: UICollectionViewCell {
         layer.cornerRadius = 16
         layer.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMaxYCorner]
         
+        setupViews()
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    private func setupViews() {
         contentView.addSubview(titleLabel)
         NSLayoutConstraint.activate([
             titleLabel.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
@@ -54,13 +72,26 @@ class ProgressHeaderView: UICollectionViewCell {
         NSLayoutConstraint.activate([
             visibilityImage.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
             visibilityImage.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -8),
-            visibilityImage.heightAnchor.constraint(equalToConstant: 25),
-            visibilityImage.widthAnchor.constraint(equalToConstant: 25)
+            visibilityImage.heightAnchor.constraint(equalToConstant: 20),
+            visibilityImage.widthAnchor.constraint(equalToConstant: 20)
         ])
+        
+        if true {
+            earlierPostsButton.addTarget(self, action: #selector(showEalierWorkouts), for: .touchUpInside)
+            contentView.addSubview(earlierPostsButton)
+            NSLayoutConstraint.activate([
+                earlierPostsButton.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
+                earlierPostsButton.trailingAnchor.constraint(equalTo: visibilityImage.leadingAnchor, constant: -16),
+                earlierPostsButton.heightAnchor.constraint(equalToConstant: 20),
+                earlierPostsButton.widthAnchor.constraint(equalToConstant: 20)
+            ])
+        }
     }
     
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+    // MARK: - Selectors
+    
+    @objc private func showEalierWorkouts() {
+        print("showEalierWorkouts")
     }
     
 }

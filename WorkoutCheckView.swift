@@ -12,18 +12,22 @@ class WorkoutCheckView: UIView {
     
     // MARK: - Properties
     
+    private var datasource: Excercise!
+    
+    var delegate: WorkoutCell!
+    
     private var isChecked: Bool! {
         didSet {
             updateCheckMark()
         }
     }
     
-    private var title: String?
+    private var excerciseName: String?
     
     // MARK: - UI
     
     private let checkView: UIButton = {
-        let button = UIButton()
+        let button = UIButton(type: .system)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.addTarget(self, action: #selector(checkMarkOnTap), for: .touchUpInside)
         button.tintColor = .white
@@ -49,11 +53,12 @@ class WorkoutCheckView: UIView {
         setupViews()
     }
     
-    init(withDatsource data: (Bool, String)) {
+    init(withDatsource data: inout Excercise) {
         super.init(frame: .zero)
         
-        isChecked = data.0
-        title = data.1
+        isChecked = data.isCompleted
+        excerciseName = data.name
+        datasource = data
         setupViews()
     }
     
@@ -86,17 +91,18 @@ class WorkoutCheckView: UIView {
         self.checkView.setImage(#imageLiteral(resourceName: image).withRenderingMode(.alwaysTemplate), for: .normal)
         
         if isChecked {
-            let attributeString: NSMutableAttributedString =  NSMutableAttributedString(string: title!)
-            attributeString.addAttribute(.strikethroughStyle, value: 2, range: NSMakeRange(0, title?.count ?? 0))
+            let attributeString: NSMutableAttributedString =  NSMutableAttributedString(string: excerciseName!)
+            attributeString.addAttribute(.strikethroughStyle, value: 2, range: NSMakeRange(0, excerciseName?.count ?? 0))
             titleLabel.attributedText = attributeString
         } else {
-            let attributeString: NSMutableAttributedString =  NSMutableAttributedString(string: title!)
+            let attributeString: NSMutableAttributedString =  NSMutableAttributedString(string: excerciseName!)
             titleLabel.attributedText = attributeString
         }
     }
     
     @objc private func checkMarkOnTap() {
         isChecked = !isChecked
+        datasource.isCompleted = isChecked
     }
     
 }

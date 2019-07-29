@@ -12,6 +12,7 @@ class ProgressViewController: UIViewController {
     
     // DELETE THIS
     private let progressDatasource = ProgressDatasource.generateDummyData()
+    private let workoutDatasource = WorkoutDatasource.generateDummyData()
     
     private let workoutCellReuseId = "WorkoutCellReuseId"
     private let progressCellReuseId = "ProgressCellReuseId"
@@ -97,7 +98,7 @@ extension ProgressViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         switch section {
         case 0: return progressDatasource.count
-        case 1: return 50
+        case 1: return workoutDatasource.count
         default: return 0
         }
     }
@@ -117,9 +118,8 @@ extension ProgressViewController: UICollectionViewDataSource {
         case 1:
             let topColor = UIColor.rgb(red: 244, green: 104, blue: 62)
             let bottomColor = UIColor.rgb(red: 240, green: 133, blue: 101)
-            let data = WorkoutDatasource(title: "Legs", dayOfWeek: .monday, workouts: [], trainer: "Zac Perna")
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: workoutCellReuseId, for: indexPath) as! WorkoutCell
-            cell.datasource = data
+            cell.datasource = workoutDatasource[indexPath.row]
             cell.gradients = [topColor.cgColor, bottomColor.cgColor]
         
             return cell
