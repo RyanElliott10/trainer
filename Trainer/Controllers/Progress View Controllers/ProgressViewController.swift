@@ -35,7 +35,13 @@ class ProgressViewController: UIViewController {
         navigationItem.title = "Your Progress"
         navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 18, weight: UIFont.Weight.bold)]
         
+        setupRightNavBarItem()
         setupCollectionView()
+    }
+    
+    private func setupRightNavBarItem() {
+        navigationItem.rightBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "plus-circle"), style: .plain, target: self, action: #selector(plusOnPress))
+        navigationItem.rightBarButtonItem?.tintColor = .black
     }
     
     private func setupCollectionView() {
@@ -54,6 +60,10 @@ class ProgressViewController: UIViewController {
             collectionView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
             collectionView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor)
         ])
+    }
+    
+    @objc private func plusOnPress() {
+        push(viewController: AddWorkoutViewController())
     }
     
 }
@@ -153,6 +163,22 @@ extension ProgressViewController: UICollectionViewDataSource {
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
         return CGSize(width: UIScreen.main.bounds.width - 16, height: 40)
+    }
+    
+}
+
+extension ProgressViewController: ModalViewControllerDelegate {
+    
+    func push(viewController controller: UIViewController) {
+        let transition: CATransition = CATransition()
+        transition.duration = 0.1
+        transition.timingFunction = CAMediaTimingFunction(name: .easeInEaseOut)
+        transition.type = .fade
+
+        controller.modalPresentationStyle = .overCurrentContext
+        controller.modalTransitionStyle = .crossDissolve
+        navigationController?.view.layer.add(transition, forKey: kCATransition)
+        tabBarController?.present(controller, animated: true)
     }
     
 }

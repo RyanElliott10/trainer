@@ -11,7 +11,7 @@ import UIKit
 import AMScrollingNavbar
 import FloatingPanel
 
-protocol HomeViewControllerDelegate {
+protocol ModalViewControllerDelegate {
     func push(viewController controller: UIViewController)
 }
 
@@ -292,9 +292,9 @@ extension HomeViewController: UITabBarControllerDelegate {
     
 }
 
-// MARK: - HomeViewControllerDelegate
+// MARK: - ModalViewControllerDelegate
 
-extension HomeViewController: HomeViewControllerDelegate {
+extension HomeViewController: ModalViewControllerDelegate {
     
     func push(viewController controller: UIViewController) {
         let transition: CATransition = CATransition()

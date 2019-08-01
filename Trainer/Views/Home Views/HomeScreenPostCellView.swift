@@ -13,7 +13,7 @@ class HomeScreenPostCellView: PostCellView {
     // MARK: - Properties
     
     let imageCellID = "imageCellID"
-    var homeViewDelegate: HomeViewControllerDelegate?
+    var homeViewDelegate: ModalViewControllerDelegate?
     var imagePreviewViewController: ImagePreviewViewController?
     
     // MARK: - Views

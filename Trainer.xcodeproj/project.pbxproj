@@ -35,6 +35,7 @@
 		605946E422ED1D8B0099C796 /* ProgressDatasource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 605946E322ED1D8B0099C796 /* ProgressDatasource.swift */; };
 		605946E622ED2A7B0099C796 /* WorkoutCheckView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 605946E522ED2A7A0099C796 /* WorkoutCheckView.swift */; };
 		60867EEA22EE1352005C7709 /* Excercise.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60867EE922EE1352005C7709 /* Excercise.swift */; };
+		60867EEC22F29EC4005C7709 /* AddWorkoutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60867EEB22F29EC4005C7709 /* AddWorkoutViewController.swift */; };
 		6087759422E5086F00FB1892 /* CustomFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6087759322E5086F00FB1892 /* CustomFlowLayout.swift */; };
 		608A36BA22E5549D0099D87C /* BorderedImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 608A36B922E5549D0099D87C /* BorderedImageView.swift */; };
 		608A36BD22E6C1670099D87C /* ExperimentalSignInWithApple.swift in Sources */ = {isa = PBXBuildFile; fileRef = 608A36BC22E6C1670099D87C /* ExperimentalSignInWithApple.swift */; };
@@ -98,6 +99,7 @@
 		605946E322ED1D8B0099C796 /* ProgressDatasource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressDatasource.swift; sourceTree = "<group>"; };
 		605946E522ED2A7A0099C796 /* WorkoutCheckView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutCheckView.swift; sourceTree = "<group>"; };
 		60867EE922EE1352005C7709 /* Excercise.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Excercise.swift; sourceTree = "<group>"; };
+		60867EEB22F29EC4005C7709 /* AddWorkoutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddWorkoutViewController.swift; sourceTree = "<group>"; };
 		6087759322E5086F00FB1892 /* CustomFlowLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomFlowLayout.swift; sourceTree = "<group>"; };
 		608A36B922E5549D0099D87C /* BorderedImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BorderedImageView.swift; sourceTree = "<group>"; };
 		608A36BB22E6C0B60099D87C /* Trainer.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Trainer.entitlements; sourceTree = "<group>"; };
@@ -263,6 +265,7 @@
 		60248F3B226D114E00D15454 /* Search View Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				60867EEB22F29EC4005C7709 /* AddWorkoutViewController.swift */,
 				60248F2E226CCC6C00D15454 /* SearchViewController.swift */,
 				60F3CF1022CE7864006F6436 /* BaseSearchPageViewController.swift */,
 				60F3CF1222CE788F006F6436 /* GymsSearchViewController.swift */,
@@ -506,6 +509,7 @@
 				60F3CF1F22CE794F006F6436 /* SearchDataSource.swift in Sources */,
 				60BDD3EE22925B5600128352 /* PostCellView.swift in Sources */,
 				60248F1B226CCAB700D15454 /* Trainer.xcdatamodeld in Sources */,
+				60867EEC22F29EC4005C7709 /* AddWorkoutViewController.swift in Sources */,
 				60248F31226CCC7600D15454 /* ProgressViewController.swift in Sources */,
 				60BDD3E922923FEA00128352 /* ExpandablePostCell.swift in Sources */,
 				6051DF6B22CEA411002364E4 /* BaseWelcomeViewController.swift in Sources */,

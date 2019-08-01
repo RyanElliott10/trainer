@@ -41,11 +41,11 @@ class TabBarController: UITabBarController {
         viewControllers = [homeViewController, searchViewController, progressViewController, profileViewController]
         
         // Center tab bar items
-        if let tabBarItems = tabBar.items {
-            for tabItem in tabBarItems {
-                tabItem.title = nil
-                tabItem.imageInsets = UIEdgeInsets(top: 5, left: 0, bottom: -5, right: 0)
-            }
-        }
+//        if let tabBarItems = tabBar.items {
+//            for tabItem in tabBarItems {
+//                tabItem.title = nil
+//                tabItem.imageInsets = UIEdgeInsets(top: 5, left: 0, bottom: -5, right: 0)
+//            }
+//        }
     }
 }
