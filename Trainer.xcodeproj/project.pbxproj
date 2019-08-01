@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 51;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -23,6 +23,8 @@
 		6033D92F2278057800D74FAA /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6033D92E2278057800D74FAA /* User.swift */; };
 		6033D9312278062D00D74FAA /* Comment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6033D9302278062D00D74FAA /* Comment.swift */; };
 		603D508D22DF65600023E856 /* ModernPostCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 603D508C22DF65600023E856 /* ModernPostCell.swift */; };
+		6049B06222EF4CF100036A19 /* JTAppleCalendar in Frameworks */ = {isa = PBXBuildFile; productRef = 6049B06122EF4CF100036A19 /* JTAppleCalendar */; };
+		6049B06422EF4D1600036A19 /* ExperimentalCalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6049B06322EF4D1600036A19 /* ExperimentalCalendarView.swift */; };
 		6051DF6B22CEA411002364E4 /* BaseWelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6051DF6A22CEA411002364E4 /* BaseWelcomeViewController.swift */; };
 		6051DF7122D00012002364E4 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6051DF7022D00012002364E4 /* LoginViewController.swift */; };
 		6051DF7322D0001B002364E4 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6051DF7222D0001B002364E4 /* SignUpViewController.swift */; };
@@ -87,6 +89,7 @@
 		6033D92E2278057800D74FAA /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		6033D9302278062D00D74FAA /* Comment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Comment.swift; sourceTree = "<group>"; };
 		603D508C22DF65600023E856 /* ModernPostCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModernPostCell.swift; sourceTree = "<group>"; };
+		6049B06322EF4D1600036A19 /* ExperimentalCalendarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExperimentalCalendarView.swift; sourceTree = "<group>"; };
 		6051DF6A22CEA411002364E4 /* BaseWelcomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseWelcomeViewController.swift; sourceTree = "<group>"; };
 		6051DF7022D00012002364E4 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		6051DF7222D0001B002364E4 /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
@@ -143,6 +146,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				27258A91AD3921A5CD94BE7F /* Pods_Trainer.framework in Frameworks */,
+				6049B06222EF4CF100036A19 /* JTAppleCalendar in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -218,8 +222,8 @@
 			isa = PBXGroup;
 			children = (
 				60CA4694228793F30082893E /* Home Views */,
-				60F10CF222E808B8004B8241 /* Progress Views */,
 				60F3CF2622CE7A13006F6436 /* Search Views */,
+				60F10CF222E808B8004B8241 /* Progress Views */,
 				608A36B822E5138A0099D87C /* Welcome Flow Views */,
 				608A36B922E5549D0099D87C /* BorderedImageView.swift */,
 			);
@@ -343,6 +347,7 @@
 				605946DF22EC1E210099C796 /* ProgressMiniHeaderView.swift */,
 				605946E122ECB7AD0099C796 /* ProgressHeaderView.swift */,
 				605946E522ED2A7A0099C796 /* WorkoutCheckView.swift */,
+				6049B06322EF4D1600036A19 /* ExperimentalCalendarView.swift */,
 			);
 			name = "Progress Views";
 			path = ../..;
@@ -399,6 +404,9 @@
 			dependencies = (
 			);
 			name = Trainer;
+			packageProductDependencies = (
+				6049B06122EF4CF100036A19 /* JTAppleCalendar */,
+			);
 			productName = Trainer;
 			productReference = 60248F0F226CCAB700D15454 /* Trainer.app */;
 			productType = "com.apple.product-type.application";
@@ -428,6 +436,9 @@
 				Base,
 			);
 			mainGroup = 60248F06226CCAB700D15454;
+			packageReferences = (
+				6049B06022EF4CF100036A19 /* XCRemoteSwiftPackageReference "JTAppleCalendar" */,
+			);
 			productRefGroup = 60248F10226CCAB700D15454 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -540,6 +551,7 @@
 				60248F13226CCAB700D15454 /* AppDelegate.swift in Sources */,
 				60BDD3F022925C6600128352 /* HomeScreenPostCellView.swift in Sources */,
 				60F3CF2522CE79B4006F6436 /* Enums.swift in Sources */,
+				6049B06422EF4D1600036A19 /* ExperimentalCalendarView.swift in Sources */,
 				608A36BA22E5549D0099D87C /* BorderedImageView.swift in Sources */,
 				60CFC81F22CC22590077C71A /* PostBottomSheetViewController.swift in Sources */,
 				60F3CF2C22CE7A4C006F6436 /* SearchHeaderCell.swift in Sources */,
@@ -742,6 +754,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		6049B06022EF4CF100036A19 /* XCRemoteSwiftPackageReference "JTAppleCalendar" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "git@github.com:patchthecode/JTAppleCalendar.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 8.0.1;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		6049B06122EF4CF100036A19 /* JTAppleCalendar */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 6049B06022EF4CF100036A19 /* XCRemoteSwiftPackageReference "JTAppleCalendar" */;
+			productName = JTAppleCalendar;
+		};
+/* End XCSwiftPackageProductDependency section */
 
 /* Begin XCVersionGroup section */
 		60248F19226CCAB700D15454 /* Trainer.xcdatamodeld */ = {

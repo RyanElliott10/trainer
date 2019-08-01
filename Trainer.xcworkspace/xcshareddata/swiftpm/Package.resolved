@@ -1,0 +1,16 @@
+{
+  "object": {
+    "pins": [
+      {
+        "package": "JTAppleCalendar",
+        "repositoryURL": "git@github.com:patchthecode/JTAppleCalendar.git",
+        "state": {
+          "branch": null,
+          "revision": "57e874ad2c54b3b405f994ca560d9b658088eeed",
+          "version": "8.0.1"
+        }
+      }
+    ]
+  },
+  "version": 1
+}
