@@ -63,7 +63,7 @@ class ProgressViewController: UIViewController {
     }
     
     @objc private func plusOnPress() {
-        push(viewController: AddWorkoutViewController())
+        tabBarController?.present(AddWorkoutViewController(), animated: true)
     }
     
 }
@@ -145,7 +145,7 @@ extension ProgressViewController: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        return UIEdgeInsets(top:10, left: 8, bottom: 10, right: 8)
+        return UIEdgeInsets(top: 10, left: 8, bottom: 10, right: 8)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
@@ -163,22 +163,6 @@ extension ProgressViewController: UICollectionViewDataSource {
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
         return CGSize(width: UIScreen.main.bounds.width - 16, height: 40)
-    }
-    
-}
-
-extension ProgressViewController: ModalViewControllerDelegate {
-    
-    func push(viewController controller: UIViewController) {
-        let transition: CATransition = CATransition()
-        transition.duration = 0.1
-        transition.timingFunction = CAMediaTimingFunction(name: .easeInEaseOut)
-        transition.type = .fade
-
-        controller.modalPresentationStyle = .overCurrentContext
-        controller.modalTransitionStyle = .crossDissolve
-        navigationController?.view.layer.add(transition, forKey: kCATransition)
-        tabBarController?.present(controller, animated: true)
     }
     
 }

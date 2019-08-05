@@ -12,7 +12,7 @@ class WorkoutCheckView: UIView {
     
     // MARK: - Properties
     
-    private var datasource: Excercise!
+    private var datasource: Exercise!
     
     var delegate: WorkoutCell!
     
@@ -53,7 +53,7 @@ class WorkoutCheckView: UIView {
         setupViews()
     }
     
-    init(withDatsource data: inout Excercise) {
+    init(withDatsource data: inout Exercise) {
         super.init(frame: .zero)
         
         isChecked = data.isCompleted

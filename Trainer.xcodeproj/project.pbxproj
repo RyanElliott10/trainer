@@ -22,6 +22,8 @@
 		6033D92D2278052F00D74FAA /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6033D92C2278052F00D74FAA /* Post.swift */; };
 		6033D92F2278057800D74FAA /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6033D92E2278057800D74FAA /* User.swift */; };
 		6033D9312278062D00D74FAA /* Comment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6033D9302278062D00D74FAA /* Comment.swift */; };
+		603809DA22F76DFB00CF1526 /* NavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 603809D922F76DFB00CF1526 /* NavigationBar.swift */; };
+		603809DC22F7880600CF1526 /* AddWorkoutCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 603809DB22F7880600CF1526 /* AddWorkoutCell.swift */; };
 		603D508D22DF65600023E856 /* ModernPostCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 603D508C22DF65600023E856 /* ModernPostCell.swift */; };
 		6049B06222EF4CF100036A19 /* JTAppleCalendar in Frameworks */ = {isa = PBXBuildFile; productRef = 6049B06122EF4CF100036A19 /* JTAppleCalendar */; };
 		6049B06422EF4D1600036A19 /* ExperimentalCalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6049B06322EF4D1600036A19 /* ExperimentalCalendarView.swift */; };
@@ -36,7 +38,7 @@
 		605946E222ECB7AD0099C796 /* ProgressHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 605946E122ECB7AD0099C796 /* ProgressHeaderView.swift */; };
 		605946E422ED1D8B0099C796 /* ProgressDatasource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 605946E322ED1D8B0099C796 /* ProgressDatasource.swift */; };
 		605946E622ED2A7B0099C796 /* WorkoutCheckView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 605946E522ED2A7A0099C796 /* WorkoutCheckView.swift */; };
-		60867EEA22EE1352005C7709 /* Excercise.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60867EE922EE1352005C7709 /* Excercise.swift */; };
+		60867EEA22EE1352005C7709 /* Exercise.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60867EE922EE1352005C7709 /* Exercise.swift */; };
 		60867EEC22F29EC4005C7709 /* AddWorkoutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60867EEB22F29EC4005C7709 /* AddWorkoutViewController.swift */; };
 		6087759422E5086F00FB1892 /* CustomFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6087759322E5086F00FB1892 /* CustomFlowLayout.swift */; };
 		608A36BA22E5549D0099D87C /* BorderedImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 608A36B922E5549D0099D87C /* BorderedImageView.swift */; };
@@ -88,6 +90,8 @@
 		6033D92C2278052F00D74FAA /* Post.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
 		6033D92E2278057800D74FAA /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		6033D9302278062D00D74FAA /* Comment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Comment.swift; sourceTree = "<group>"; };
+		603809D922F76DFB00CF1526 /* NavigationBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationBar.swift; sourceTree = "<group>"; };
+		603809DB22F7880600CF1526 /* AddWorkoutCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddWorkoutCell.swift; sourceTree = "<group>"; };
 		603D508C22DF65600023E856 /* ModernPostCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModernPostCell.swift; sourceTree = "<group>"; };
 		6049B06322EF4D1600036A19 /* ExperimentalCalendarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExperimentalCalendarView.swift; sourceTree = "<group>"; };
 		6051DF6A22CEA411002364E4 /* BaseWelcomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseWelcomeViewController.swift; sourceTree = "<group>"; };
@@ -101,7 +105,7 @@
 		605946E122ECB7AD0099C796 /* ProgressHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressHeaderView.swift; sourceTree = "<group>"; };
 		605946E322ED1D8B0099C796 /* ProgressDatasource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressDatasource.swift; sourceTree = "<group>"; };
 		605946E522ED2A7A0099C796 /* WorkoutCheckView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutCheckView.swift; sourceTree = "<group>"; };
-		60867EE922EE1352005C7709 /* Excercise.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Excercise.swift; sourceTree = "<group>"; };
+		60867EE922EE1352005C7709 /* Exercise.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Exercise.swift; sourceTree = "<group>"; };
 		60867EEB22F29EC4005C7709 /* AddWorkoutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddWorkoutViewController.swift; sourceTree = "<group>"; };
 		6087759322E5086F00FB1892 /* CustomFlowLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomFlowLayout.swift; sourceTree = "<group>"; };
 		608A36B922E5549D0099D87C /* BorderedImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BorderedImageView.swift; sourceTree = "<group>"; };
@@ -221,6 +225,7 @@
 		60248F37226D111E00D15454 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				603809D822F76DE700CF1526 /* Global */,
 				60CA4694228793F30082893E /* Home Views */,
 				60F3CF2622CE7A13006F6436 /* Search Views */,
 				60F10CF222E808B8004B8241 /* Progress Views */,
@@ -242,7 +247,7 @@
 				60F3CF2022CE7960006F6436 /* TrainersDataSource.swift */,
 				60F3CF2222CE796E006F6436 /* WorkoutDatasource.swift */,
 				605946E322ED1D8B0099C796 /* ProgressDatasource.swift */,
-				60867EE922EE1352005C7709 /* Excercise.swift */,
+				60867EE922EE1352005C7709 /* Exercise.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -299,6 +304,14 @@
 			path = Utils;
 			sourceTree = "<group>";
 		};
+		603809D822F76DE700CF1526 /* Global */ = {
+			isa = PBXGroup;
+			children = (
+				603809D922F76DFB00CF1526 /* NavigationBar.swift */,
+			);
+			path = Global;
+			sourceTree = "<group>";
+		};
 		608A36B822E5138A0099D87C /* Welcome Flow Views */ = {
 			isa = PBXGroup;
 			children = (
@@ -348,6 +361,7 @@
 				605946E122ECB7AD0099C796 /* ProgressHeaderView.swift */,
 				605946E522ED2A7A0099C796 /* WorkoutCheckView.swift */,
 				6049B06322EF4D1600036A19 /* ExperimentalCalendarView.swift */,
+				603809DB22F7880600CF1526 /* AddWorkoutCell.swift */,
 			);
 			name = "Progress Views";
 			path = ../..;
@@ -511,6 +525,7 @@
 				60F3CF3022CE85EE006F6436 /* WelcomeViewController.swift in Sources */,
 				60F3CF1322CE788F006F6436 /* GymsSearchViewController.swift in Sources */,
 				6051DF7322D0001B002364E4 /* SignUpViewController.swift in Sources */,
+				603809DC22F7880600CF1526 /* AddWorkoutCell.swift in Sources */,
 				605946E422ED1D8B0099C796 /* ProgressDatasource.swift in Sources */,
 				60248F2F226CCC6C00D15454 /* SearchViewController.swift in Sources */,
 				60F3CF2322CE796E006F6436 /* WorkoutDatasource.swift in Sources */,
@@ -529,7 +544,7 @@
 				60A58CA622DABF3400556651 /* SwipeViewController.swift in Sources */,
 				6033D9312278062D00D74FAA /* Comment.swift in Sources */,
 				605946E022EC1E210099C796 /* ProgressMiniHeaderView.swift in Sources */,
-				60867EEA22EE1352005C7709 /* Excercise.swift in Sources */,
+				60867EEA22EE1352005C7709 /* Exercise.swift in Sources */,
 				60F9A8402298DC73007D34BD /* HomeScreenStoryCellView.swift in Sources */,
 				60248F2B226CCC0F00D15454 /* TabBarController.swift in Sources */,
 				6051DF7722D001CD002364E4 /* WelcomeAccountViewController.swift in Sources */,
@@ -541,6 +556,7 @@
 				60CA4696228794370082893E /* ScrollableImageView.swift in Sources */,
 				60F3CF2122CE7960006F6436 /* TrainersDataSource.swift in Sources */,
 				60F3CF2822CE7A1C006F6436 /* SearchGymCell.swift in Sources */,
+				603809DA22F76DFB00CF1526 /* NavigationBar.swift in Sources */,
 				6033D92D2278052F00D74FAA /* Post.swift in Sources */,
 				60248F33226CCC7F00D15454 /* ProfileViewController.swift in Sources */,
 				60F9A8442298FEDB007D34BD /* StoryImageView.swift in Sources */,

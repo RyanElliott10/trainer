@@ -8,7 +8,7 @@
 
 import Foundation
 
-class Excercise {
+class Exercise {
     
     var name: String
     var reps: Int

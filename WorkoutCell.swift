@@ -119,11 +119,9 @@ class WorkoutCell: UICollectionViewCell {
     }
     
     private func anchorWorkouts() -> NSLayoutYAxisAnchor {
-        // for workout in workouts { ... }
-        
         var prevWorkoutView: UIView = titleLabel
         
-        for var workout in datasource?.workouts ?? [] {
+        for var workout in datasource?.sections[1].exercises ?? [] {
             let checkMarkView = WorkoutCheckView(withDatsource: &workout)
             checkMarkView.delegate = self
             checkMarkView.translatesAutoresizingMaskIntoConstraints = false
