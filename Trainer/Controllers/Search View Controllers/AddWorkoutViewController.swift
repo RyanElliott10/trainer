@@ -22,10 +22,17 @@ protocol AddWorkoutSectionButtonDelegate {
     
 }
 
-struct AddSection {
+class Section {
     
+    var title: String
     var type: AddWorkoutSection
-    var workoutSection: WorkoutSection?
+    var entries: [String]
+    
+    init(title: String, type: AddWorkoutSection, entries: [String]) {
+        self.title = title
+        self.type = type
+        self.entries = entries
+    }
     
 }
 
@@ -36,11 +43,11 @@ class AddWorkoutViewController: UIViewController {
     private let TEXT_FIELD_HEIGHT: CGFloat = 35
     
     // The idea here being: these are the base ones. When a user adds a new section, it'll always be of type .add, and we use tableViewSections.count in numberOfSections
-    fileprivate var sectionsInTableView: [AddSection] = [
-        AddSection(type: .title, workoutSection: nil),
-        AddSection(type: .date, workoutSection: nil)
+    fileprivate var datasource: [Section] = [
+        Section(title: "Title", type: .title, entries: ["Add Title (Optional)"]),
+        Section(title: "Add Exercise", type: .add, entries: ["Exercise"]),
+        Section(title: "Date", type: .date, entries: ["Set Date"])
     ]
-    fileprivate var workoutDatasource: WorkoutDatasource = WorkoutDatasource.generateDummyData()[0]
     private let cellReuseId = "CellReuseId"
     
     // MARK: - UI
@@ -62,27 +69,13 @@ class AddWorkoutViewController: UIViewController {
         return tableView
     }()
     
-    // New strat: Allow the user to add literal sections to the table view for the "warmup", "main", etc. groupings
-    
     // MARK: - Init
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         view.backgroundColor = UIColor.rgb(red: 242, green: 242, blue: 242)
-        setupSectionCounter()
         setupViews()
-    }
-    
-    private func setupSectionCounter() {
-        // This is a disgusting way to do this
-        for section in workoutDatasource.sections {
-            print("section:", section)
-            let count = sectionsInTableView.count
-            sectionsInTableView.insert(AddSection(type: .add, workoutSection: section), at: count - 1)
-        }
-        
-        print("AHHHEEMMM:", sectionsInTableView)
     }
     
     private func setupViews() {
@@ -137,20 +130,11 @@ extension AddWorkoutViewController: NavigationBarDelegate {
 extension AddWorkoutViewController: UITableViewDelegate, UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return sectionsInTableView.count
+        return datasource.count
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        switch section {
-        case 0:
-            return 1
-        case sectionsInTableView.count - 1:
-            return 1
-        default:
-            print("HM 2:", workoutDatasource.sections.count)
-            print("Section:", section)
-            return workoutDatasource.sections[section - 1].exercises.count
-        }
+        return datasource[section].entries.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -158,14 +142,13 @@ extension AddWorkoutViewController: UITableViewDelegate, UITableViewDataSource {
         switch indexPath.section {
         case 0:
             workoutType = .title
-        case sectionsInTableView.count - 1:
+        case datasource.count - 1:
             workoutType = .date
         default:
             workoutType = .add
         }
         
         let cell = tableView.dequeueReusableCell(withIdentifier: cellReuseId, for: indexPath) as! AddWorkoutCell
-        print(workoutType)
         cell.workoutType = workoutType
         
         return cell
@@ -174,12 +157,12 @@ extension AddWorkoutViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         if section == 0 { return nil }
         
-        let header = AddWorkoutHeader(withTitle: sectionsInTableView[section].workoutSection?.title ?? "Set Date")
+        let header = AddWorkoutHeader(withTitle: datasource[section].title)
         return header
     }
     
     func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
-        if section == sectionsInTableView.count - 2 { // The last section in the "add workout" sections
+        if section == datasource.count - 2 { // The last section in the "add workout" sections
             return AddWorkoutFooter(withDelegate: self)
         }
         
@@ -191,7 +174,7 @@ extension AddWorkoutViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        return (section == sectionsInTableView.count - 2 ? 50 : 0)
+        return (section == datasource.count - 2 ? 50 : 0)
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
@@ -203,22 +186,20 @@ extension AddWorkoutViewController: UITableViewDelegate, UITableViewDataSource {
 extension AddWorkoutViewController: AddWorkoutSectionButtonDelegate {
     
     func addExercise() {
-        let index = sectionsInTableView.count - 2
-        let currentSectionDatasource = sectionsInTableView[index]
-        currentSectionDatasource.workoutSection?.exercises.append(Exercise(name: "Placeholder", reps: 0, sets: 0, isCompleted: false))
+        let index = datasource.count - 2
+        let currentSection = datasource[index]
+        currentSection.entries.append("Placeholder")
         
         tableView.beginUpdates()
-        tableView.insertRows(at: [IndexPath(row: currentSectionDatasource.workoutSection!.exercises.count - 1, section: index)], with: .automatic)
+        tableView.insertRows(at: [IndexPath(row: currentSection.entries.count - 1, section: index)], with: .automatic)
         tableView.endUpdates()
     }
     
     func addSection() {
-        let addSection = AddSection(type: .add, workoutSection: WorkoutSection(title: "Add Exercsies", exercises: [Exercise(name: "Temp", reps: 0, sets: 0, isCompleted: false)]))
-        workoutDatasource.sections.append(addSection.workoutSection!)
-        let index = sectionsInTableView.count - 2
-        sectionsInTableView.insert(addSection, at: index)
+        let index = datasource.count - 1
+        datasource.insert(Section(title: "Add Exercise", type: .add, entries: ["Placeholder"]), at: index)
         
-        let indexSet = IndexSet(integer: sectionsInTableView.count - 1)
+        let indexSet = IndexSet(integer: datasource.count - 2)
         tableView.beginUpdates()
         tableView.insertSections(indexSet, with: .automatic)
         tableView.endUpdates()
