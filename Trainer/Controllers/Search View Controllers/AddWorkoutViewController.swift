@@ -118,6 +118,8 @@ extension AddWorkoutViewController: NavigationBarDelegate {
     }
     
     func rightActionButtonOnTap() {
+        tableView.setEditing(!tableView.isEditing, animated: true)
+        tableView.reloadData()
         print("rightActionButtonOnTap")
     }
     
