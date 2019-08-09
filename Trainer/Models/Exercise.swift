@@ -22,4 +22,8 @@ class Exercise {
         self.isCompleted = isCompleted
     }
     
+    func toString() -> String {
+        return "Name: \(name), reps: \(reps), sets: \(sets), isCompleted: \(isCompleted)"
+    }
+    
 }

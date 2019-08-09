@@ -27,6 +27,8 @@ class Section {
     var title: String
     var type: AddWorkoutSection
     var entries: [String]
+    var addWorkoutCells = [AddWorkoutCell]()
+    var headerReference: AddWorkoutHeader?
     
     init(title: String, type: AddWorkoutSection, entries: [String]) {
         self.title = title
@@ -41,9 +43,10 @@ class AddWorkoutViewController: UIViewController {
     // MARK: - Properties
     
     private let TEXT_FIELD_HEIGHT: CGFloat = 35
+    var delegate: ProgressAddWorkout!
     
     // The idea here being: these are the base ones. When a user adds a new section, it'll always be of type .add, and we use tableViewSections.count in numberOfSections
-    fileprivate var datasource: [Section] = [
+    private var datasource: [Section] = [
         Section(title: "Title", type: .title, entries: ["Add Title (Optional)"]),
         Section(title: "Add Exercise", type: .add, entries: ["Exercise"]),
         Section(title: "Date", type: .date, entries: ["Set Date"])
@@ -106,6 +109,23 @@ class AddWorkoutViewController: UIViewController {
         ])
     }
     
+    private func onAddTap() {
+        let workout = WorkoutDatasource(title: datasource[0].entries[0], dayOfWeek: .monday, sections: [], trainer: "", isCompleted: false)
+        let exerciseSections = datasource[1 ..< datasource.endIndex - 1]
+        for rawSection in exerciseSections {
+            let sectionTitle = rawSection.headerReference?.getTitle() ?? ""
+            let section = WorkoutSection(title: sectionTitle, exercises: [])
+            for cell in rawSection.addWorkoutCells {
+                let exercise = Exercise(name: cell.getExercise(), reps: 0, sets: 0, isCompleted: false)
+                section.exercises.append(exercise)
+            }
+            workout.sections.append(section)
+        }
+        
+        delegate.addWorkout(workout)
+        dismiss(animated: true, completion: nil)
+    }
+    
 }
 
 extension AddWorkoutViewController: NavigationBarDelegate {
@@ -118,9 +138,7 @@ extension AddWorkoutViewController: NavigationBarDelegate {
     }
     
     func rightActionButtonOnTap() {
-        tableView.setEditing(!tableView.isEditing, animated: true)
-        tableView.reloadData()
-        print("rightActionButtonOnTap")
+        onAddTap()
     }
     
     func navigationTitleOnTap() {
@@ -152,6 +170,7 @@ extension AddWorkoutViewController: UITableViewDelegate, UITableViewDataSource {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: cellReuseId, for: indexPath) as! AddWorkoutCell
         cell.workoutType = workoutType
+        datasource[indexPath.section].addWorkoutCells.append(cell)
         
         return cell
     }
@@ -160,6 +179,7 @@ extension AddWorkoutViewController: UITableViewDelegate, UITableViewDataSource {
         if section == 0 { return nil }
         
         let header = AddWorkoutHeader(withTitle: datasource[section].title)
+        datasource[section].headerReference = header
         return header
     }
     
@@ -199,7 +219,7 @@ extension AddWorkoutViewController: AddWorkoutSectionButtonDelegate {
     
     func addSection() {
         let index = datasource.count - 1
-        datasource.insert(Section(title: "Add Exercise", type: .add, entries: ["Placeholder"]), at: index)
+        datasource.insert(Section(title: "Add Exercise", type: .add, entries: ["Exercise"]), at: index)
         
         let indexSet = IndexSet(integer: datasource.count - 2)
         tableView.beginUpdates()

@@ -22,6 +22,15 @@ class WorkoutSection {
         self.exercises = exercises
     }
     
+    func toString() -> String {
+        var constructedString = "Title: \(title)\n\tExercises: "
+        for exercise in exercises {
+            constructedString.append("\n\t\t\(exercise.toString())")
+        }
+        
+        return constructedString
+    }
+    
     static func generateDummyData() -> [WorkoutSection] {
         return [
             WorkoutSection(title: "Warmup", exercises: [Exercise(name: "1 Mile Jog", reps: 0, sets: 0, isCompleted: false)]),
@@ -46,6 +55,15 @@ class WorkoutDatasource {
         self.sections = sections
         self.trainer = trainer
         self.isCompleted = isCompleted
+    }
+    
+    func toString() -> String {
+        var constructedString = "Title: \(title)\nSections:"
+        for section in sections {
+            constructedString.append("\n\t\(section.toString())")
+        }
+        
+        return constructedString
     }
     
     static func generateDummyData() -> [WorkoutDatasource] {

@@ -8,6 +8,12 @@
 
 import UIKit
 
+protocol ProgressAddWorkout {
+    
+    func addWorkout(_ workout: WorkoutDatasource)
+    
+}
+
 class ProgressViewController: UIViewController {
     
     // DELETE THIS
@@ -63,7 +69,9 @@ class ProgressViewController: UIViewController {
     }
     
     @objc private func plusOnPress() {
-        tabBarController?.present(AddWorkoutViewController(), animated: true)
+        let controller = AddWorkoutViewController()
+        controller.delegate = self
+        tabBarController?.present(controller, animated: true)
     }
     
 }
@@ -163,6 +171,15 @@ extension ProgressViewController: UICollectionViewDataSource {
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
         return CGSize(width: UIScreen.main.bounds.width - 16, height: 40)
+    }
+    
+}
+
+extension ProgressViewController: ProgressAddWorkout {
+    
+    func addWorkout(_ workout: WorkoutDatasource) {
+        print("addWorkout")
+        print(workout.toString())
     }
     
 }

@@ -22,7 +22,7 @@ class AddWorkoutCell: UITableViewCell {
     
     // MARK: - UI
     
-    private let workoutTitleField: UITextField = {
+    let workoutTitleField: UITextField = {
         let field = UITextField()
         field.translatesAutoresizingMaskIntoConstraints = false
         field.backgroundColor = .white
@@ -82,13 +82,17 @@ class AddWorkoutCell: UITableViewCell {
         }
     }
     
+    func getExercise() -> String {
+        return workoutTitleField.text ?? ""
+    }
+    
 }
 
 class AddWorkoutHeader: UIView {
     
     private var title: String!
     
-    private let titleLabel: UITextField = {
+    let titleLabel: UITextField = {
         let field = UITextField()
         field.translatesAutoresizingMaskIntoConstraints = false
         field.font = UIFont.systemFont(ofSize: 16, weight: .bold)
@@ -121,6 +125,10 @@ class AddWorkoutHeader: UIView {
             titleLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 8),
             titleLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -8),
         ])
+    }
+    
+    func getTitle() -> String {
+        return titleLabel.text ?? ""
     }
     
 }
