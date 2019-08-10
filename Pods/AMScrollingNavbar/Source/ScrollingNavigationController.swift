@@ -17,6 +17,15 @@ import UIKit
   ///   - controller: the ScrollingNavigationController
   ///   - state: the new state
   @objc optional func scrollingNavigationController(_ controller: ScrollingNavigationController, willChangeState state: NavigationBarState)
+  /// Called when the navigation bar position changed
+  ///
+  /// - Parameters:
+  ///   - controller: the ScrollingNavigationController
+  ///   - offset: changes amount
+  ///   - state: the new state
+  @objc optional func scrollingNavigationController(_ controller: ScrollingNavigationController,
+                                                    didUpdateOffset offset: CGFloat,
+                                                    forStateChange state: NavigationBarState)
 }
 
 /**
@@ -164,7 +173,16 @@ open class ScrollingNavigationController: UINavigationController, UIGestureRecog
   var scrollSpeedFactor: CGFloat = 1
   var collapseDirectionFactor: CGFloat = 1 // Used to determine the sign of content offset depending of collapse direction
   var previousState: NavigationBarState = .expanded // Used to mark the state before the app goes in background
-  
+
+  private var isTopViewControllerExtendsUnderNavigationBar: Bool {
+    guard let topViewController = topViewController, topViewController.edgesForExtendedLayout.contains(.top) else {
+      return false
+    }
+
+    return topViewController.extendedLayoutIncludesOpaqueBars || navigationBar.isTranslucent
+
+  }
+
   /**
    Start scrolling
 
@@ -235,7 +253,7 @@ open class ScrollingNavigationController: UINavigationController, UIGestureRecog
     let animations = {
       self.scrollWithDelta(self.fullNavbarHeight, ignoreDelay: true)
       visibleViewController.view.setNeedsLayout()
-      if self.navigationBar.isTranslucent {
+      if !self.isTopViewControllerExtendsUnderNavigationBar {
         let currentOffset = self.contentOffset
         self.scrollView()?.contentOffset = CGPoint(x: currentOffset.x, y: currentOffset.y + self.navbarHeight)
       }
@@ -270,7 +288,7 @@ open class ScrollingNavigationController: UINavigationController, UIGestureRecog
       self.lastContentOffset = 0
       self.scrollWithDelta(-self.fullNavbarHeight, ignoreDelay: true)
       visibleViewController.view.setNeedsLayout()
-      if self.navigationBar.isTranslucent {
+      if !self.isTopViewControllerExtendsUnderNavigationBar {
         let currentOffset = self.contentOffset
         self.scrollView()?.contentOffset = CGPoint(x: currentOffset.x, y: currentOffset.y - self.navbarHeight)
       }
@@ -388,7 +406,7 @@ open class ScrollingNavigationController: UINavigationController, UIGestureRecog
   private func shouldScrollWithDelta(_ delta: CGFloat) -> Bool {
     let scrollDelta = delta
     // Do not hide too early
-    if contentOffset.y < ((navigationBar.isTranslucent ? -fullNavbarHeight : 0) + scrollDelta) {
+    if contentOffset.y < ((isTopViewControllerExtendsUnderNavigationBar ? -fullNavbarHeight : 0) + scrollDelta) {
       return false
     }
     // Check for rubberbanding
@@ -475,6 +493,9 @@ open class ScrollingNavigationController: UINavigationController, UIGestureRecog
     if self.shouldUpdateContentInset, let contentInset = scrollView()?.contentInset, let scrollInset = scrollView()?.scrollIndicatorInsets {
       scrollView()?.contentInset = UIEdgeInsets(top: contentInset.top - delta, left: contentInset.left, bottom: contentInset.bottom, right: contentInset.right)
       scrollView()?.scrollIndicatorInsets = UIEdgeInsets(top: scrollInset.top - delta, left: scrollInset.left, bottom: scrollInset.bottom, right: scrollInset.right)
+      scrollingNavbarDelegate?.scrollingNavigationController?(self,
+                                                              didUpdateOffset: contentInset.top - delta,
+                                                              forStateChange: state)
     }
   }
 
@@ -515,8 +536,8 @@ open class ScrollingNavigationController: UINavigationController, UIGestureRecog
     frame.origin = CGPoint(x: frame.origin.x, y: frame.origin.y - delta)
     navigationBar.frame = frame
 
-    // Resize the view if the navigation bar is not translucent
-    if !navigationBar.isTranslucent {
+    // Resize the view if it does not extend under navigation bar
+    if !isTopViewControllerExtendsUnderNavigationBar {
       let navBarY = navigationBar.frame.origin.y + navigationBar.frame.size.height
       frame = topViewController.view.frame
       frame.origin = CGPoint(x: frame.origin.x, y: navBarY)
@@ -526,7 +547,7 @@ open class ScrollingNavigationController: UINavigationController, UIGestureRecog
   }
 
   private func restoreContentOffset(_ delta: CGFloat) {
-    if navigationBar.isTranslucent || delta == 0 {
+    if isTopViewControllerExtendsUnderNavigationBar || delta == 0 {
       return
     }
 
@@ -673,5 +694,5 @@ open class ScrollingNavigationController: UINavigationController, UIGestureRecog
   deinit {
     NotificationCenter.default.removeObserver(self)
   }
-  
+
 }

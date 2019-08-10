@@ -1,10 +1,10 @@
 PODS:
-  - AMScrollingNavbar (5.2.0)
+  - AMScrollingNavbar (5.3.0)
   - Charts (3.3.0):
     - Charts/Core (= 3.3.0)
   - Charts/Core (3.3.0)
-  - FloatingPanel (1.6.1)
-  - IQKeyboardManagerSwift (6.4.0)
+  - FloatingPanel (1.6.4)
+  - IQKeyboardManagerSwift (6.4.1)
   - PanModal (1.2.4)
   - SVProgressHUD (2.2.5)
 
@@ -26,10 +26,10 @@ SPEC REPOS:
     - SVProgressHUD
 
 SPEC CHECKSUMS:
-  AMScrollingNavbar: 9df3652d6757f1a24646d8e90cb458591d8b1a6a
+  AMScrollingNavbar: 8548c0df70da8f894217a709d9b2555b9d0babbe
   Charts: e0dd4cd8f257bccf98407b58183ddca8e8d5b578
-  FloatingPanel: 46f000f80eddffd7c27acdb48b813eb1b4ba7d79
-  IQKeyboardManagerSwift: ed9b04ee0e3067ffba543283462d619f944b05e5
+  FloatingPanel: 062e0500e3b9848e3eb91595367fc6d579e428df
+  IQKeyboardManagerSwift: d2df660d0b8d64a15cb2537c9ff303213fa515b2
   PanModal: 275f6d4d07565ddf4ed16d7be5d9cd275682d80d
   SVProgressHUD: 1428aafac632c1f86f62aa4243ec12008d7a51d6
 

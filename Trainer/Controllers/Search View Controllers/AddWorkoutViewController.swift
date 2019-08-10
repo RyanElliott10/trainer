@@ -15,11 +15,8 @@ enum AddWorkoutSection {
 }
 
 protocol AddWorkoutSectionButtonDelegate {
-    
     func addExercise()
-    
     func addSection()
-    
 }
 
 class Section {
@@ -45,7 +42,6 @@ class AddWorkoutViewController: UIViewController {
     private let TEXT_FIELD_HEIGHT: CGFloat = 35
     var delegate: ProgressAddWorkout!
     
-    // The idea here being: these are the base ones. When a user adds a new section, it'll always be of type .add, and we use tableViewSections.count in numberOfSections
     private var datasource: [Section] = [
         Section(title: "Title", type: .title, entries: ["Add Title (Optional)"]),
         Section(title: "Add Exercise", type: .add, entries: ["Exercise"]),

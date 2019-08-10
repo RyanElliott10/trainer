@@ -17,8 +17,9 @@ protocol ProgressAddWorkout {
 class ProgressViewController: UIViewController {
     
     // DELETE THIS
-    private let progressDatasource = ProgressDatasource.generateDummyData()
-    private let workoutDatasource = WorkoutDatasource.generateDummyData()
+    private var progressDatasource = ProgressDatasource.generateDummyData()
+//    private var workoutDatasource = WorkoutDatasource.generateDummyData()
+    private var workoutDatasource = [WorkoutDatasource]()
     
     private let workoutCellReuseId = "WorkoutCellReuseId"
     private let progressCellReuseId = "ProgressCellReuseId"
@@ -180,6 +181,8 @@ extension ProgressViewController: ProgressAddWorkout {
     func addWorkout(_ workout: WorkoutDatasource) {
         print("addWorkout")
         print(workout.toString())
+        workoutDatasource.append(workout)
+        collectionView.reloadData()
     }
     
 }

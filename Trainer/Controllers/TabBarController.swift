@@ -29,8 +29,8 @@ class TabBarController: UITabBarController {
         let homeViewController = UINavigationController(rootViewController: HomeViewController())
         homeViewController.tabBarItem.image = #imageLiteral(resourceName: "home")
         
-        let searchViewController = SearchViewController()
-        searchViewController.tabBarItem.image = #imageLiteral(resourceName: "search")
+//        let searchViewController = SearchViewController()
+//        searchViewController.tabBarItem.image = #imageLiteral(resourceName: "search")
         
         let progressViewController = ScrollingNavigationController(rootViewController: ProgressViewController())
         progressViewController.tabBarItem.image = #imageLiteral(resourceName: "bar-chart")
@@ -38,7 +38,8 @@ class TabBarController: UITabBarController {
         let profileViewController = ScrollingNavigationController(rootViewController: ProfileViewController())
         profileViewController.tabBarItem.image = #imageLiteral(resourceName: "user")
         
-        viewControllers = [homeViewController, searchViewController, progressViewController, profileViewController]
+//        viewControllers = [homeViewController, searchViewController, progressViewController, profileViewController]
+        viewControllers = [homeViewController, progressViewController, profileViewController]
         
         // Center tab bar items
 //        if let tabBarItems = tabBar.items {
